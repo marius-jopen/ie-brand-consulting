@@ -26,13 +26,6 @@ export default function Navigation({ settings }: NavigationProps) {
           </div>
         ))}
       </nav>
-
-      {/* Location */}
-      {location && (
-        <div>
-          {location}
-        </div>
-      )}
     </>
   );
 }
