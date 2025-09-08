@@ -6,10 +6,7 @@ interface LogoProps {
 
 export default function Logo({ className = "" }: LogoProps) {
   return (
-    <Link
-      href="/"
-      className={`text-xl font-bold text-gray-900 hover:text-gray-700 transition-colors ${className}`}
-    >
+    <Link href="/">
       IE Brand Consulting
     </Link>
   );

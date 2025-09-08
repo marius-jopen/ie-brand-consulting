@@ -15,15 +15,11 @@ export default function Navigation({ settings }: NavigationProps) {
   return (
     <>
       {/* Main Navigation */}
-      <nav className="flex items-baseline space-x-4">
+      <nav>
         {items?.map((item, index) => (
-          <div key={index} className="flex space-x-4">
+          <div key={index}>
             {item.links?.map((link, linkIndex) => (
-              <PrismicLink
-                key={linkIndex}
-                field={link}
-                className="text-gray-700 hover:text-gray-900 px-3 py-2 rounded-md text-sm font-medium transition-colors"
-              >
+              <PrismicLink key={linkIndex} field={link}>
                 {link.text || "Link"}
               </PrismicLink>
             ))}
@@ -33,7 +29,7 @@ export default function Navigation({ settings }: NavigationProps) {
 
       {/* Location */}
       {location && (
-        <div className="hidden lg:block text-sm text-gray-600 ml-4">
+        <div>
           {location}
         </div>
       )}
