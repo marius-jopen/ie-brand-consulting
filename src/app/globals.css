@@ -1,1 +1,68 @@
 @import "tailwindcss";
+
+body {
+    font-family: 'Supreme LL TT', sans-serif;
+}
+
+@font-face {
+    font-family: 'Supreme LL TT';
+    src: url('/fonts/SupremeLLTT-Light.woff2') format('woff2'),
+        url('/fonts/SupremeLLTT-Light.woff') format('woff');
+    font-weight: 300;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Supreme LL TT Book';
+    src: url('/fonts/SupremeLLTT-Book.woff2') format('woff2'),
+        url('/fonts/SupremeLLTT-Book.woff') format('woff');
+    font-weight: 500;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Supreme LL TT';
+    src: url('/fonts/SupremeLLTT-Medium.woff2') format('woff2'),
+        url('/fonts/SupremeLLTT-Medium.woff') format('woff');
+    font-weight: 500;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Supreme LL TT';
+    src: url('/fonts/SupremeLLTT-Bold.woff2') format('woff2'),
+        url('/fonts/SupremeLLTT-Bold.woff') format('woff');
+    font-weight: bold;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Supreme LL TT';
+    src: url('/fonts/SupremeLLTT-Black.woff2') format('woff2'),
+        url('/fonts/SupremeLLTT-Black.woff') format('woff');
+    font-weight: 900;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Supreme LL TT';
+    src: url('/fonts/SupremeLLTT-Regular.woff2') format('woff2'),
+        url('/fonts/SupremeLLTT-Regular.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Supreme LL TT';
+    src: url('/fonts/SupremeLLTT-Thin.woff2') format('woff2'),
+        url('/fonts/SupremeLLTT-Thin.woff') format('woff');
+    font-weight: 100;
+    font-style: normal;
+    font-display: swap;
+}

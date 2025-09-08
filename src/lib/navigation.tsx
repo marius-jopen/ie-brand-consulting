@@ -10,7 +10,7 @@ export default function Navigation({ settings }: NavigationProps) {
     return null;
   }
 
-  const { items, location } = settings.data;
+  const { items } = settings.data;
 
   return (
     <>
