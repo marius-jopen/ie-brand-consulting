@@ -1,6 +1,7 @@
 import { FC } from "react";
 import { Content } from "@prismicio/client";
 import { SliceComponentProps } from "@prismicio/react";
+import { PrismicRichText, PrismicImage, PrismicLink } from "@prismicio/react";
 
 /**
  * Props for `MediaCtaWithFeaturedContent`.
@@ -19,36 +20,46 @@ const MediaCtaWithFeaturedContent: FC<MediaCtaWithFeaturedContentProps> = ({
       data-slice-type={slice.slice_type}
       data-slice-variation={slice.variation}
     >
-      Placeholder component for media_cta_with_featured_content (variation:{" "}
-      {slice.variation}) slices.
-      <br />
-      <strong>You can edit this slice directly in your code editor.</strong>
-      {/**
-       * 💡 Use Prismic MCP with your code editor
-       *
-       * Get AI-powered help to build your slice components — based on your actual model.
-       *
-       * ▶️ Setup:
-       * 1. Add a new MCP Server in your code editor:
-       *
-       * {
-       *   "mcpServers": {
-       *     "Prismic MCP": {
-       *       "command": "npx",
-       *       "args": ["-y", "@prismicio/mcp-server@latest"]
-       *     }
-       *   }
-       * }
-       *
-       * 2. Select a model optimized for coding (e.g. Claude 3.7 Sonnet or similar)
-       *
-       * ✅ Then open your slice file and ask your code editor:
-       *    "Code this slice"
-       *
-       * Your code editor reads your slice model and helps you code faster ⚡
-       * 🎙️ Give your feedback: https://community.prismic.io/t/help-us-shape-the-future-of-slice-creation/19505
-       * 📚 Documentation: https://prismic.io/docs/ai#code-with-prismics-mcp-server
-       */}
+      {slice.primary.media_title && (
+        <PrismicRichText field={slice.primary.media_title} />
+      )}
+      
+      {slice.primary.icons && <p>Icons: {slice.primary.icons}</p>}
+      
+      {slice.primary.media_description && (
+        <PrismicRichText field={slice.primary.media_description} />
+      )}
+      
+      {slice.primary.media_links && slice.primary.media_links.length > 0 && (
+        <div>
+          {slice.primary.media_links.map((link, index) => (
+            <PrismicLink key={index} field={link}>
+              {link.text || "Media Link"}
+            </PrismicLink>
+          ))}
+        </div>
+      )}
+      
+      {slice.primary.image && (
+        <PrismicImage field={slice.primary.image} />
+      )}
+      
+      {slice.primary.featured_content && slice.primary.featured_content.length > 0 && (
+        <div>
+          {slice.primary.featured_content.map((item, index) => (
+            <div key={index}>
+              {item.image && <PrismicImage field={item.image} />}
+              {item.eyebrow && <p>{item.eyebrow}</p>}
+              {item.title && <PrismicRichText field={item.title} />}
+              {item.cta_link && (
+                <PrismicLink field={item.cta_link}>
+                  {item.cta_link.text || "CTA Link"}
+                </PrismicLink>
+              )}
+            </div>
+          ))}
+        </div>
+      )}
     </section>
   );
 };
