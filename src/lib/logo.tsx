@@ -1,10 +1,6 @@
 import Link from "next/link";
 
-interface LogoProps {
-  className?: string;
-}
-
-export default function Logo({ className = "" }: LogoProps) {
+export default function Logo() {
   return (
     <Link href="/">
       IE Brand Consulting
