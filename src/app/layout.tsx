@@ -1,15 +1,25 @@
 import { PrismicPreview } from "@prismicio/next";
-import { repositoryName } from "@/prismicio";
+import { repositoryName, createClient } from "@/prismicio";
+import Header from "@/lib/header";
+import Footer from "@/lib/footer";
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  // Fetch settings data
+  const client = createClient();
+  const settings = await client.getSingle("settings");
+
   return (
     <html lang="en">
-      <body>{children}</body>
-      <PrismicPreview repositoryName={repositoryName} />
+      <body>
+        <Header settings={settings} />
+        <main>{children}</main>
+        <Footer settings={settings} />
+        <PrismicPreview repositoryName={repositoryName} />
+      </body>
     </html>
   );
 }
