@@ -1,0 +1,104 @@
+[
+	{
+		"__TYPE__": "SharedSliceContent",
+		"variation": "default",
+		"primary": {
+			"section_title": {
+				"__TYPE__": "StructuredTextContent",
+				"value": [
+					{
+						"type": "heading1",
+						"content": {
+							"text": "Worried"
+						}
+					}
+				]
+			},
+			"section_intro": {
+				"__TYPE__": "StructuredTextContent",
+				"value": [
+					{
+						"type": "paragraph",
+						"content": {
+							"text": "In voluptate cillum non ipsum cillum tempor exercitation voluptate sunt."
+						}
+					}
+				]
+			},
+			"section_cta": {
+				"__TYPE__": "StructuredTextContent",
+				"value": [
+					{
+						"type": "paragraph",
+						"content": {
+							"text": "Nostrud adipisicing tempor ex deserunt commodo excepteur dolore ex aliquip magna cupidatat esse."
+						}
+					}
+				]
+			},
+			"projects": {
+				"__TYPE__": "GroupContentType",
+				"value": [
+					{
+						"__TYPE__": "GroupItemContent",
+						"value": [
+							[
+								"project_category_short",
+								{
+									"__TYPE__": "FieldContent",
+									"value": "friendly",
+									"type": "Text"
+								}
+							],
+							[
+								"project_category_full",
+								{
+									"__TYPE__": "FieldContent",
+									"value": "storm",
+									"type": "Text"
+								}
+							],
+							[
+								"project_title",
+								{
+									"__TYPE__": "StructuredTextContent",
+									"value": [
+										{
+											"type": "heading2",
+											"content": {
+												"text": "Obtain"
+											}
+										}
+									]
+								}
+							],
+							[
+								"project_quote",
+								{
+									"__TYPE__": "StructuredTextContent",
+									"value": [
+										{
+											"type": "paragraph",
+											"content": {
+												"text": "Exercitation minim commodo non consectetur magna Lorem aliquip. Et laboris do aliqua ut aute esse."
+											}
+										}
+									]
+								}
+							],
+							[
+								"project_services",
+								{
+									"__TYPE__": "FieldContent",
+									"value": "flame",
+									"type": "Text"
+								}
+							]
+						]
+					}
+				]
+			}
+		},
+		"items": []
+	}
+]

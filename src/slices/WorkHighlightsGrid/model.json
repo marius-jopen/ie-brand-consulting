@@ -1,0 +1,78 @@
+{
+  "type": "SharedSlice",
+  "id": "work_highlights_grid",
+  "name": "WorkHighlightsGrid",
+  "variations": [
+    {
+      "id": "default",
+      "name": "Default",
+      "description": "Full section with heading, intro, and a grid of project summaries/cards.",
+      "version": "initial",
+      "imageUrl": "",
+      "docURL": "...",
+      "primary": {
+        "section_title": {
+          "type": "StructuredText",
+          "config": {
+            "single": "heading1",
+            "label": "Section Title"
+          }
+        },
+        "section_intro": {
+          "type": "StructuredText",
+          "config": {
+            "multi": "paragraph,strong,em",
+            "label": "Section Introduction"
+          }
+        },
+        "section_cta": {
+          "type": "StructuredText",
+          "config": {
+            "single": "paragraph",
+            "label": "Section CTA/Note"
+          }
+        },
+        "projects": {
+          "type": "Group",
+          "config": {
+            "label": "Projects Grid",
+            "fields": {
+              "project_category_short": {
+                "type": "Text",
+                "config": {
+                  "label": "Project Category Short"
+                }
+              },
+              "project_category_full": {
+                "type": "Text",
+                "config": {
+                  "label": "Project Category Full"
+                }
+              },
+              "project_title": {
+                "type": "StructuredText",
+                "config": {
+                  "single": "heading2",
+                  "label": "Project Highlight Title"
+                }
+              },
+              "project_quote": {
+                "type": "StructuredText",
+                "config": {
+                  "single": "paragraph",
+                  "label": "Project Quote"
+                }
+              },
+              "project_services": {
+                "type": "Text",
+                "config": {
+                  "label": "Project Services/Tags"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  ]
+}

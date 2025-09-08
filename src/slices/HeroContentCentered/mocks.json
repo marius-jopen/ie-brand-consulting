@@ -1,0 +1,42 @@
+[
+	{
+		"__TYPE__": "SharedSliceContent",
+		"variation": "default",
+		"primary": {
+			"title": {
+				"__TYPE__": "StructuredTextContent",
+				"value": [
+					{
+						"type": "heading1",
+						"content": {
+							"text": "Molecular"
+						}
+					}
+				]
+			},
+			"subtitle": {
+				"__TYPE__": "StructuredTextContent",
+				"value": [
+					{
+						"type": "heading3",
+						"content": {
+							"text": "Moment"
+						}
+					}
+				]
+			},
+			"description": {
+				"__TYPE__": "StructuredTextContent",
+				"value": [
+					{
+						"type": "paragraph",
+						"content": {
+							"text": "Velit ad anim nostrud minim elit. Enim enim nulla nulla id esse minim consequat commodo fugiat nisi commodo anim ea sunt pariatur. Proident ipsum ipsum magna cillum ad consequat nostrud veniam labore."
+						}
+					}
+				]
+			}
+		},
+		"items": []
+	}
+]

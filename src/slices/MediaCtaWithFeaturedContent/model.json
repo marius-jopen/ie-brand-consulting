@@ -1,0 +1,96 @@
+{
+  "type": "SharedSlice",
+  "id": "media_cta_with_featured_content",
+  "name": "MediaCtaWithFeaturedContent",
+  "variations": [
+    {
+      "id": "default",
+      "name": "Default",
+      "description": "Standard layout with a large call-to-action on the left and stacked highlight cards on the right.",
+      "version": "initial",
+      "imageUrl": "",
+      "docURL": "...",
+      "primary": {
+        "media_title": {
+          "type": "StructuredText",
+          "config": {
+            "single": "heading1",
+            "label": "Media Title"
+          }
+        },
+        "icons": {
+          "type": "Text",
+          "config": {
+            "label": "icons",
+            "placeholder": ""
+          }
+        },
+        "media_description": {
+          "type": "StructuredText",
+          "config": {
+            "multi": "paragraph,strong,em,hyperlink",
+            "label": "Media Description"
+          }
+        },
+        "media_links": {
+          "type": "Link",
+          "config": {
+            "label": "Media Links",
+            "placeholder": "",
+            "allowText": true,
+            "repeat": true,
+            "select": null,
+            "allowTargetBlank": true
+          }
+        },
+        "image": {
+          "type": "Image",
+          "config": {
+            "label": "Image",
+            "constraint": {},
+            "thumbnails": []
+          }
+        },
+        "featured_content": {
+          "type": "Group",
+          "config": {
+            "label": "Featured Content",
+            "fields": {
+              "image": {
+                "type": "Image",
+                "config": {
+                  "label": "Image"
+                }
+              },
+              "eyebrow": {
+                "type": "Text",
+                "config": {
+                  "label": "Eyebrow"
+                }
+              },
+              "title": {
+                "type": "StructuredText",
+                "config": {
+                  "single": "heading3,strong",
+                  "label": "Title"
+                }
+              },
+              "cta_link": {
+                "type": "Link",
+                "config": {
+                  "label": "CTA Link",
+                  "placeholder": "",
+                  "allowText": true,
+                  "repeat": false,
+                  "select": null,
+                  "allowTargetBlank": true
+                }
+              }
+            }
+          }
+        }
+      },
+      "items": {}
+    }
+  ]
+}

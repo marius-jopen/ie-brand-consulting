@@ -1,0 +1,52 @@
+{
+  "type": "SharedSlice",
+  "id": "headline",
+  "name": "Headline",
+  "variations": [
+    {
+      "id": "centered_large",
+      "name": "Centered Large",
+      "description": "A large, center-aligned, statement-style headline designed to catch the user's attention.",
+      "version": "initial",
+      "imageUrl": "",
+      "docURL": "...",
+      "primary": {
+        "items": {
+          "type": "Group",
+          "config": {
+            "label": "Items",
+            "repeat": true,
+            "fields": {
+              "title": {
+                "type": "Text",
+                "config": {
+                  "label": "Title",
+                  "placeholder": ""
+                }
+              },
+              "link": {
+                "type": "Link",
+                "config": {
+                  "label": "Link",
+                  "placeholder": "",
+                  "select": null,
+                  "allowTargetBlank": false,
+                  "allowText": true,
+                  "repeat": false
+                }
+              },
+              "icon": {
+                "type": "Text",
+                "config": {
+                  "label": "Icon",
+                  "placeholder": ""
+                }
+              }
+            }
+          }
+        }
+      },
+      "items": {}
+    }
+  ]
+}

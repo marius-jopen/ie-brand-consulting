@@ -1,0 +1,31 @@
+[
+	{
+		"__TYPE__": "SharedSliceContent",
+		"variation": "three_column_message",
+		"primary": {
+			"heading": {
+				"__TYPE__": "StructuredTextContent",
+				"value": [
+					{
+						"type": "heading1",
+						"content": {
+							"text": "Troops"
+						}
+					}
+				]
+			},
+			"text": {
+				"__TYPE__": "StructuredTextContent",
+				"value": [
+					{
+						"type": "paragraph",
+						"content": {
+							"text": "Officia enim duis consectetur aliqua proident aliquip culpa non proident esse Lorem est ex amet. Ad aliqua tempor occaecat incididunt dolor occaecat deserunt ex cillum proident pariatur voluptate tempor. Dolor elit Lorem aliqua ullamco cillum irure."
+						}
+					}
+				]
+			}
+		},
+		"items": []
+	}
+]

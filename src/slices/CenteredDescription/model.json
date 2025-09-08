@@ -1,0 +1,24 @@
+{
+  "type": "SharedSlice",
+  "id": "centered_description",
+  "name": "CenteredDescription",
+  "variations": [
+    {
+      "id": "default",
+      "name": "Default",
+      "description": "Single centered description paragraph with optional line breaks.",
+      "version": "initial",
+      "imageUrl": "",
+      "docURL": "...",
+      "primary": {
+        "description": {
+          "type": "StructuredText",
+          "config": {
+            "multi": "paragraph,strong,em",
+            "label": "Description"
+          }
+        }
+      }
+    }
+  ]
+}

@@ -1,0 +1,31 @@
+{
+  "type": "SharedSlice",
+  "id": "highlighted_heading",
+  "name": "HighlightedHeading",
+  "variations": [
+    {
+      "id": "default",
+      "name": "Default",
+      "description": "Main heading text with optional visually de-emphasized subheading above.",
+      "version": "initial",
+      "imageUrl": "",
+      "docURL": "...",
+      "primary": {
+        "subtitle": {
+          "type": "StructuredText",
+          "config": {
+            "single": "heading2,strong,em",
+            "label": "Subtitle (De-emphasized)"
+          }
+        },
+        "title": {
+          "type": "StructuredText",
+          "config": {
+            "single": "heading1,strong,em",
+            "label": "Title (Main Heading)"
+          }
+        }
+      }
+    }
+  ]
+}

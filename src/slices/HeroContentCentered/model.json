@@ -1,0 +1,39 @@
+{
+  "type": "SharedSlice",
+  "id": "hero_content_centered",
+  "name": "HeroContentCentered",
+  "variations": [
+    {
+      "id": "default",
+      "name": "Default",
+      "description": "Single hero variant with title, subtitle, and supporting description, all vertically centered.",
+      "version": "initial",
+      "imageUrl": "",
+      "docURL": "...",
+      "primary": {
+        "title": {
+          "type": "StructuredText",
+          "config": {
+            "single": "heading1",
+            "label": "Title"
+          }
+        },
+        "subtitle": {
+          "type": "StructuredText",
+          "config": {
+            "single": "heading3",
+            "label": "Subtitle"
+          }
+        },
+        "description": {
+          "type": "StructuredText",
+          "config": {
+            "multi": "paragraph,strong,em,hyperlink",
+            "label": "Description"
+          }
+        }
+      },
+      "items": {}
+    }
+  ]
+}

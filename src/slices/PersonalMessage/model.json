@@ -1,0 +1,34 @@
+{
+  "type": "SharedSlice",
+  "id": "personal_message",
+  "name": "PersonalMessage",
+  "variations": [
+    {
+      "id": "three_column_message",
+      "name": "Three Column Message",
+      "description": "A personal message with a large heading and body text divided into three columns, suitable for longer editorial or open letter sections.",
+      "version": "initial",
+      "imageUrl": "",
+      "docURL": "...",
+      "primary": {
+        "heading": {
+          "type": "StructuredText",
+          "config": {
+            "single": "heading1",
+            "label": "Heading"
+          }
+        },
+        "text": {
+          "type": "StructuredText",
+          "config": {
+            "label": "Text",
+            "placeholder": "",
+            "allowTargetBlank": true,
+            "multi": "paragraph,preformatted,heading1,heading2,heading3,heading4,heading5,heading6,strong,em,hyperlink,image,embed,list-item,o-list-item,rtl"
+          }
+        }
+      },
+      "items": {}
+    }
+  ]
+}

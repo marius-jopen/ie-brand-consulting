@@ -1,0 +1,32 @@
+{
+  "type": "SharedSlice",
+  "id": "contact_form",
+  "name": "ContactForm",
+  "variations": [
+    {
+      "id": "default",
+      "name": "Default",
+      "description": "A standard contact form layout with title, fields for user data, agreement checkbox, and a call-to-action button.",
+      "version": "initial",
+      "imageUrl": "",
+      "docURL": "...",
+      "primary": {
+        "title": {
+          "type": "StructuredText",
+          "config": {
+            "single": "heading1",
+            "label": "Title"
+          }
+        },
+        "agreement_text": {
+          "type": "StructuredText",
+          "config": {
+            "multi": "paragraph,strong,em,hyperlink",
+            "label": "Agreement Text"
+          }
+        }
+      },
+      "items": {}
+    }
+  ]
+}

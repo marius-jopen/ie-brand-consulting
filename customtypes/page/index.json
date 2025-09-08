@@ -1,0 +1,95 @@
+{
+  "id": "page",
+  "label": "Page",
+  "format": "page",
+  "repeatable": true,
+  "status": true,
+  "json": {
+    "Main": {
+      "uid": {
+        "type": "UID",
+        "config": {
+          "label": "UID",
+          "placeholder": ""
+        }
+      },
+      "title": {
+        "type": "StructuredText",
+        "config": {
+          "label": "Title",
+          "placeholder": "",
+          "allowTargetBlank": true,
+          "single": "heading1"
+        }
+      },
+      "slices": {
+        "type": "Slices",
+        "fieldset": "Slice Zone",
+        "config": {
+          "choices": {
+            "work_highlights_grid": {
+              "type": "SharedSlice"
+            },
+            "stacked_headings": {
+              "type": "SharedSlice"
+            },
+            "media_cta_with_featured_content": {
+              "type": "SharedSlice"
+            },
+            "personal_message": {
+              "type": "SharedSlice"
+            },
+            "split_text_media": {
+              "type": "SharedSlice"
+            },
+            "highlighted_heading": {
+              "type": "SharedSlice"
+            },
+            "headline": {
+              "type": "SharedSlice"
+            },
+            "hero_content_centered": {
+              "type": "SharedSlice"
+            },
+            "contact_form": {
+              "type": "SharedSlice"
+            },
+            "heading_list": {
+              "type": "SharedSlice"
+            },
+            "centered_description": {
+              "type": "SharedSlice"
+            }
+          }
+        }
+      }
+    },
+    "SEO & Metadata": {
+      "meta_title": {
+        "type": "Text",
+        "config": {
+          "label": "Meta Title",
+          "placeholder": "A title of the page used for social media and search engines"
+        }
+      },
+      "meta_description": {
+        "type": "Text",
+        "config": {
+          "label": "Meta Description",
+          "placeholder": "A brief summary of the page"
+        }
+      },
+      "meta_image": {
+        "type": "Image",
+        "config": {
+          "label": "Meta Image",
+          "constraint": {
+            "width": 2400,
+            "height": 1260
+          },
+          "thumbnails": []
+        }
+      }
+    }
+  }
+}

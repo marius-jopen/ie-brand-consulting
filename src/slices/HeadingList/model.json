@@ -1,0 +1,38 @@
+{
+  "type": "SharedSlice",
+  "id": "heading_list",
+  "name": "HeadingList",
+  "variations": [
+    {
+      "id": "default",
+      "name": "Default",
+      "description": "Standard heading with associated key points in a visual list.",
+      "version": "initial",
+      "imageUrl": "",
+      "docURL": "...",
+      "primary": {
+        "title": {
+          "type": "StructuredText",
+          "config": {
+            "single": "heading2",
+            "label": "Title"
+          }
+        },
+        "items": {
+          "type": "Group",
+          "config": {
+            "label": "Items",
+            "fields": {
+              "text": {
+                "type": "Text",
+                "config": {
+                  "label": "Text"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  ]
+}

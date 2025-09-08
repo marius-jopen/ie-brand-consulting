@@ -1,0 +1,56 @@
+{
+  "format": "custom",
+  "id": "settings",
+  "label": "Settings",
+  "repeatable": false,
+  "status": true,
+  "json": {
+    "Main": {
+      "items": {
+        "type": "Group",
+        "config": {
+          "label": "Items",
+          "repeat": true,
+          "fields": {
+            "links": {
+              "type": "Link",
+              "config": {
+                "label": "Links",
+                "placeholder": "",
+                "select": null,
+                "allowTargetBlank": true,
+                "allowText": true,
+                "repeat": true
+              }
+            }
+          }
+        }
+      },
+      "location": {
+        "type": "Text",
+        "config": {
+          "label": "Location",
+          "placeholder": ""
+        }
+      },
+      "socials": {
+        "type": "Link",
+        "config": {
+          "label": "Socials",
+          "placeholder": "",
+          "select": null,
+          "allowTargetBlank": true,
+          "allowText": true,
+          "repeat": true
+        }
+      },
+      "footer_text": {
+        "type": "Text",
+        "config": {
+          "label": "Footer Text",
+          "placeholder": ""
+        }
+      }
+    }
+  }
+}
