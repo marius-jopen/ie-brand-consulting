@@ -17,19 +17,23 @@ const HeadingList: FC<HeadingListProps> = ({ slice }) => {
       data-slice-type={slice.slice_type}
       data-slice-variation={slice.variation}
     >
-      {slice.primary.title && (
-        <PrismicRichText field={slice.primary.title} />
-      )}
-      
-      {slice.primary.items && slice.primary.items.length > 0 && (
-        <ul className="bg-primary">
-          {slice.primary.items.map((item, index) => (
-            <li key={index}>
-              {item.text}
-            </li>
-          ))}
-        </ul>
-      )}
+      <div className="bg-primary container mx-auto">     
+        <div className="text-center">
+          {slice.primary.title && (
+            <PrismicRichText field={slice.primary.title} />
+          )}
+        </div>
+        
+        {slice.primary.items && slice.primary.items.length > 0 && (
+          <ul className="flex flex-wrap justify-center gap-4">
+            {slice.primary.items.map((item, index) => (
+              <li key={index}>
+                {item.text}
+              </li>
+            ))}
+          </ul>
+        )}
+      </div>
     </section>
   );
 };

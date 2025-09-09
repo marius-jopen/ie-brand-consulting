@@ -24,17 +24,19 @@ const HeroContentCentered: FC<HeroContentCenteredProps> = ({ slice }) => {
           </div>
         )}
         
-        {slice.primary.subtitle && (
-          <div className="text-h7 text-center">
-            {asText(slice.primary.subtitle)}
-          </div>
-        )}
-        
-        {slice.primary.description && (
-          <div className="text-p1 text-center">
-            {asText(slice.primary.description)}
-          </div>
-        )}
+        <div className="container mx-auto">
+          {slice.primary.subtitle && (
+            <div className="text-h7 text-center">
+              {asText(slice.primary.subtitle)}
+            </div>
+          )}
+          
+          {slice.primary.description && (
+            <div className="text-p1 text-center">
+              {asText(slice.primary.description)}
+            </div>
+          )}
+        </div>
       </div>
     </section>
   );

@@ -24,7 +24,7 @@ const ContactForm: FC<ContactFormProps> = ({ slice }) => {
         </div>
       )}
       
-      <form>
+      <form className="container mx-auto">
         <div>
           <label>Name:</label>
           <input type="text" name="name" />
@@ -49,7 +49,9 @@ const ContactForm: FC<ContactFormProps> = ({ slice }) => {
           </label>
         </div>
         
-        <button type="submit">Sen</button>
+        <div className="flex justify-center">
+          <button className="text-h2" type="submit">Send</button>
+        </div>
       </form>
     </section>
   );

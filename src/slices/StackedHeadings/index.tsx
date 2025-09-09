@@ -18,18 +18,21 @@ const StackedHeadings: FC<StackedHeadingsProps> = ({ slice }) => {
       data-slice-type={slice.slice_type}
       data-slice-variation={slice.variation}
     >
-      {slice.primary.icons && <p>Icons: {slice.primary.icons ? "Yes" : "No"}</p>}
+      {/* {slice.primary.icons && <p>Icons: {slice.primary.icons ? "Yes" : "No"}</p>} */}
       
       {slice.primary.items && slice.primary.items.length > 0 && (
         <div>
           {slice.primary.items.map((item, index) => (
             <div className="text-center" key={index}>
-              {item.icon && <span>{item.icon}</span>}
-              {item.title && <div className="text-h1" >{item.title}</div>}
-              {item.link && (
-                <PrismicLink field={item.link}>
-                  {item.link.text || "Link"}
-                </PrismicLink>
+              {/* {item.icon && <span>{item.icon}</span>} */}
+              {item.title && (
+                item.link ? (
+                  <PrismicLink field={item.link}>
+                    <div className="text-h1">{item.title}</div>
+                  </PrismicLink>
+                ) : (
+                  <div className="text-h1">{item.title}</div>
+                )
               )}
             </div>
           ))}
