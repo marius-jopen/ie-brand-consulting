@@ -1,7 +1,6 @@
 import { FC } from "react";
 import { Content, asText } from "@prismicio/client";
 import { SliceComponentProps } from "@prismicio/react";
-import { PrismicRichText } from "@prismicio/react";
 
 /**
  * Props for `HeroContentCentered`.
