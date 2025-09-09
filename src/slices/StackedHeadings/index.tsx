@@ -23,9 +23,9 @@ const StackedHeadings: FC<StackedHeadingsProps> = ({ slice }) => {
       {slice.primary.items && slice.primary.items.length > 0 && (
         <div>
           {slice.primary.items.map((item, index) => (
-            <div key={index}>
+            <div className="text-center" key={index}>
               {item.icon && <span>{item.icon}</span>}
-              {item.title && <h2>{item.title}</h2>}
+              {item.title && <div className="text-h1" >{item.title}</div>}
               {item.link && (
                 <PrismicLink field={item.link}>
                   {item.link.text || "Link"}

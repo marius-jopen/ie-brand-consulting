@@ -1,5 +1,5 @@
 import { FC } from "react";
-import { Content } from "@prismicio/client";
+import { Content, asText } from "@prismicio/client";
 import { SliceComponentProps } from "@prismicio/react";
 import { PrismicRichText } from "@prismicio/react";
 
@@ -19,11 +19,13 @@ const PersonalMessage: FC<PersonalMessageProps> = ({ slice }) => {
       data-slice-variation={slice.variation}
     >
       {slice.primary.heading && (
-        <PrismicRichText field={slice.primary.heading} />
+        <div className="text-h4 text-center">
+          {asText(slice.primary.heading)}
+        </div>
       )}
       
       {slice.primary.text && (
-        <PrismicRichText field={slice.primary.text} />
+        <div className="text-p1 columns-3 gap-8">{asText(slice.primary.text)}</div>
       )}
     </section>
   );

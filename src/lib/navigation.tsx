@@ -15,9 +15,9 @@ export default function Navigation({ settings }: NavigationProps) {
   return (
     <>
       {/* Main Navigation */}
-      <nav>
+      <nav className="flex gap-4">
         {items?.map((item, index) => (
-          <div key={index}>
+          <div className="flex gap-4" key={index}>
             {item.links?.map((link, linkIndex) => (
               <PrismicLink key={linkIndex} field={link}>
                 {link.text || "Link"}

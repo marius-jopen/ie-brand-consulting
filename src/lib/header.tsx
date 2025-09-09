@@ -8,7 +8,7 @@ interface HeaderProps {
 
 export default function Header({ settings }: HeaderProps) {
   return (
-    <header>
+    <header className="pb-20">
       <div>
         <div>
           <div>

@@ -19,7 +19,6 @@ export default function Footer({ settings }: FooterProps) {
           {/* Location */}
           {location && (
             <div>
-              <h3>Location</h3>
               <p>{location}</p>
             </div>
           )}
@@ -27,7 +26,6 @@ export default function Footer({ settings }: FooterProps) {
           {/* Social Links */}
           {socials && socials.length > 0 && (
             <div>
-              <h3>Follow Us</h3>
               <div>
                 {socials.map((social, index) => (
                   <PrismicLink key={index} field={social}>
@@ -41,7 +39,6 @@ export default function Footer({ settings }: FooterProps) {
           {/* Footer Text */}
           {footer_text && (
             <div>
-              <h3>About</h3>
               <p>{footer_text}</p>
             </div>
           )}
@@ -53,11 +50,6 @@ export default function Footer({ settings }: FooterProps) {
             <p>
               © {new Date().getFullYear()} IE Brand Consulting. All rights reserved.
             </p>
-            <div>
-              <p>
-                Built with Next.js & Prismic
-              </p>
-            </div>
           </div>
         </div>
       </div>

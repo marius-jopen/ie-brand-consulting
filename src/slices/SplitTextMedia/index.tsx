@@ -1,5 +1,5 @@
 import { FC } from "react";
-import { Content } from "@prismicio/client";
+import { Content, asText } from "@prismicio/client";
 import { SliceComponentProps } from "@prismicio/react";
 import { PrismicRichText } from "@prismicio/react";
 
@@ -18,24 +18,32 @@ const SplitTextMedia: FC<SplitTextMediaProps> = ({ slice }) => {
       data-slice-type={slice.slice_type}
       data-slice-variation={slice.variation}
     >
-      {slice.primary.heading && (
-        <PrismicRichText field={slice.primary.heading} />
-      )}
+      <div className="w-1/2">
+        {slice.primary.heading && (
+          <div className="text-h1 text-center">
+            {asText(slice.primary.heading)}
+          </div>
+        )}
+        
+        {slice.primary.body && (
+          <div className="text-center">
+            {asText(slice.primary.body)}
+          </div>
+        )}
+      </div>
       
-      {slice.primary.body && (
-        <PrismicRichText field={slice.primary.body} />
-      )}
-      
-      {slice.primary.items && slice.primary.items.length > 0 && (
-        <div>
-          {slice.primary.items.map((item, index) => (
-            <div key={index}>
-              {item.headline && <h3>{item.headline}</h3>}
-              {item.text && <PrismicRichText field={item.text} />}
-            </div>
-          ))}
-        </div>
-      )}
+      <div className="w-1/2">
+        {slice.primary.items && slice.primary.items.length > 0 && (
+          <div>
+            {slice.primary.items.map((item, index) => (
+              <div className="bg-primary text-center" key={index}>
+                {item.headline && <h3 className="text-h5">{item.headline}</h3>}
+                {item.text && <p className="text-p1">{asText(item.text)}</p>}
+              </div>
+            ))}
+          </div>
+        )}
+      </div>
     </section>
   );
 };

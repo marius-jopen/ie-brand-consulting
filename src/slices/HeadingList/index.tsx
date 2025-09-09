@@ -22,7 +22,7 @@ const HeadingList: FC<HeadingListProps> = ({ slice }) => {
       )}
       
       {slice.primary.items && slice.primary.items.length > 0 && (
-        <ul>
+        <ul className="bg-primary">
           {slice.primary.items.map((item, index) => (
             <li key={index}>
               {item.text}

@@ -1,5 +1,5 @@
 import { FC } from "react";
-import { Content } from "@prismicio/client";
+import { Content, asText } from "@prismicio/client";
 import { SliceComponentProps } from "@prismicio/react";
 import { PrismicRichText } from "@prismicio/react";
 
@@ -18,17 +18,25 @@ const HeroContentCentered: FC<HeroContentCenteredProps> = ({ slice }) => {
       data-slice-type={slice.slice_type}
       data-slice-variation={slice.variation}
     >
-      {slice.primary.title && (
-        <PrismicRichText field={slice.primary.title} />
-      )}
-      
-      {slice.primary.subtitle && (
-        <PrismicRichText field={slice.primary.subtitle} />
-      )}
-      
-      {slice.primary.description && (
-        <PrismicRichText field={slice.primary.description} />
-      )}
+      <div className="bg-primary">
+        {slice.primary.title && (
+          <div className="text-h2 text-center">
+            {asText(slice.primary.title)}
+          </div>
+        )}
+        
+        {slice.primary.subtitle && (
+          <div className="text-h7 text-center">
+            {asText(slice.primary.subtitle)}
+          </div>
+        )}
+        
+        {slice.primary.description && (
+          <div className="text-p1 text-center">
+            {asText(slice.primary.description)}
+          </div>
+        )}
+      </div>
     </section>
   );
 };

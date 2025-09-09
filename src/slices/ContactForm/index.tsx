@@ -1,5 +1,5 @@
 import { FC } from "react";
-import { Content } from "@prismicio/client";
+import { Content, asText } from "@prismicio/client";
 import { SliceComponentProps } from "@prismicio/react";
 import { PrismicRichText } from "@prismicio/react";
 
@@ -14,11 +14,14 @@ export type ContactFormProps = SliceComponentProps<Content.ContactFormSlice>;
 const ContactForm: FC<ContactFormProps> = ({ slice }) => {
   return (
     <section
+      className="bg-tertiary text-white"
       data-slice-type={slice.slice_type}
       data-slice-variation={slice.variation}
     >
       {slice.primary.title && (
-        <PrismicRichText field={slice.primary.title} />
+        <div className="text-h2 text-center">
+          {asText(slice.primary.title)}
+        </div>
       )}
       
       <form>
@@ -46,7 +49,7 @@ const ContactForm: FC<ContactFormProps> = ({ slice }) => {
           </label>
         </div>
         
-        <button type="submit">Submit</button>
+        <button type="submit">Sen</button>
       </form>
     </section>
   );

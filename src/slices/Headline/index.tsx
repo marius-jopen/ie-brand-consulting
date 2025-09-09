@@ -20,7 +20,7 @@ const Headline: FC<HeadlineProps> = ({ slice }) => {
       {slice.primary.items && slice.primary.items.map((item, index) => (
         <div key={index}>
           {item.icon && <span>{item.icon}</span>}
-          {item.title && <h2>{item.title}</h2>}
+          {item.title && <div className="text-h1">{item.title}</div>}
           {item.link && (
             <PrismicLink field={item.link}>
               {item.link.text || "Link"}

@@ -2,6 +2,12 @@
 
 body {
     font-family: 'Supreme LL TT', sans-serif;
+
+    font-family: 'Supreme LL TT', sans-serif;
+    font-weight: 400;
+    font-size: 24.66px;
+    line-height: 34.11px;
+    letter-spacing: 0.02em;
 }
 
 @font-face {
@@ -65,4 +71,103 @@ body {
     font-weight: 100;
     font-style: normal;
     font-display: swap;
+}
+
+@layer utilities {
+    /* Custom Colors */
+    .bg-primary {
+        background-color: #F0F0F0; /* Gray-500 */
+    }
+
+    .bg-secondary {
+        background-color: #D7D2CB; /* Black */
+    }
+    
+    .text-primary {
+        color: #F0F0F0; /* Gray-500 */
+    }
+
+    .text-secondary {
+        color: #D7D2CB; /* Black */
+    }   
+
+    .bg-tertiary {
+        background-color: #1D252D;
+    }
+
+
+    
+    /* Custom Typography Styles */
+    
+    .text-h1 {
+        font-family: 'Supreme LL TT', sans-serif;
+        font-weight: 900;
+        font-size: 237px;
+        line-height: 205.73px;
+        letter-spacing: -0.03em;
+    }
+    
+    .text-h2 {
+        font-family: 'Supreme LL TT', sans-serif;
+        font-weight: 900;
+        font-size: 197.26px;
+        line-height: 197.26px;
+        letter-spacing: -0.04em;
+    }
+    
+    .text-h3 {
+        font-family: 'Supreme LL TT', sans-serif;
+        font-weight: 900;
+        font-size: 163.17px;
+        line-height: 142.33px;
+        letter-spacing: -0.03em;
+    }
+    
+    .text-h4 {
+        font-family: 'Supreme LL TT', sans-serif;
+        font-weight: 900;
+        font-size: 89.04px;
+        line-height: 77.67px;
+        letter-spacing: 0em;
+    }
+    
+    .text-h5 {
+        font-family: 'Supreme LL TT', sans-serif;
+        font-weight: 900;
+        font-size: 100.28px;
+        line-height: 87.47px;
+        letter-spacing: -0.02em;
+    }
+    
+    .text-h6 {
+        font-family: 'Supreme LL TT', sans-serif;
+        font-weight: 900;
+        font-size: 61px;
+        line-height: 69px;
+        letter-spacing: -0.02em;
+    }
+    
+    .text-h7 {
+        font-family: 'Supreme LL TT', sans-serif;
+        font-weight: 900;
+        font-size: 35.25px;
+        line-height: 42.3px;
+        letter-spacing: 0.01em;
+    }
+    
+    .text-p1 {
+        font-family: 'Supreme LL TT', sans-serif;
+        font-weight: 400;
+        font-size: 24.66px;
+        line-height: 34.11px;
+        letter-spacing: 0.02em;
+    }
+    
+    .text-p2 {
+        font-family: 'Supreme LL TT', sans-serif;
+        font-weight: 400;
+        font-size: 22.76px;
+        line-height: 31.48px;
+        letter-spacing: 0.02em;
+    }
 }
