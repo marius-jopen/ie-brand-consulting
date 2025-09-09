@@ -14,42 +14,34 @@ export default function Footer({ settings }: FooterProps) {
 
   return (
     <footer>
-      <div>
-        <div>
-          {/* Location */}
-          {location && (
-            <div>
+      <div className="text-p3">
+        <div className="flex items-center flex-nowrap">
+          {/* Location - Left */}
+          <div className="flex-1">
+            {location && (
               <p>{location}</p>
-            </div>
-          )}
+            )}
+          </div>
 
-          {/* Social Links */}
-          {socials && socials.length > 0 && (
-            <div>
-              <div>
+          {/* Social Links - Center */}
+          <div className="flex-1 flex justify-center">
+            {socials && socials.length > 0 && (
+              <div className="flex gap-4">
                 {socials.map((social, index) => (
                   <PrismicLink key={index} field={social}>
                     {social.text || "Social Link"}
                   </PrismicLink>
                 ))}
               </div>
-            </div>
-          )}
+            )}
+          </div>
 
-          {/* Footer Text */}
-          {footer_text && (
-            <div>
+          {/* Footer Text - Right */}
+          <div className="flex-1 flex justify-end">
+            © {new Date().getFullYear()} IE Brand Consulting. All rights reserved.
+            {footer_text && (
               <p>{footer_text}</p>
-            </div>
-          )}
-        </div>
-
-        {/* Bottom Bar */}
-        <div>
-          <div>
-            <p>
-              © {new Date().getFullYear()} IE Brand Consulting. All rights reserved.
-            </p>
+            )}
           </div>
         </div>
       </div>

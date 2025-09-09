@@ -8,18 +8,16 @@ interface HeaderProps {
 
 export default function Header({ settings }: HeaderProps) {
   return (
-    <header className="pb-20">
-      <div>
-        <div>
-          <div>
-            {/* Logo */}
-            <div>
-              <Logo />
-            </div>
+    <header className="fixed top-0 left-0 right-0 z-50">
+      <div className="relative w-full">
+        {/* Logo - Fixed top left */}
+        <div className="fixed top-4 left-4 z-10">
+          <Logo />
+        </div>
 
-            {/* Navigation */}
-            <Navigation settings={settings} />
-          </div>
+        {/* Navigation - Fixed top center */}
+        <div className="fixed top-4 left-1/2 transform -translate-x-1/2 z-10">
+          <Navigation settings={settings} />
         </div>
       </div>
     </header>

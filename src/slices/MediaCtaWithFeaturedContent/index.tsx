@@ -62,7 +62,7 @@ const MediaCtaWithFeaturedContent: FC<MediaCtaWithFeaturedContentProps> = ({
                   <div>
                       {item.eyebrow && <div>{item.eyebrow}</div>}
 
-                        {item.title && <h7 className="text-h7">{asText(item.title)}</h7>}
+                        {item.title && <div className="text-h7">{asText(item.title)}</div>}
 
                       {item.cta_link && (
                         <PrismicLink field={item.cta_link}>

@@ -170,4 +170,13 @@ body {
         line-height: 31.48px;
         letter-spacing: 0.02em;
     }
+
+    .text-p3 {
+        font-family: Supreme LL TT;
+        font-weight: 400;
+        font-style: Regular;
+        font-size: 15px;
+        line-height: 100%;
+        letter-spacing: 0%;        
+    }
 }
