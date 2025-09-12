@@ -15,7 +15,7 @@ export default async function RootLayout({
 
   return (
     <html lang="en">
-      <body>
+      <body className="scrollbar-gutter-stable">
         <Header settings={settings} />
         <main>{children}</main>
         <FooterWrapper settings={settings} />

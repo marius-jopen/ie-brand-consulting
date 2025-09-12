@@ -77,40 +77,44 @@ export default function Navigation({ settings }: NavigationProps) {
         </div>
 
         {/* Sub-navigation row - appears below main nav when hovering or on current page */}
-        {items?.map((item, index) => {
-          const hasMultipleLinks = item.links && item.links.length > 1;
-          const isCurrent = isCurrentPage(item.links || []);
-          const showSubNav = hoveredItem === index || focusedItem === index || (isCurrent && hasMultipleLinks);
+        <div className="relative">
+          {items?.map((item, index) => {
+            const hasMultipleLinks = item.links && item.links.length > 1;
+            const isCurrent = isCurrentPage(item.links || []);
+            const showSubNav = hoveredItem === index || focusedItem === index || (isCurrent && hasMultipleLinks);
 
-          if (!hasMultipleLinks || !showSubNav) return null;
+            if (!hasMultipleLinks || !showSubNav) return null;
 
-          return (
-            <div 
-              key={`subnav-${index}`}
-              className="flex justify-center gap-8 pt-2 transition-all duration-200 ease-in-out"
-              onMouseEnter={() => setHoveredItem(index)}
-              onMouseLeave={() => setHoveredItem(null)}
-            >
-              {item.links?.slice(1).map((link, linkIndex) => {
-                const isCurrentLink = isCurrentPage([link]);
-                
-                return (
-                  <PrismicLink 
-                    key={linkIndex} 
-                    field={link}
-                    className={`text-p3 transition-colors ${
-                      isCurrentLink
-                        ? 'text-black underline font-medium' 
-                        : 'text-secondary hover:text-tertiary'
-                    }`}
-                  >
-                    {link.text || "Link"}
-                  </PrismicLink>
-                );
-              })}
-            </div>
-          );
-        })}
+            return (
+              <div 
+                key={`subnav-${index}`}
+                className={`absolute top-0 left-1/2 transform -translate-x-1/2 flex justify-center gap-8 pt-2 px-4 py-2 bg-white transition-all duration-200 ease-in-out ${
+                  hoveredItem === index ? 'z-20' : 'z-10'
+                }`}
+                onMouseEnter={() => setHoveredItem(index)}
+                onMouseLeave={() => setHoveredItem(null)}
+              >
+                {item.links?.slice(1).map((link, linkIndex) => {
+                  const isCurrentLink = isCurrentPage([link]);
+                  
+                  return (
+                    <PrismicLink 
+                      key={linkIndex} 
+                      field={link}
+                      className={`text-p3 transition-colors ${
+                        isCurrentLink
+                          ? 'text-black underline font-medium' 
+                          : 'text-secondary hover:text-tertiary'
+                      }`}
+                    >
+                      {link.text || "Link"}
+                    </PrismicLink>
+                  );
+                })}
+              </div>
+            );
+          })}
+        </div>
       </nav>
     </>
   );
