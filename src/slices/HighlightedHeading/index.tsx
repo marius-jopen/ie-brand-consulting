@@ -17,7 +17,7 @@ const HighlightedHeading: FC<HighlightedHeadingProps> = ({ slice }) => {
       data-slice-type={slice.slice_type}
       data-slice-variation={slice.variation}
     >
-      <div className="text-center">
+      <div className="text-center pt-8 pb-12  mx-auto w-4/5">
         {slice.primary.subtitle && (
           <h4 className="text-h4 text-secondary">
             {asText(slice.primary.subtitle)}

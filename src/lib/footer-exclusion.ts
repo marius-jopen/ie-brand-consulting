@@ -5,6 +5,7 @@
 export const FOOTER_EXCLUDED_ROUTES = [
   'services',
   'connect',
+  'media',
   // Add more routes here as needed
   // 'about',
   // 'contact',

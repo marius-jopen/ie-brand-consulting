@@ -17,7 +17,7 @@ const Headline: FC<HeadlineProps> = ({ slice }) => {
       data-slice-type={slice.slice_type}
       data-slice-variation={slice.variation}
     >
-      <div className="flex gap-4 flex-wrap">
+      <div className="flex gap-4 flex-wrap mx-12 flex justify-center pt-12 pb-12">
         {slice.primary.items && slice.primary.items.map((item, index) => (
           <div key={index}>
             {/* {item.icon && <span>{item.icon}</span>} */}

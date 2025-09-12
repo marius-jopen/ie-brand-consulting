@@ -24,12 +24,15 @@ const MediaCtaWithFeaturedContent: FC<MediaCtaWithFeaturedContentProps> = ({
       <div className="w-1/2 sticky top-0 h-screen overflow-y-auto">
         <div className="p-8">
           {slice.primary.media_title && (
-            <h2 className="text-h2 text-center">{asText(slice.primary.media_title)}</h2>
+            <h1 className="text-h1 text-center">{asText(slice.primary.media_title)}</h1>
           )}
           
           {/* {slice.primary.icons && <p>Icons: {slice.primary.icons}</p>} */}
+          <div className="text-center flex h-[300px] items-center justify-center">
+            ICON
+          </div>
           
-          <div className="text-center">
+          <div className="text-center pb-8 mx-12">
             {slice.primary.media_description && (
               <PrismicRichText field={slice.primary.media_description} />
             )}
@@ -59,10 +62,10 @@ const MediaCtaWithFeaturedContent: FC<MediaCtaWithFeaturedContentProps> = ({
                 <div key={index}>
                   {item.image && <PrismicImage field={item.image} />}
 
-                  <div>
-                      {item.eyebrow && <div>{item.eyebrow}</div>}
+                  <div className="pb-14 pt-4">
+                      {item.eyebrow && <div className="pb-2">{item.eyebrow}</div>}
 
-                        {item.title && <div className="text-h7">{asText(item.title)}</div>}
+                      {item.title && <div className="text-h7 pb-4">{asText(item.title)}</div>}
 
                       {item.cta_link && (
                         <PrismicLink field={item.cta_link}>

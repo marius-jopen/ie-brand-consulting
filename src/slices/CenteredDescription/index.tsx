@@ -18,7 +18,7 @@ const CenteredDescription: FC<CenteredDescriptionProps> = ({ slice }) => {
       data-slice-variation={slice.variation}
     >
       {slice.primary.description && (
-        <div className="text-center container mx-auto">
+        <div className="text-center container mx-auto mx-auto w-3/5 pb-16">
           {asText(slice.primary.description)}
         </div>
       )}
