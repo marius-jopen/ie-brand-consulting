@@ -14,7 +14,7 @@ export default function Footer({ settings }: FooterProps) {
 
   return (
     <footer>
-      <div className="text-p3 pt-6 pb-6 px-4">
+      <div className="text-p3 pt-16 pb-6 px-4">
         <div className="flex items-center flex-nowrap">
           {/* Location - Left */}
           <div className="flex-1">

@@ -21,7 +21,7 @@ const MediaCtaWithFeaturedContent: FC<MediaCtaWithFeaturedContentProps> = ({
       data-slice-variation={slice.variation}
     >
     <div className="flex min-h-screen">
-      <div className="w-1/2 sticky top-0 h-screen overflow-y-auto">
+      <div className={`w-1/2 ${slice.primary.featured_content && slice.primary.featured_content.length > 0 ? 'sticky top-0 h-screen' : ''} overflow-y-auto`}>
         <div className="p-8">
           {slice.primary.media_title && (
             <h1 className="text-h1 text-center">{asText(slice.primary.media_title)}</h1>
@@ -51,9 +51,9 @@ const MediaCtaWithFeaturedContent: FC<MediaCtaWithFeaturedContentProps> = ({
       </div>
       
       <div className="w-1/2 overflow-y-auto">
-        <div className="p-8">
+        <div className="p-8 h-full">
           {slice.primary.image && (
-            <PrismicImage field={slice.primary.image} />
+            <PrismicImage className="h-full object-cover" field={slice.primary.image} />
           )}
           
           {slice.primary.featured_content && slice.primary.featured_content.length > 0 && (
