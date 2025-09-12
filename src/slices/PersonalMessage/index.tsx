@@ -17,15 +17,17 @@ const PersonalMessage: FC<PersonalMessageProps> = ({ slice }) => {
       data-slice-type={slice.slice_type}
       data-slice-variation={slice.variation}
     >
-      {slice.primary.heading && (
-        <div className="text-h4 text-center">
-          {asText(slice.primary.heading)}
-        </div>
-      )}
-      
-      {slice.primary.text && (
-        <div className="text-p1 columns-3 gap-8">{asText(slice.primary.text)}</div>
-      )}
+      <div className="mx-auto w-10/12 pt-20 pb-20">
+        {slice.primary.heading && (
+          <div className="text-h4 text-center pb-20">
+            {asText(slice.primary.heading)}
+          </div>
+        )}
+        
+        {slice.primary.text && (
+          <div className="text-p1 columns-3 gap-8">{asText(slice.primary.text)}</div>
+        )}
+      </div>
     </section>
   );
 };

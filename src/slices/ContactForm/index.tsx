@@ -14,7 +14,7 @@ export type ContactFormProps = SliceComponentProps<Content.ContactFormSlice>;
 const ContactForm: FC<ContactFormProps> = ({ slice }) => {
   return (
     <section
-      className="bg-tertiary text-white"
+      className="bg-tertiary text-white h-screen"
       data-slice-type={slice.slice_type}
       data-slice-variation={slice.variation}
     >

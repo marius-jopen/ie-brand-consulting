@@ -21,7 +21,7 @@ const StackedHeadings: FC<StackedHeadingsProps> = ({ slice }) => {
       {/* {slice.primary.icons && <p>Icons: {slice.primary.icons ? "Yes" : "No"}</p>} */}
       
       {slice.primary.items && slice.primary.items.length > 0 && (
-        <div>
+        <div className="pt-10 pb-20">
           {slice.primary.items.map((item, index) => (
             <div className="text-center" key={index}>
               {/* {item.icon && <span>{item.icon}</span>} */}

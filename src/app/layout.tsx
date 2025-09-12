@@ -1,7 +1,7 @@
 import { PrismicPreview } from "@prismicio/next";
 import { repositoryName, createClient } from "@/prismicio";
 import Header from "@/lib/header";
-import Footer from "@/lib/footer";
+import FooterWrapper from "@/lib/footer-wrapper";
 import "./globals.css";
 
 export default async function RootLayout({
@@ -18,7 +18,7 @@ export default async function RootLayout({
       <body>
         <Header settings={settings} />
         <main>{children}</main>
-        <Footer settings={settings} />
+        <FooterWrapper settings={settings} />
         <PrismicPreview repositoryName={repositoryName} />
       </body>
     </html>

@@ -17,16 +17,16 @@ const HeroContentCentered: FC<HeroContentCenteredProps> = ({ slice }) => {
       data-slice-type={slice.slice_type}
       data-slice-variation={slice.variation}
     >
-      <div className="bg-primary">
+      <div className="bg-primary mx-8">
         {slice.primary.title && (
-          <div className="text-h2 text-center">
+          <div className="text-h2 text-center pt-18">
             {asText(slice.primary.title)}
           </div>
         )}
         
-        <div className="container mx-auto">
+        <div className="container mx-auto pb-20 mx-auto w-3/5 pt-22">
           {slice.primary.subtitle && (
-            <div className="text-h7 text-center">
+            <div className="text-h7 text-center pb-8">
               {asText(slice.primary.subtitle)}
             </div>
           )}
