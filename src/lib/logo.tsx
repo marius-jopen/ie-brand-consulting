@@ -1,8 +1,14 @@
 import Link from "next/link";
 
-export default function Logo() {
+interface LogoProps {
+  variant?: 'default' | 'white';
+}
+
+export default function Logo({ variant = 'default' }: LogoProps) {
+  const textColor = variant === 'white' ? 'text-white' : 'text-black';
+  
   return (
-    <Link href="/">
+    <Link href="/" className={textColor}>
       IE
     </Link>
   );

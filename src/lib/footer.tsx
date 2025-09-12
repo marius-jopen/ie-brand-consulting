@@ -3,18 +3,27 @@ import { SettingsDocument } from "../../prismicio-types";
 
 interface FooterProps {
   settings: SettingsDocument;
+  isDarkMode?: boolean;
 }
 
-export default function Footer({ settings }: FooterProps) {
+export default function Footer({ settings, isDarkMode = false }: FooterProps) {
   if (!settings?.data) {
     return null;
   }
 
   const { location, socials, footer_text } = settings.data;
 
+  const footerClasses = isDarkMode 
+    ? "bg-tertiary text-white" 
+    : "";
+  
+  const textClasses = isDarkMode 
+    ? "text-p3 pt-16 pb-6 px-4 text-white" 
+    : "text-p3 pt-16 pb-6 px-4";
+
   return (
-    <footer>
-      <div className="text-p3 pt-16 pb-6 px-4">
+    <footer className={footerClasses}>
+      <div className={textClasses}>
         <div className="flex items-center flex-nowrap">
           {/* Location - Left */}
           <div className="flex-1">
@@ -28,7 +37,11 @@ export default function Footer({ settings }: FooterProps) {
             {socials && socials.length > 0 && (
               <div className="flex gap-4">
                 {socials.map((social, index) => (
-                  <PrismicLink key={index} field={social}>
+                  <PrismicLink 
+                    key={index} 
+                    field={social}
+                    className={isDarkMode ? "text-white hover:text-gray-300" : ""}
+                  >
                     {social.text || "Social Link"}
                   </PrismicLink>
                 ))}

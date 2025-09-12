@@ -1,6 +1,6 @@
 import { PrismicPreview } from "@prismicio/next";
 import { repositoryName, createClient } from "@/prismicio";
-import Header from "@/lib/header";
+import HeaderWrapper from "@/lib/header-wrapper";
 import FooterWrapper from "@/lib/footer-wrapper";
 import "./globals.css";
 
@@ -16,7 +16,7 @@ export default async function RootLayout({
   return (
     <html lang="en">
       <body className="scrollbar-gutter-stable">
-        <Header settings={settings} />
+        <HeaderWrapper settings={settings} />
         <main>{children}</main>
         <FooterWrapper settings={settings} />
         <PrismicPreview repositoryName={repositoryName} />

@@ -4,6 +4,7 @@ import { usePathname } from 'next/navigation';
 import { SettingsDocument } from '../../prismicio-types';
 import Footer from './footer';
 import { shouldExcludeFooter } from './footer-exclusion';
+import { shouldUseDarkStyling } from './page-utils';
 
 interface FooterWrapperProps {
   settings: SettingsDocument;
@@ -17,5 +18,7 @@ export default function FooterWrapper({ settings }: FooterWrapperProps) {
     return null;
   }
   
-  return <Footer settings={settings} />;
+  const isDarkMode = shouldUseDarkStyling(pathname);
+  
+  return <Footer settings={settings} isDarkMode={isDarkMode} />;
 }

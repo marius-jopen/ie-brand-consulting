@@ -19,7 +19,7 @@ const SplitTextMedia: FC<SplitTextMediaProps> = ({ slice }) => {
       className="flex min-h-screen"
     >
       {/* Left half - Sticky */}
-      <div className="w-1/2 sticky top-0 h-screen flex flex-col justify-center items-center p-8">
+      <div className="w-1/2 sticky top-8 h-screen flex flex-col items-center p-8">
         {slice.primary.heading && (
           <div className="text-h1 text-center mb-6 pt-8 pb-8">
             {asText(slice.primary.heading)}

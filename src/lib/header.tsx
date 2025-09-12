@@ -4,21 +4,28 @@ import Navigation from "./navigation";
 
 interface HeaderProps {
   settings: SettingsDocument;
+  isDarkMode?: boolean;
 }
 
-export default function Header({ settings }: HeaderProps) {
+export default function Header({ settings, isDarkMode = false }: HeaderProps) {
+  const headerClasses = isDarkMode 
+    ? "pb-20 bg-tertiary" 
+    : "pb-20";
+  
+  const logoVariant = isDarkMode ? 'white' : 'default';
+
   return (
-    <header className="pb-20">
+    <header className={headerClasses}>
       <div className="container mx-auto">
         <div className="relative w-full">
           {/* Logo - Fixed top left */}
           <div className="fixed top-4 left-4 z-10">
-            <Logo />
+            <Logo variant={logoVariant} />
           </div>
 
           {/* Navigation - Fixed top center */}
           <div className="fixed top-4 left-1/2 transform -translate-x-1/2 z-10">
-            <Navigation settings={settings} />
+            <Navigation settings={settings} isDarkMode={isDarkMode} />
           </div>
         </div>
       </div>

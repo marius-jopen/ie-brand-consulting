@@ -14,10 +14,11 @@ export type HeadlineProps = SliceComponentProps<Content.HeadlineSlice>;
 const Headline: FC<HeadlineProps> = ({ slice }) => {
   return (
     <section
+      className="flex items-center justify-center"
       data-slice-type={slice.slice_type}
       data-slice-variation={slice.variation}
     >
-      <div className="flex gap-4 flex-wrap mx-12 flex justify-center pt-12 pb-12">
+      <div className="flex gap-4 flex-wrap mx-12 justify-center ">
         {slice.primary.items && slice.primary.items.map((item, index) => (
           <div key={index}>
             {/* {item.icon && <span>{item.icon}</span>} */}
