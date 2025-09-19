@@ -2,8 +2,9 @@
 
 import { PrismicLink } from "@prismicio/react";
 import { SettingsDocument } from "../../prismicio-types";
-import { useState, useEffect } from "react";
+import { useState, useMemo, useCallback } from "react";
 import { usePathname } from "next/navigation";
+import * as prismic from "@prismicio/client";
 
 interface NavigationProps {
   settings: SettingsDocument;
@@ -13,28 +14,17 @@ interface NavigationProps {
 export default function Navigation({ settings, isDarkMode = false }: NavigationProps) {
   const [hoveredItem, setHoveredItem] = useState<number | null>(null);
   const [focusedItem, setFocusedItem] = useState<number | null>(null);
-  const [isClient, setIsClient] = useState(false);
   const pathname = usePathname();
 
-  useEffect(() => {
-    setIsClient(true);
-  }, []);
-
-  if (!settings?.data) {
-    return null;
-  }
-
-  const { items } = settings.data;
-
   // Check if current page matches any of the links in an item
-  const isCurrentPage = (itemLinks: any[]) => {
-    if (!isClient || !itemLinks || itemLinks.length === 0) return false;
+  const isCurrentPage = useCallback((itemLinks: prismic.LinkField[]) => {
+    if (!itemLinks || itemLinks.length === 0) return false;
     
     return itemLinks.some(link => {
       if (link.link_type === 'Document' && link.uid) {
         return pathname === `/${link.uid}` || pathname === link.uid;
       }
-      if (link.url) {
+      if ('url' in link && link.url) {
         // Handle both relative and absolute URLs
         try {
           const linkUrl = link.url.startsWith('/') ? link.url : new URL(link.url).pathname;
@@ -46,7 +36,23 @@ export default function Navigation({ settings, isDarkMode = false }: NavigationP
       }
       return false;
     });
-  };
+  }, [pathname]);
+
+  // Memoize current page states to prevent unnecessary re-renders
+  const currentPageStates = useMemo(() => {
+    if (!settings?.data?.items) return [];
+    return settings.data.items.map(item => ({
+      hasMultipleLinks: item.links && item.links.length > 1,
+      isCurrent: isCurrentPage(item.links || []),
+    }));
+  }, [settings?.data?.items, isCurrentPage]);
+
+  // Early return if no settings data
+  if (!settings?.data) {
+    return null;
+  }
+
+  const { items } = settings.data;
 
   return (
     <>
@@ -55,10 +61,6 @@ export default function Navigation({ settings, isDarkMode = false }: NavigationP
         {/* Main navigation items */}
         <div className="flex gap-4">
           {items?.map((item, index) => {
-            const hasMultipleLinks = item.links && item.links.length > 1;
-            const isCurrent = isCurrentPage(item.links || []);
-            const showSubNav = isClient && (hoveredItem === index || focusedItem === index || (isCurrent && hasMultipleLinks));
-
             return (
               <div 
                 className="relative group" 
@@ -89,11 +91,11 @@ export default function Navigation({ settings, isDarkMode = false }: NavigationP
         {/* Sub-navigation row - reserve consistent space to prevent layout shifts */}
         <div className="relative h-12 flex items-start justify-center">
           {items?.map((item, index) => {
-            const hasMultipleLinks = item.links && item.links.length > 1;
-            const isCurrent = isCurrentPage(item.links || []);
-            const showSubNav = isClient && (hoveredItem === index || focusedItem === index || (isCurrent && hasMultipleLinks));
+            const { hasMultipleLinks, isCurrent } = currentPageStates[index] || { hasMultipleLinks: false, isCurrent: false };
+            const showSubNav = hoveredItem === index || focusedItem === index || (isCurrent && hasMultipleLinks);
 
-            if (!hasMultipleLinks || !showSubNav) return null;
+            // Only render if has multiple links
+            if (!hasMultipleLinks) return null;
 
             return (
               <div 
@@ -102,6 +104,8 @@ export default function Navigation({ settings, isDarkMode = false }: NavigationP
                   isDarkMode ? 'bg-tertiary' : 'bg-white'
                 } ${
                   hoveredItem === index ? 'z-20' : 'z-10'
+                } ${
+                  !showSubNav ? 'opacity-0 pointer-events-none' : 'opacity-100'
                 }`}
                 onMouseEnter={() => setHoveredItem(index)}
                 onMouseLeave={() => setHoveredItem(null)}

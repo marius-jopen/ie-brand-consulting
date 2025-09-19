@@ -2,7 +2,7 @@
  * Array of routes where the footer should be excluded
  * Add or remove routes as needed
  */
-export const FOOTER_EXCLUDED_ROUTES = [
+export const FOOTER_EXCLUDED_ROUTES: string[] = [
   // 'services',
   // 'connect',
   // 'media',
