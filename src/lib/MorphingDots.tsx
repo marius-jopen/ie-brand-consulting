@@ -138,17 +138,17 @@ export const MorphingDots: FC<MorphingDotsProps> = ({
 
   const [shapes, setShapes] = useState<Shape[]>([]);
   const [internalActiveId, setInternalActiveId] = useState<string | null>(null);
-  const introLockRef = useRef<ReturnType<typeof setTimeout> | null>(null);
-  const introInProgressRef = useRef<boolean>(false);
+  const rafRef = useRef<number | null>(null);
 
-  // Load and parse all SVG sources once on mount or when sources change
+  // Load and parse all SVG sources when sources change
   useEffect(() => {
     let cancelled = false;
+    setShapes([]);
     (async () => {
       const results: Shape[] = [];
       for (const s of sources) {
         try {
-          const res = await fetch(s.url, { cache: "force-cache" });
+          const res = await fetch(s.url, { cache: "no-store" });
           const text = await res.text();
           const shape = parseSvgTextToShape(s.id, text);
           if (shape) results.push(shape);
@@ -163,31 +163,18 @@ export const MorphingDots: FC<MorphingDotsProps> = ({
     };
   }, [JSON.stringify(sources)]);
 
-  // Always play an intro-from-center once shapes are ready or sources change
-  const introKey = useMemo(() => JSON.stringify(sources), [sources]);
+  // Guarantee a fresh intro: center for one frame, then activate current id
   useEffect(() => {
     if (shapes.length === 0) return;
-    // Start centered
-    introInProgressRef.current = true;
     setInternalActiveId(null);
-    if (introLockRef.current) clearTimeout(introLockRef.current);
-    // Ensure one frame renders with centered dots, then activate
-    introLockRef.current = setTimeout(() => {
-      setInternalActiveId(activeId);
-      introInProgressRef.current = false;
-    }, 30);
+    if (rafRef.current) cancelAnimationFrame(rafRef.current);
+    rafRef.current = requestAnimationFrame(() => {
+      setInternalActiveId(activeId ?? null);
+    });
     return () => {
-      if (introLockRef.current) clearTimeout(introLockRef.current);
-      introInProgressRef.current = false;
+      if (rafRef.current) cancelAnimationFrame(rafRef.current);
     };
-  }, [introKey, shapes.length]);
-
-  // Normal updates when activeId changes (e.g., hover) without forcing center reset
-  useEffect(() => {
-    if (shapes.length === 0) return;
-    // Even if intro is in progress, capture the latest activeId so it will appear
-    setInternalActiveId(activeId);
-  }, [activeId, shapes.length]);
+  }, [shapes.length, activeId]);
 
   const activeShape = useMemo(() => shapes.find((s) => s.id === internalActiveId) || null, [shapes, internalActiveId]);
 

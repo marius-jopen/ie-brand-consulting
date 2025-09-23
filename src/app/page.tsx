@@ -15,7 +15,7 @@ export default async function Home() {
   return (
     <>
       {home.data.navigation && <SectionDotsNav enabled />}
-      <SliceZone slices={home.data.slices} components={components} />
+      <SliceZone key="home" slices={home.data.slices} components={components} />
     </>
   );
 }

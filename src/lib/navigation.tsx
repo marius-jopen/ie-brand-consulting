@@ -91,8 +91,12 @@ export default function Navigation({ settings, isDarkMode = false }: NavigationP
         {/* Sub-navigation row - reserve consistent space to prevent layout shifts */}
         <div className="relative h-12 flex items-start justify-center">
           {items?.map((item, index) => {
-            const { hasMultipleLinks } = currentPageStates[index] || { hasMultipleLinks: false };
-            const showSubNav = hoveredItem !== null ? hoveredItem === index : focusedItem === index;
+            const { hasMultipleLinks, isCurrent } = currentPageStates[index] || { hasMultipleLinks: false, isCurrent: false };
+            const showSubNav = hoveredItem !== null
+              ? hoveredItem === index
+              : (focusedItem !== null
+                  ? focusedItem === index
+                  : (isCurrent && hasMultipleLinks));
 
             // Only render if has multiple links
             if (!hasMultipleLinks) return null;

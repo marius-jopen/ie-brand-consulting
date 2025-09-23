@@ -1,9 +1,10 @@
+"use client";
 import { FC } from "react";
 import { Content, asText } from "@prismicio/client";
 import { SliceComponentProps } from "@prismicio/react";
 import { PrismicRichText, PrismicImage } from "@prismicio/react";
 import { PrismicNextLink } from "@prismicio/next";
-import MorphingIcon from "@/lib/MorphingIcon";
+import MorphingIconRemount from "@/lib/MorphingIconRemount";
 
 /**
  * Props for `MediaCtaWithFeaturedContent`.
@@ -32,7 +33,7 @@ const MediaCtaWithFeaturedContent: FC<MediaCtaWithFeaturedContentProps> = ({
           {/* Icon renders with morphing dots, chosen by keyword from Prismic field `icons` */}
           <div className="text-center flex h-[300px] items-center justify-center">
             <div className="w-[15vw] max-w-[500px] aspect-square">
-              <MorphingIcon keyword={slice.primary.icons || undefined} width="100%" height="100%" />
+              <MorphingIconRemount keyword={slice.primary.icons || undefined} width="100%" height="100%" />
             </div>
           </div>
           

@@ -1,7 +1,7 @@
 import { FC } from "react";
 import { Content, asText } from "@prismicio/client";
 import { SliceComponentProps } from "@prismicio/react";
-import ToggleMorphingIcon from "@/lib/ToggleMorphingIcon";
+import ToggleMorphingIconRemount from "@/lib/ToggleMorphingIconRemount";
 
 /**
  * Props for `SplitTextMedia`.
@@ -39,7 +39,7 @@ const SplitTextMedia: FC<SplitTextMediaProps> = ({ slice }) => {
 
         <div className="aspect-square flex items-center justify-center">
           <div className="w-[20vw] max-w-[500px] aspect-square">
-            <ToggleMorphingIcon width="100%" height="100%" />
+            <ToggleMorphingIconRemount width="100%" height="100%" />
           </div>
         </div>
 

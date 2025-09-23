@@ -19,7 +19,7 @@ export default async function Page({ params }: { params: Promise<Params> }) {
   return (
     <>
       {page.data.navigation && <SectionDotsNav enabled />}
-      <SliceZone slices={page.data.slices} components={components} />
+      <SliceZone key={uid} slices={page.data.slices} components={components} />
     </>
   );
 }
