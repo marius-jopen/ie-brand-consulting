@@ -137,6 +137,9 @@ export const MorphingDots: FC<MorphingDotsProps> = ({
   const { width: containerW, height: containerH } = useContainerSize(containerRef);
 
   const [shapes, setShapes] = useState<Shape[]>([]);
+  const [internalActiveId, setInternalActiveId] = useState<string | null>(null);
+  const introLockRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const introInProgressRef = useRef<boolean>(false);
 
   // Load and parse all SVG sources once on mount or when sources change
   useEffect(() => {
@@ -160,7 +163,33 @@ export const MorphingDots: FC<MorphingDotsProps> = ({
     };
   }, [JSON.stringify(sources)]);
 
-  const activeShape = useMemo(() => shapes.find((s) => s.id === activeId) || null, [shapes, activeId]);
+  // Always play an intro-from-center once shapes are ready or sources change
+  const introKey = useMemo(() => JSON.stringify(sources), [sources]);
+  useEffect(() => {
+    if (shapes.length === 0) return;
+    // Start centered
+    introInProgressRef.current = true;
+    setInternalActiveId(null);
+    if (introLockRef.current) clearTimeout(introLockRef.current);
+    // Ensure one frame renders with centered dots, then activate
+    introLockRef.current = setTimeout(() => {
+      setInternalActiveId(activeId);
+      introInProgressRef.current = false;
+    }, 30);
+    return () => {
+      if (introLockRef.current) clearTimeout(introLockRef.current);
+      introInProgressRef.current = false;
+    };
+  }, [introKey, shapes.length]);
+
+  // Normal updates when activeId changes (e.g., hover) without forcing center reset
+  useEffect(() => {
+    if (shapes.length === 0) return;
+    // Even if intro is in progress, capture the latest activeId so it will appear
+    setInternalActiveId(activeId);
+  }, [activeId, shapes.length]);
+
+  const activeShape = useMemo(() => shapes.find((s) => s.id === internalActiveId) || null, [shapes, internalActiveId]);
 
   const masterCount = useMemo(() => shapes.reduce((m, s) => Math.max(m, s.dots.length), 0), [shapes]);
 

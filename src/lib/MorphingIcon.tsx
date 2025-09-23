@@ -1,6 +1,7 @@
 "use client";
 
 import { FC, useEffect, useMemo, useState } from "react";
+import { usePathname } from "next/navigation";
 import MorphingDots from "@/lib/MorphingDots";
 
 export type MorphingIconProps = {
@@ -46,6 +47,7 @@ const MorphingIcon: FC<MorphingIconProps> = ({
   className,
   palette,
 }) => {
+  const pathname = usePathname();
   const usablePalette = palette && palette.length > 0 ? palette : DEFAULT_PALETTE;
 
   const normalized = useMemo(() => normalizeKeyword(keyword), [keyword]);
@@ -58,18 +60,23 @@ const MorphingIcon: FC<MorphingIconProps> = ({
   }, [usablePalette, normalized]);
 
   const sources = useMemo(() => [{ id: chosen.id, url: chosen.url }], [chosen]);
+  const morphKey = useMemo(() => `${pathname || ""}-${chosen.id}`, [pathname, chosen.id]);
 
   // Drive mount animation: start centered (no active) then activate selected id
   const [activeId, setActiveId] = useState<string | null>(null);
   useEffect(() => {
+    // Force a fresh start even if React reuses the component instance across routes
     setActiveId(null);
-    const t = setTimeout(() => setActiveId(chosen.id), 30);
+    const t = setTimeout(() => setActiveId(chosen.id), 50);
     return () => clearTimeout(t);
-  }, [chosen.id]);
+  }, [chosen.id, pathname]);
+
+  // Optional: allow consumers to force remount via key changes without code changes here
 
   return (
     <div className={className} style={{ position: "relative", width: typeof width === "number" ? `${width}px` : width, height: typeof height === "number" ? `${height}px` : height }}>
       <MorphingDots
+        key={morphKey}
         sources={sources}
         activeId={activeId}
         width="100%"

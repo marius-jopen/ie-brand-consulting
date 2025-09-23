@@ -1,6 +1,7 @@
 import { FC } from "react";
 import { Content, asText } from "@prismicio/client";
 import { SliceComponentProps } from "@prismicio/react";
+import MorphingIcon from "@/lib/MorphingIcon";
 
 /**
  * Props for `SplitTextMedia`.
@@ -37,7 +38,9 @@ const SplitTextMedia: FC<SplitTextMediaProps> = ({ slice }) => {
       <div className="w-1/2 overflow-y-auto">
 
         <div className="aspect-square flex items-center justify-center">
-          ICON
+          <div className="w-[20vw] max-w-[500px] aspect-square">
+            <MorphingIcon keyword="circle" width="100%" height="100%" />
+          </div>
         </div>
 
         {slice.primary.items && slice.primary.items.length > 0 && (
