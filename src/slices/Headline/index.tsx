@@ -44,7 +44,7 @@ const Headline: FC<HeadlineProps> = ({ slice }) => {
       data-slice-variation={slice.variation}
     >
       {/* Centered morphing dots, always on for this slice */}
-      <div className="pointer-events-none absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 z-0 w-[70vw] max-w-[900px] aspect-square">
+      <div className="pointer-events-none absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 z-0 w-[50vw] max-w-[900px] aspect-square">
         <MorphingDots
           sources={sources}
           activeId={activeId}
