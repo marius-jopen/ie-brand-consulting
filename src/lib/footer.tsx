@@ -1,4 +1,4 @@
-import { PrismicLink } from "@prismicio/react";
+import { PrismicNextLink } from "@prismicio/next";
 import { SettingsDocument } from "../../prismicio-types";
 
 interface FooterProps {
@@ -37,13 +37,13 @@ export default function Footer({ settings, isDarkMode = false }: FooterProps) {
             {socials && socials.length > 0 && (
               <div className="flex gap-4">
                 {socials.map((social, index) => (
-                  <PrismicLink 
+                  <PrismicNextLink 
                     key={index} 
                     field={social}
                     className={isDarkMode ? "text-white hover:text-gray-300" : ""}
                   >
                     {social.text || "Social Link"}
-                  </PrismicLink>
+                  </PrismicNextLink>
                 ))}
               </div>
             )}

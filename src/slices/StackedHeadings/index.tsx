@@ -3,7 +3,7 @@
 import { FC, useMemo, useState } from "react";
 import { Content } from "@prismicio/client";
 import { SliceComponentProps } from "@prismicio/react";
-import { PrismicLink } from "@prismicio/react";
+import { PrismicNextLink } from "@prismicio/next";
 import MorphingDots from "@/lib/MorphingDots";
 
 /**
@@ -71,9 +71,9 @@ const StackedHeadings: FC<StackedHeadingsProps> = ({ slice }) => {
               >
                 {item.title && (
                   item.link ? (
-                    <PrismicLink field={item.link}>
+                    <PrismicNextLink field={item.link}>
                       <div className="text-h1">{item.title}</div>
-                    </PrismicLink>
+                    </PrismicNextLink>
                   ) : (
                     <div className="text-h1">{item.title}</div>
                   )

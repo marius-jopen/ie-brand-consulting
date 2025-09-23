@@ -1,7 +1,8 @@
 import { FC } from "react";
 import { Content, asText } from "@prismicio/client";
 import { SliceComponentProps } from "@prismicio/react";
-import { PrismicRichText, PrismicImage, PrismicLink } from "@prismicio/react";
+import { PrismicRichText, PrismicImage } from "@prismicio/react";
+import { PrismicNextLink } from "@prismicio/next";
 
 /**
  * Props for `MediaCtaWithFeaturedContent`.
@@ -41,9 +42,9 @@ const MediaCtaWithFeaturedContent: FC<MediaCtaWithFeaturedContentProps> = ({
           {slice.primary.media_links && slice.primary.media_links.length > 0 && (
             <div className="flex justify-center gap-4">
               {slice.primary.media_links.map((link, index) => (
-                <PrismicLink className="bg-black text-white px-6 py-2" key={index} field={link}>
+                <PrismicNextLink className="bg-black text-white px-6 py-2" key={index} field={link}>
                   {link.text || "Media Link"}
-                </PrismicLink>
+                </PrismicNextLink>
               ))}
             </div>
           )}
@@ -68,9 +69,9 @@ const MediaCtaWithFeaturedContent: FC<MediaCtaWithFeaturedContentProps> = ({
                       {item.title && <div className="text-h7 pb-4">{asText(item.title)}</div>}
 
                       {item.cta_link && (
-                        <PrismicLink field={item.cta_link}>
+                        <PrismicNextLink field={item.cta_link}>
                           {item.cta_link.text || "CTA Link"}
-                        </PrismicLink>
+                        </PrismicNextLink>
                       )}
                     </div>
                   </div>
