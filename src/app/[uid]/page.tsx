@@ -6,6 +6,7 @@ import { SliceZone } from "@prismicio/react";
 
 import { createClient } from "@/prismicio";
 import { components } from "@/slices";
+import SectionDotsNav from "@/lib/SectionDotsNav";
 
 type Params = { uid: string };
 
@@ -15,7 +16,12 @@ export default async function Page({ params }: { params: Promise<Params> }) {
   const page = await client.getByUID("page", uid).catch(() => notFound());
 
   // <SliceZone> renders the page's slices.
-  return <SliceZone slices={page.data.slices} components={components} />;
+  return (
+    <>
+      {page.data.navigation && <SectionDotsNav enabled />}
+      <SliceZone slices={page.data.slices} components={components} />
+    </>
+  );
 }
 
 export async function generateMetadata({

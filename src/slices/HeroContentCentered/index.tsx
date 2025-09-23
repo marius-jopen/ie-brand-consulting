@@ -17,7 +17,7 @@ const HeroContentCentered: FC<HeroContentCenteredProps> = ({ slice }) => {
       data-slice-type={slice.slice_type}
       data-slice-variation={slice.variation}
     >
-      <div className="bg-primary mx-8">
+      <div className="bg-primary mx-11">
         {slice.primary.title && (
           <div className="text-h2 text-center pt-18">
             {asText(slice.primary.title)}
