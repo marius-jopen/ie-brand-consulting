@@ -65,7 +65,7 @@ export default function Navigation({ settings, isDarkMode = false }: NavigationP
               <div 
                 className="relative group" 
                 key={index}
-                onMouseEnter={() => setHoveredItem(index)}
+                onMouseEnter={() => { setHoveredItem(index); setFocusedItem(null); }}
                 onMouseLeave={() => setHoveredItem(null)}
                 onFocus={() => setFocusedItem(index)}
                 onBlur={() => setFocusedItem(null)}
@@ -91,8 +91,8 @@ export default function Navigation({ settings, isDarkMode = false }: NavigationP
         {/* Sub-navigation row - reserve consistent space to prevent layout shifts */}
         <div className="relative h-12 flex items-start justify-center">
           {items?.map((item, index) => {
-            const { hasMultipleLinks, isCurrent } = currentPageStates[index] || { hasMultipleLinks: false, isCurrent: false };
-            const showSubNav = hoveredItem === index || focusedItem === index || (isCurrent && hasMultipleLinks);
+            const { hasMultipleLinks } = currentPageStates[index] || { hasMultipleLinks: false };
+            const showSubNav = hoveredItem !== null ? hoveredItem === index : focusedItem === index;
 
             // Only render if has multiple links
             if (!hasMultipleLinks) return null;
@@ -101,15 +101,16 @@ export default function Navigation({ settings, isDarkMode = false }: NavigationP
               <div 
                 key={`subnav-${index}`}
                 className={`absolute top-0 left-1/2 transform -translate-x-1/2 flex justify-center gap-8 pt-2 px-4 py-2 transition-all duration-200 ease-in-out ${
-                  isDarkMode ? 'bg-tertiary' : 'bg-white'
-                } ${
                   hoveredItem === index ? 'z-20' : 'z-10'
                 } ${
-                  !showSubNav ? 'opacity-0 pointer-events-none' : 'opacity-100'
+                  !showSubNav ? 'opacity-0 pointer-events-none' : 'opacity-100 pointer-events-none'
                 }`}
-                onMouseEnter={() => setHoveredItem(index)}
-                onMouseLeave={() => setHoveredItem(null)}
               >
+                <div
+                  className="flex justify-center gap-4 pointer-events-auto"
+                  onMouseEnter={() => { setHoveredItem(index); setFocusedItem(null); }}
+                  onMouseLeave={() => setHoveredItem(null)}
+                >
                 {item.links?.slice(1).map((link, linkIndex) => {
                   const isCurrentLink = isCurrentPage([link]);
                   
@@ -117,13 +118,13 @@ export default function Navigation({ settings, isDarkMode = false }: NavigationP
                     <PrismicNextLink 
                       key={linkIndex} 
                       field={link}
-                      className={`text-p3 transition-colors ${
+                      className={`inline-block text-p3 transition-colors px-3 py-1 ${
                         isCurrentLink
                           ? isDarkMode 
                             ? 'text-white underline font-medium' 
                             : 'text-black underline font-medium'
                           : isDarkMode
-                            ? 'text-white hover:text-white'
+                            ? 'text-white hover:text-white/80'
                             : 'text-secondary hover:text-black'
                       }`}
                     >
@@ -131,6 +132,7 @@ export default function Navigation({ settings, isDarkMode = false }: NavigationP
                     </PrismicNextLink>
                   );
                 })}
+                </div>
               </div>
             );
           })}
