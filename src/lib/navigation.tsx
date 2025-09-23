@@ -1,6 +1,6 @@
 "use client";
 
-import { PrismicLink } from "@prismicio/react";
+import { PrismicNextLink } from "@prismicio/next";
 import { SettingsDocument } from "../../prismicio-types";
 import { useState, useMemo, useCallback } from "react";
 import { usePathname } from "next/navigation";
@@ -72,7 +72,7 @@ export default function Navigation({ settings, isDarkMode = false }: NavigationP
               >
                 {/* First link - always visible */}
                 {item.links && item.links[0] && (
-                  <PrismicLink 
+                  <PrismicNextLink 
                     field={item.links[0]}
                     className={`block px-3 py-2 text-p3 font-medium transition-colors ${
                       isDarkMode 
@@ -81,7 +81,7 @@ export default function Navigation({ settings, isDarkMode = false }: NavigationP
                     }`}
                   >
                     {item.links[0].text || "Link"}
-                  </PrismicLink>
+                  </PrismicNextLink>
                 )}
               </div>
             );
@@ -114,7 +114,7 @@ export default function Navigation({ settings, isDarkMode = false }: NavigationP
                   const isCurrentLink = isCurrentPage([link]);
                   
                   return (
-                    <PrismicLink 
+                    <PrismicNextLink 
                       key={linkIndex} 
                       field={link}
                       className={`text-p3 transition-colors ${
@@ -128,7 +128,7 @@ export default function Navigation({ settings, isDarkMode = false }: NavigationP
                       }`}
                     >
                       {link.text || "Link"}
-                    </PrismicLink>
+                    </PrismicNextLink>
                   );
                 })}
               </div>
