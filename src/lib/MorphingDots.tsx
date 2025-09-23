@@ -97,7 +97,7 @@ function parseSvgTextToShape(id: string, svgText: string): Shape | null {
 
     const baseRadiusPx = median(dots.map((d) => d.rPx));
     return { id, dots, svgWidth: width, svgHeight: height, baseRadiusPx };
-  } catch (_e) {
+  } catch {
     return null;
   }
 }
@@ -152,7 +152,7 @@ export const MorphingDots: FC<MorphingDotsProps> = ({
           const text = await res.text();
           const shape = parseSvgTextToShape(s.id, text);
           if (shape) results.push(shape);
-        } catch (_e) {
+        } catch {
           // ignore
         }
       }
