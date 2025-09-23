@@ -184,17 +184,7 @@ export const MorphingDots: FC<MorphingDotsProps> = ({
   if (W > 0 && H === 0) H = W; // default square if height missing
   if (H > 0 && W === 0) W = H; // default square if width missing
 
-  // Choose a global reference so dot size is constant across shapes
-  const referenceWidth = useMemo(() => {
-    if (shapes.length === 0) return W;
-    return Math.max(...shapes.map((s) => s.svgWidth));
-  }, [shapes, W]);
-  const referenceRadiusPx = useMemo(() => {
-    if (shapes.length === 0) return 20;
-    // median of all shapes' base radius
-    const all = shapes.map((s) => s.baseRadiusPx);
-    return all.sort((a, b) => a - b)[Math.floor(all.length / 2)];
-  }, [shapes]);
+  // We size each dot based on its original SVG radius scaled by the active shape's scale
 
   return (
     <div
@@ -216,9 +206,9 @@ export const MorphingDots: FC<MorphingDotsProps> = ({
       >
         {Array.from({ length: masterCount }).map((_, i) => {
           const dot = targetDots[i];
-          // Constant diameter derived from original svg radius scaled by a common reference width
-          const diameterPx = Math.max(2, 2 * referenceRadiusPx * (W / referenceWidth));
 
+          // Default diameter when no active shape: small center dots
+          let diameterPx = 6;
           let x = W / 2 - diameterPx / 2;
           let y = H / 2 - diameterPx / 2;
           let visible = false;
@@ -228,6 +218,9 @@ export const MorphingDots: FC<MorphingDotsProps> = ({
             const offsetY = (H - activeShape.svgHeight * scale) / 2;
             const cxSvg = (dot?.xPercent || 50) / 100 * activeShape.svgWidth;
             const cySvg = (dot?.yPercent || 50) / 100 * activeShape.svgHeight;
+            // Use each dot's original radius scaled by the active shape's scale
+            const rScaled = Math.max(1, (dot?.rPx || 0) * scale);
+            diameterPx = 2 * rScaled;
             x = offsetX + cxSvg * scale - diameterPx / 2;
             y = offsetY + cySvg * scale - diameterPx / 2;
             visible = i < (activeShape?.dots.length || 0);

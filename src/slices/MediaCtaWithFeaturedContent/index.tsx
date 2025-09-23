@@ -3,6 +3,7 @@ import { Content, asText } from "@prismicio/client";
 import { SliceComponentProps } from "@prismicio/react";
 import { PrismicRichText, PrismicImage } from "@prismicio/react";
 import { PrismicNextLink } from "@prismicio/next";
+import MorphingIcon from "@/lib/MorphingIcon";
 
 /**
  * Props for `MediaCtaWithFeaturedContent`.
@@ -28,9 +29,11 @@ const MediaCtaWithFeaturedContent: FC<MediaCtaWithFeaturedContentProps> = ({
             <h1 className="text-h1 text-center">{asText(slice.primary.media_title)}</h1>
           )}
           
-          {/* {slice.primary.icons && <p>Icons: {slice.primary.icons}</p>} */}
+          {/* Icon renders with morphing dots, chosen by keyword from Prismic field `icons` */}
           <div className="text-center flex h-[300px] items-center justify-center">
-            ICON
+            <div className="w-[15vw] max-w-[500px] aspect-square">
+              <MorphingIcon keyword={slice.primary.icons || undefined} width="100%" height="100%" />
+            </div>
           </div>
           
           <div className="text-center pb-8 mx-12">
