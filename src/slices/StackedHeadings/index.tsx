@@ -44,7 +44,7 @@ const StackedHeadings: FC<StackedHeadingsProps> = ({ slice }) => {
       data-slice-type={slice.slice_type}
       data-slice-variation={slice.variation}
     >
-      <div className="relative min-h-[90vh] flex items-center justify-center">
+      <div className="relative min-h-[90vh] flex items-center justify-center pt-10">
         {/* Centered overlay displaying morphing dots */}
         {slice.primary.icons && (
           <div className="pointer-events-none absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 z-0 w-[50vw] max-w-[900px] aspect-square">

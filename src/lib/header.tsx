@@ -9,8 +9,8 @@ interface HeaderProps {
 
 export default function Header({ settings, isDarkMode = false }: HeaderProps) {
   const headerClasses = isDarkMode 
-    ? "pb-20 bg-tertiary" 
-    : "pb-20";
+    ? "bg-tertiary" 
+    : "";
   
   const logoVariant = isDarkMode ? 'white' : 'default';
 

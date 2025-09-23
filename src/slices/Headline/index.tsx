@@ -39,7 +39,7 @@ const Headline: FC<HeadlineProps> = ({ slice }) => {
 
   return (
     <section
-      className="relative flex items-center justify-center min-h-[90vh]"
+      className="relative flex items-center justify-center min-h-[90vh] pt-20"
       data-slice-type={slice.slice_type}
       data-slice-variation={slice.variation}
     >

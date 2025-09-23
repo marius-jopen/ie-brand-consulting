@@ -22,8 +22,9 @@ const MediaCtaWithFeaturedContent: FC<MediaCtaWithFeaturedContentProps> = ({
     <section
       data-slice-type={slice.slice_type}
       data-slice-variation={slice.variation}
+      className="pt-30"
     >
-    <div className="flex min-h-screen">
+    <div className="flex min-h-full">
       <div className={`w-1/2 ${slice.primary.featured_content && slice.primary.featured_content.length > 0 ? 'sticky top-0 h-screen' : ''} overflow-y-auto`}>
         <div className="p-8">
           {slice.primary.media_title && (
