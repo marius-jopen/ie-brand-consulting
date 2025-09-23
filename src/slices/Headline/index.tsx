@@ -14,7 +14,7 @@ export type HeadlineProps = SliceComponentProps<Content.HeadlineSlice>;
 const Headline: FC<HeadlineProps> = ({ slice }) => {
   return (
     <section
-      className="flex items-center justify-center"
+      className="flex items-center justify-center min-h-[90vh]"
       data-slice-type={slice.slice_type}
       data-slice-variation={slice.variation}
     >
