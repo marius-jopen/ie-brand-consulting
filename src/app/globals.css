@@ -112,7 +112,7 @@ body {
         font-family: 'Supreme LL TT', sans-serif;
         font-weight: 900;
         font-size: 12vw;
-        line-height: 11.5vw;
+        line-height: 9.5vw;
         letter-spacing: -0.03em;
     }
     
@@ -135,8 +135,8 @@ body {
     .text-h4 {
         font-family: 'Supreme LL TT', sans-serif;
         font-weight: 900;
-        font-size: 89.04px;
-        line-height: 90px;
+        font-size: 80.04px;
+        line-height: 74px;
         letter-spacing: 0em;
     }
     
@@ -181,6 +181,14 @@ body {
         letter-spacing: 0%;        
     }
 
+    .text-p4 {
+        font-family: 'Supreme LL TT', sans-serif;
+        font-weight: 400;
+        font-size: 17px;
+        line-height: 135%;
+        letter-spacing: 0%;
+    }
+
     .text-hyphenate {
         hyphens: auto;
         -webkit-hyphens: auto;
@@ -190,4 +198,10 @@ body {
         overflow-wrap: break-word;
         word-break: break-word;
     }
+
+
+    .text-box p {
+        @apply mb-3;
+    }
 }
+

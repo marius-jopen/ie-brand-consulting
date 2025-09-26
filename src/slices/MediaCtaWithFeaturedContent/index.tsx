@@ -5,6 +5,7 @@ import { SliceComponentProps } from "@prismicio/react";
 import { PrismicRichText, PrismicImage } from "@prismicio/react";
 import { PrismicNextLink } from "@prismicio/next";
 import MorphingIconRemount from "@/lib/MorphingIconRemount";
+import Button from "@/lib/Button";
 
 /**
  * Props for `MediaCtaWithFeaturedContent`.
@@ -38,18 +39,16 @@ const MediaCtaWithFeaturedContent: FC<MediaCtaWithFeaturedContentProps> = ({
             </div>
           </div>
           
-          <div className="text-center pb-8 mx-12">
-            {slice.primary.media_description && (
-              <PrismicRichText field={slice.primary.media_description} />
-            )}
+          <div className="text-center pb-8 mx-12 text-p4">
+            {asText(slice.primary.media_description)}
           </div>
           
           {slice.primary.media_links && slice.primary.media_links.length > 0 && (
             <div className="flex justify-center gap-4">
               {slice.primary.media_links.map((link, index) => (
-                <PrismicNextLink className="bg-black text-white px-6 py-2" key={index} field={link}>
+                <Button key={index} field={link}>
                   {link.text || "Media Link"}
-                </PrismicNextLink>
+                </Button>
               ))}
             </div>
           )}
@@ -74,9 +73,9 @@ const MediaCtaWithFeaturedContent: FC<MediaCtaWithFeaturedContentProps> = ({
                       {item.title && <div className="text-h7 pb-4">{asText(item.title)}</div>}
 
                       {item.cta_link && (
-                        <PrismicNextLink field={item.cta_link}>
+                        <Button field={item.cta_link}>
                           {item.cta_link.text || "CTA Link"}
-                        </PrismicNextLink>
+                        </Button>
                       )}
                     </div>
                   </div>

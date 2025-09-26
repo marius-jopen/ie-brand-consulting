@@ -23,7 +23,7 @@ const HeroContentCentered: FC<HeroContentCenteredProps> = ({ slice }) => {
       data-slice-variation={slice.variation}
     >
       <div 
-        className="bg-primary py-20 mx-11 relative "
+        className="bg-primary py-20 mx-11 relative rounded-lg"
         onMouseEnter={() => setIsHovered(true)}
         onMouseLeave={() => setIsHovered(false)}
       >

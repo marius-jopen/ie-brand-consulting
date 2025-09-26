@@ -2,7 +2,7 @@
 
 import { PrismicNextLink } from "@prismicio/next";
 import { SettingsDocument } from "../../prismicio-types";
-import { useState, useMemo, useCallback } from "react";
+import { useMemo, useCallback } from "react";
 import { usePathname } from "next/navigation";
 import * as prismic from "@prismicio/client";
 
@@ -12,8 +12,6 @@ interface NavigationProps {
 }
 
 export default function Navigation({ settings, isDarkMode = false }: NavigationProps) {
-  const [hoveredItem, setHoveredItem] = useState<number | null>(null);
-  const [focusedItem, setFocusedItem] = useState<number | null>(null);
   const pathname = usePathname();
 
   // Check if current page matches any of the links in an item
@@ -65,10 +63,6 @@ export default function Navigation({ settings, isDarkMode = false }: NavigationP
               <div 
                 className="relative group" 
                 key={index}
-                onMouseEnter={() => { setHoveredItem(index); setFocusedItem(null); }}
-                onMouseLeave={() => setHoveredItem(null)}
-                onFocus={() => setFocusedItem(index)}
-                onBlur={() => setFocusedItem(null)}
               >
                 {/* First link - always visible */}
                 {item.links && item.links[0] && (
@@ -88,33 +82,21 @@ export default function Navigation({ settings, isDarkMode = false }: NavigationP
           })}
         </div>
 
-        {/* Sub-navigation row - reserve consistent space to prevent layout shifts */}
+        {/* Sub-navigation row - only show when on current page with multiple links */}
         <div className="relative h-12 flex items-start justify-center">
           {items?.map((item, index) => {
             const { hasMultipleLinks, isCurrent } = currentPageStates[index] || { hasMultipleLinks: false, isCurrent: false };
-            const showSubNav = hoveredItem !== null
-              ? hoveredItem === index
-              : (focusedItem !== null
-                  ? focusedItem === index
-                  : (isCurrent && hasMultipleLinks));
+            const showSubNav = isCurrent && hasMultipleLinks;
 
-            // Only render if has multiple links
-            if (!hasMultipleLinks) return null;
+            // Only render if has multiple links and is current page
+            if (!showSubNav) return null;
 
             return (
               <div 
                 key={`subnav-${index}`}
-                className={`absolute top-0 left-1/2 transform -translate-x-1/2 flex justify-center gap-8 pt-2 px-4 py-2 transition-all duration-200 ease-in-out ${
-                  hoveredItem === index ? 'z-20' : 'z-10'
-                } ${
-                  !showSubNav ? 'opacity-0 pointer-events-none' : 'opacity-100 pointer-events-none'
-                }`}
+                className="absolute top-0 left-1/2 transform -translate-x-1/2 flex justify-center gap-8 pt-2 px-4 py-2"
               >
-                <div
-                  className="flex justify-center gap-4 pointer-events-auto"
-                  onMouseEnter={() => { setHoveredItem(index); setFocusedItem(null); }}
-                  onMouseLeave={() => setHoveredItem(null)}
-                >
+                <div className="flex justify-center gap-4">
                 {item.links?.slice(1).map((link, linkIndex) => {
                   const isCurrentLink = isCurrentPage([link]);
                   

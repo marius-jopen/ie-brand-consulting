@@ -17,7 +17,7 @@ const HeadingList: FC<HeadingListProps> = ({ slice }) => {
       data-slice-type={slice.slice_type}
       data-slice-variation={slice.variation}
     >
-      <div className="bg-primary pt-8 mx-auto w-3/5 mb-12">     
+      <div className="bg-primary rounded-lg pt-8 mx-auto w-3/5 mb-12">     
         <div className="text-center pb-6">
           {slice.primary.title && (
             <div className="uppercase font-medium">
