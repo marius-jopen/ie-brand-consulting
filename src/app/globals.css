@@ -2,7 +2,7 @@
 
 body {
     font-family: 'Supreme LL TT', sans-serif;
-
+overflow-x: scroll;
     font-family: 'Supreme LL TT', sans-serif;
     font-weight: 400;
     font-size: 20px;
@@ -112,7 +112,7 @@ body {
         font-family: 'Supreme LL TT', sans-serif;
         font-weight: 900;
         font-size: 12vw;
-        line-height: 9.5vw;
+        line-height: 10.5vw;
         letter-spacing: -0.03em;
     }
     
@@ -161,6 +161,14 @@ body {
         font-weight: 900;
         font-size: 35.25px;
         line-height: 42.3px;
+        letter-spacing: 0.01em;
+    }
+
+    .text-h8{
+        font-family: 'Supreme LL TT', sans-serif;
+        font-weight: 900;
+        font-size: 28px;
+        line-height: 32.3px;
         letter-spacing: 0.01em;
     }
     

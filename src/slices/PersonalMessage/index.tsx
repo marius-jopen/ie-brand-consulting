@@ -17,7 +17,7 @@ const PersonalMessage: FC<PersonalMessageProps> = ({ slice }) => {
       data-slice-type={slice.slice_type}
       data-slice-variation={slice.variation}
     >
-      <div className="mx-auto w-10/12 pt-20 pb-20 text-box">
+      <div className="mx-auto w-10/12 pt-24 pb-24 text-box">
         {slice.primary.heading && (
           <div className="text-h4 text-center pb-20">
             {asText(slice.primary.heading)}

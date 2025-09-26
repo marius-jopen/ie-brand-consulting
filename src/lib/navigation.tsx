@@ -36,14 +36,55 @@ export default function Navigation({ settings, isDarkMode = false }: NavigationP
     });
   }, [pathname]);
 
+  // Check if current page matches the parent page (first link) of an item
+  const isParentPage = useCallback((itemLinks: prismic.LinkField[]) => {
+    if (!itemLinks || itemLinks.length === 0) return false;
+    
+    const parentLink = itemLinks[0];
+    if (parentLink.link_type === 'Document' && parentLink.uid) {
+      return pathname === `/${parentLink.uid}` || pathname === parentLink.uid;
+    }
+    if ('url' in parentLink && parentLink.url) {
+      try {
+        const linkUrl = parentLink.url.startsWith('/') ? parentLink.url : new URL(parentLink.url).pathname;
+        return pathname === linkUrl;
+      } catch {
+        return pathname === parentLink.url;
+      }
+    }
+    return false;
+  }, [pathname]);
+
+  // Check if current page matches any subpage (links after the first one) of an item
+  const isSubPage = useCallback((itemLinks: prismic.LinkField[]) => {
+    if (!itemLinks || itemLinks.length <= 1) return false;
+    
+    return itemLinks.slice(1).some(link => {
+      if (link.link_type === 'Document' && link.uid) {
+        return pathname === `/${link.uid}` || pathname === link.uid;
+      }
+      if ('url' in link && link.url) {
+        try {
+          const linkUrl = link.url.startsWith('/') ? link.url : new URL(link.url).pathname;
+          return pathname === linkUrl;
+        } catch {
+          return pathname === link.url;
+        }
+      }
+      return false;
+    });
+  }, [pathname]);
+
   // Memoize current page states to prevent unnecessary re-renders
   const currentPageStates = useMemo(() => {
     if (!settings?.data?.items) return [];
     return settings.data.items.map(item => ({
       hasMultipleLinks: item.links && item.links.length > 1,
       isCurrent: isCurrentPage(item.links || []),
+      isParent: isParentPage(item.links || []),
+      isSubPage: isSubPage(item.links || []),
     }));
-  }, [settings?.data?.items, isCurrentPage]);
+  }, [settings?.data?.items, isCurrentPage, isParentPage, isSubPage]);
 
   // Early return if no settings data
   if (!settings?.data) {
@@ -82,13 +123,13 @@ export default function Navigation({ settings, isDarkMode = false }: NavigationP
           })}
         </div>
 
-        {/* Sub-navigation row - only show when on current page with multiple links */}
+        {/* Sub-navigation row - only show when on subpage with multiple links */}
         <div className="relative h-12 flex items-start justify-center">
           {items?.map((item, index) => {
-            const { hasMultipleLinks, isCurrent } = currentPageStates[index] || { hasMultipleLinks: false, isCurrent: false };
-            const showSubNav = isCurrent && hasMultipleLinks;
+            const { hasMultipleLinks, isSubPage } = currentPageStates[index] || { hasMultipleLinks: false, isSubPage: false };
+            const showSubNav = isSubPage && hasMultipleLinks;
 
-            // Only render if has multiple links and is current page
+            // Only render if has multiple links and is on a subpage
             if (!showSubNav) return null;
 
             return (
