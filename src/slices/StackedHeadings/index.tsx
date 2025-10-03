@@ -22,9 +22,9 @@ const StackedHeadings: FC<StackedHeadingsProps> = ({ slice }) => {
   // Map item.icon or fallback by index to local SVGs
   const sources = useMemo(() => {
     const palette = [
-      { id: "strategy", url: "/svgs/strategy-3.svg" },
-      { id: "design", url: "/svgs/design-1.svg" },
-      { id: "marketing", url: "/svgs/marketing-2.svg" },
+      { id: "strategy", url: "/svgs/circle-1.svg" },
+      { id: "design", url: "/svgs/circle-2.svg" },
+      { id: "marketing", url: "/svgs/circle-3.svg" },
     ];
     const defaultIndexToId = ["design", "strategy", "marketing"]; // 0->design, 1->strategy, 2->marketing
     return items.map((it, idx) => {
