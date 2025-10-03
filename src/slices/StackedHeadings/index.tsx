@@ -55,7 +55,8 @@ const StackedHeadings: FC<StackedHeadingsProps> = ({ slice }) => {
               height="100%"
               dotColor="#E4E1DB"
               dotOpacity={1}
-              transitionMs={650}
+              moveTransitionMs={650}
+              fadeTransitionMs={650}
             />
           </div>
         )}
@@ -64,7 +65,7 @@ const StackedHeadings: FC<StackedHeadingsProps> = ({ slice }) => {
           <div className="pt-10 pb-20">
             {items.map((item, index) => (
               <div
-                className={`text-center transition-opacity duration-300 ${hoveredIndex !== null ? (hoveredIndex === index ? "opacity-100 relative z-10" : "opacity-[3%] relative -z-10") : "opacity-100"}`}
+                className={`text-center transition-opacity duration-500 ${hoveredIndex !== null ? (hoveredIndex === index ? "opacity-100 relative z-10" : "opacity-[3%] relative -z-10") : "opacity-100"}`}
                 key={index}
                 onMouseEnter={() => setHoveredIndex(index)}
                 onMouseLeave={() => setHoveredIndex(null)}

@@ -24,7 +24,10 @@ export type MorphingDotsProps = {
   height?: number | string; // px or CSS size
   dotColor?: string;
   dotOpacity?: number; // 0..1
-  transitionMs?: number;
+  // Movement duration for dot positions and sizes
+  moveTransitionMs?: number;
+  // Fade duration for dot opacity changes
+  fadeTransitionMs?: number;
   className?: string;
 };
 
@@ -130,15 +133,22 @@ export const MorphingDots: FC<MorphingDotsProps> = ({
   height,
   dotColor = "#E4E1DB",
   dotOpacity = 1,
-  transitionMs = 650,
+  moveTransitionMs = 650,
+  fadeTransitionMs = 650,
   className,
 }) => {
+  // Shapes that should not animate position (only fade in/out)
+  const NO_MOTION_IDS = useRef(new Set<string>(["strategy"]))
+
   const containerRef = useRef<HTMLDivElement>(null);
   const { width: containerW, height: containerH } = useContainerSize(containerRef);
 
   const [shapes, setShapes] = useState<Shape[]>([]);
   const [internalActiveId, setInternalActiveId] = useState<string | null>(null);
-  const rafRef = useRef<number | null>(null);
+  // removed RAF-based one-frame reset to avoid visual gap when switching shapes
+  const prevInternalActiveIdRef = useRef<string | null>(null);
+  const holdOnNullIdRef = useRef<number | null>(null);
+  const [holdOnNullId, setHoldOnNullId] = useState<string | null>(null);
 
   // Load and parse all SVG sources when sources change
   useEffect(() => {
@@ -163,35 +173,60 @@ export const MorphingDots: FC<MorphingDotsProps> = ({
     };
   }, [JSON.stringify(sources)]);
 
-  // Guarantee a fresh intro: center for one frame, then activate current id
+  // Directly update active shape to ensure overlap without a gap
   useEffect(() => {
     if (shapes.length === 0) return;
-    setInternalActiveId(null);
-    if (rafRef.current) cancelAnimationFrame(rafRef.current);
-    rafRef.current = requestAnimationFrame(() => {
-      setInternalActiveId(activeId ?? null);
-    });
-    return () => {
-      if (rafRef.current) cancelAnimationFrame(rafRef.current);
-    };
+    setInternalActiveId(activeId ?? null);
   }, [shapes.length, activeId]);
 
-  const activeShape = useMemo(() => shapes.find((s) => s.id === internalActiveId) || null, [shapes, internalActiveId]);
+  // Special handling: if a no-motion shape is being deactivated to "no shape",
+  // keep its positions for the duration of the fade-out so dots don't fly away.
+  useEffect(() => {
+    const prev = prevInternalActiveIdRef.current;
+    const isPrevNoMotion = prev != null && NO_MOTION_IDS.current.has(prev);
+    const isNowNull = internalActiveId == null;
+    if (isPrevNoMotion && isNowNull) {
+      setHoldOnNullId(prev);
+      if (holdOnNullIdRef.current) window.clearTimeout(holdOnNullIdRef.current);
+      holdOnNullIdRef.current = window.setTimeout(() => {
+        setHoldOnNullId(null);
+      }, fadeTransitionMs) as unknown as number;
+    } else if (!isNowNull) {
+      // If activating another shape, drop any hold
+      if (holdOnNullIdRef.current) window.clearTimeout(holdOnNullIdRef.current);
+      setHoldOnNullId(null);
+    }
+    prevInternalActiveIdRef.current = internalActiveId;
+    return () => {
+      // no-op
+    };
+  }, [internalActiveId, fadeTransitionMs]);
+
+  useEffect(() => {
+    return () => {
+      if (holdOnNullIdRef.current) window.clearTimeout(holdOnNullIdRef.current);
+    };
+  }, []);
+
+  const displayShape = useMemo(() => {
+    const idToUse = internalActiveId ?? holdOnNullId;
+    return shapes.find((s) => s.id === idToUse) || null;
+  }, [shapes, internalActiveId, holdOnNullId]);
 
   const masterCount = useMemo(() => shapes.reduce((m, s) => Math.max(m, s.dots.length), 0), [shapes]);
 
   // Prepare per-index target dot for current active shape
   const targetDots = useMemo(() => {
-    if (!activeShape && shapes.length > 0) {
+    if (!displayShape && shapes.length > 0) {
       // No active: place dots in center and transparent
       return Array.from({ length: masterCount }).map(() => ({ xPercent: 50, yPercent: 50, rPercentOfWidth: 3, rPx: 3 } as Dot));
     }
-    if (!activeShape) return [] as Dot[];
-    const list = [...activeShape.dots];
+    if (!displayShape) return [] as Dot[];
+    const list = [...displayShape.dots];
     // If fewer than master, pad with center points
     while (list.length < masterCount) list.push({ xPercent: 50, yPercent: 50, rPercentOfWidth: 3, rPx: 3 });
     return list;
-  }, [activeShape, masterCount, shapes.length]);
+  }, [displayShape, masterCount, shapes.length]);
 
   const numericWidth = typeof width === "number" ? width : 0;
   const numericHeight = typeof height === "number" ? height : 0;
@@ -228,19 +263,21 @@ export const MorphingDots: FC<MorphingDotsProps> = ({
           let x = W / 2 - diameterPx / 2;
           let y = H / 2 - diameterPx / 2;
           let visible = false;
-          if (activeShape) {
-            const scale = Math.min(W / activeShape.svgWidth, H / activeShape.svgHeight);
-            const offsetX = (W - activeShape.svgWidth * scale) / 2;
-            const offsetY = (H - activeShape.svgHeight * scale) / 2;
-            const cxSvg = (dot?.xPercent || 50) / 100 * activeShape.svgWidth;
-            const cySvg = (dot?.yPercent || 50) / 100 * activeShape.svgHeight;
+          if (displayShape) {
+            const scale = Math.min(W / displayShape.svgWidth, H / displayShape.svgHeight);
+            const offsetX = (W - displayShape.svgWidth * scale) / 2;
+            const offsetY = (H - displayShape.svgHeight * scale) / 2;
+            const cxSvg = (dot?.xPercent || 50) / 100 * displayShape.svgWidth;
+            const cySvg = (dot?.yPercent || 50) / 100 * displayShape.svgHeight;
             // Use each dot's original radius scaled by the active shape's scale
             const rScaled = Math.max(1, (dot?.rPx || 0) * scale);
             diameterPx = 2 * rScaled;
             x = offsetX + cxSvg * scale - diameterPx / 2;
             y = offsetY + cySvg * scale - diameterPx / 2;
-            visible = i < (activeShape?.dots.length || 0);
+            visible = i < (displayShape?.dots.length || 0);
           }
+          const isFadingOutNoMotion = holdOnNullId != null && NO_MOTION_IDS.current.has(holdOnNullId) && internalActiveId == null;
+          const transformMs = ((internalActiveId != null && NO_MOTION_IDS.current.has(internalActiveId)) || isFadingOutNoMotion) ? 0 : moveTransitionMs;
           const style: CSSProperties = {
             position: "absolute",
             left: 0,
@@ -250,8 +287,8 @@ export const MorphingDots: FC<MorphingDotsProps> = ({
             height: diameterPx,
             borderRadius: "9999px",
             background: dotColor,
-            opacity: visible ? dotOpacity : 0,
-            transition: `transform ${transitionMs}ms ease, opacity ${transitionMs}ms ease`,
+            opacity: visible ? (isFadingOutNoMotion ? 0 : dotOpacity) : 0,
+            transition: `transform ${transformMs}ms ease, opacity ${fadeTransitionMs}ms ease`,
           };
           return <span key={i} style={style} />;
         })}

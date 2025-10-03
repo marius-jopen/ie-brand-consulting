@@ -52,7 +52,8 @@ const Headline: FC<HeadlineProps> = ({ slice }) => {
           height="100%"
           dotColor="#E4E1DB"
           dotOpacity={1}
-          transitionMs={650}
+          moveTransitionMs={650}
+          fadeTransitionMs={650}
         />
       </div>
 
