@@ -19,9 +19,10 @@ type AnimatedBlockProps = {
   children: React.ReactNode;
   containerRef: React.RefObject<HTMLDivElement | null>;
   inView: boolean;
+  baseDelaySec: number;
 };
 
-const AnimatedBlock: FC<AnimatedBlockProps> = ({ as, children, containerRef, inView }) => {
+const AnimatedBlock: FC<AnimatedBlockProps> = ({ as, children, containerRef, inView, baseDelaySec }) => {
   const elRef = useRef<HTMLElement | null>(null);
   const [delaySec, setDelaySec] = useState<number | null>(null);
 
@@ -109,8 +110,8 @@ const AnimatedBlock: FC<AnimatedBlockProps> = ({ as, children, containerRef, inV
       initial={{ opacity: 0, y: 16 }}
       animate={readyToAnimate ? { opacity: 1, y: 0 } : {}}
       transition={{
-        opacity: { duration: 1, ease: "easeOut", delay: delaySec ?? 0 },
-        y: { duration: 1, ease: "easeOut", delay: delaySec ?? 0 },
+        opacity: { duration: 1, ease: "easeOut", delay: (delaySec ?? 0) + baseDelaySec },
+        y: { duration: 1, ease: "easeOut", delay: (delaySec ?? 0) + baseDelaySec },
       }}
     >
       {children}
@@ -153,9 +154,14 @@ const PersonalMessage: FC<PersonalMessageProps> = ({ slice }) => {
     >
       <div className="mx-auto w-10/12 pt-24 pb-24 text-box">
         {slice.primary.heading && (
-          <div className="text-h4 text-center pb-20">
+          <motion.div
+            className="text-h4 text-center pb-20 will-change-transform"
+            initial={{ opacity: 0, y: 16 }}
+            animate={inView ? { opacity: 1, y: 0 } : {}}
+            transition={{ duration: 1, ease: "easeOut" }}
+          >
             {asText(slice.primary.heading)}
-          </div>
+          </motion.div>
         )}
 
         {slice.primary.text && (
@@ -164,13 +170,13 @@ const PersonalMessage: FC<PersonalMessageProps> = ({ slice }) => {
               field={slice.primary.text}
               components={{
                 paragraph: ({ children }) => (
-                  <AnimatedBlock as="p" containerRef={columnsRef} inView={inView}>{children}</AnimatedBlock>
+                  <AnimatedBlock as="p" containerRef={columnsRef} inView={inView} baseDelaySec={1.1}>{children}</AnimatedBlock>
                 ),
                 listItem: ({ children }) => (
-                  <AnimatedBlock as="li" containerRef={columnsRef} inView={inView}>{children}</AnimatedBlock>
+                  <AnimatedBlock as="li" containerRef={columnsRef} inView={inView} baseDelaySec={1.1}>{children}</AnimatedBlock>
                 ),
                 oListItem: ({ children }) => (
-                  <AnimatedBlock as="li" containerRef={columnsRef} inView={inView}>{children}</AnimatedBlock>
+                  <AnimatedBlock as="li" containerRef={columnsRef} inView={inView} baseDelaySec={1.1}>{children}</AnimatedBlock>
                 ),
               }}
             />
