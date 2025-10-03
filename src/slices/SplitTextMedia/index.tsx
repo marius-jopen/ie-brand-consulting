@@ -38,15 +38,24 @@ const SplitTextMedia: FC<SplitTextMediaProps> = ({ slice }) => {
       <div className="w-1/2 overflow-y-auto">
 
         <div className="aspect-square flex items-center justify-center">
-          <div className="w-[20vw] max-w-[500px] aspect-square">
-            <ToggleMorphingIconRemount width="100%" height="100%" />
+          <div className="w-[40vw] max-w-[500px] aspect-square mt-20 mb-20">
+            <ToggleMorphingIconRemount
+              width="100%"
+              height="100%"
+              firstId="question-1"
+              secondId="question-2"
+              palette={[
+                { id: "question-1", url: "/svgs/question-1.svg" },
+                { id: "question-2", url: "/svgs/question-2.svg" },
+              ]}
+            />
           </div>
         </div>
 
         {slice.primary.items && slice.primary.items.length > 0 && (
           <div className="p-8 space-y-6">
             {slice.primary.items.map((item, index) => (
-              <div className="bg-primary text-center p-6 rounded-lg pt-12 pb-12" key={index}>
+              <div className="bg-primary text-center px-20 rounded-lg pt-14 pb-14" key={index}>
                 {item.headline && <h3 className="text-h5 mb-20 text-hyphenate max-w-full">{item.headline}</h3>}
                 {item.text && <p className="text-p1">{asText(item.text)}</p>}
               </div>

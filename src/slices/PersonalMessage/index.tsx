@@ -156,8 +156,8 @@ const PersonalMessage: FC<PersonalMessageProps> = ({ slice }) => {
         {slice.primary.heading && (
           <motion.div
             className="text-h4 text-center pb-20 will-change-transform"
-            initial={{ opacity: 0, y: 16 }}
-            animate={inView ? { opacity: 1, y: 0 } : {}}
+            initial={{ opacity: 0 }}
+            animate={inView ? { opacity: 1 } : {}}
             transition={{ duration: 1, ease: "easeOut" }}
           >
             {asText(slice.primary.heading)}
@@ -170,13 +170,13 @@ const PersonalMessage: FC<PersonalMessageProps> = ({ slice }) => {
               field={slice.primary.text}
               components={{
                 paragraph: ({ children }) => (
-                  <AnimatedBlock as="p" containerRef={columnsRef} inView={inView} baseDelaySec={1.1}>{children}</AnimatedBlock>
+                  <AnimatedBlock as="p" containerRef={columnsRef} inView={inView} baseDelaySec={0.4}>{children}</AnimatedBlock>
                 ),
                 listItem: ({ children }) => (
-                  <AnimatedBlock as="li" containerRef={columnsRef} inView={inView} baseDelaySec={1.1}>{children}</AnimatedBlock>
+                  <AnimatedBlock as="li" containerRef={columnsRef} inView={inView} baseDelaySec={0.4}>{children}</AnimatedBlock>
                 ),
                 oListItem: ({ children }) => (
-                  <AnimatedBlock as="li" containerRef={columnsRef} inView={inView} baseDelaySec={1.1}>{children}</AnimatedBlock>
+                  <AnimatedBlock as="li" containerRef={columnsRef} inView={inView} baseDelaySec={0.4}>{children}</AnimatedBlock>
                 ),
               }}
             />
