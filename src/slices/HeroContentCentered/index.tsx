@@ -1,6 +1,6 @@
 "use client";
 
-import { FC, useState } from "react";
+import { FC, useEffect, useRef, useState } from "react";
 import { Content, asText } from "@prismicio/client";
 import { SliceComponentProps } from "@prismicio/react";
 import RandomCircles from "@/lib/RandomCircles";
@@ -16,14 +16,38 @@ export type HeroContentCenteredProps =
  */
 const HeroContentCentered: FC<HeroContentCenteredProps> = ({ slice }) => {
   const [isHovered, setIsHovered] = useState(false);
+  const [inView, setInView] = useState(false);
+  const sectionRef = useRef<HTMLElement | null>(null);
+
+  useEffect(() => {
+    const element = sectionRef.current;
+    if (!element) return;
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        const entry = entries[0];
+        setInView(entry.isIntersecting);
+      },
+      {
+        threshold: 0.6,
+      }
+    );
+
+    observer.observe(element);
+
+    return () => {
+      observer.disconnect();
+    };
+  }, []);
 
   return (
     <section
+      ref={sectionRef}
       data-slice-type={slice.slice_type}
       data-slice-variation={slice.variation}
     >
       <div 
-        className="bg-primary py-20 mx-11 relative rounded-lg"
+        className={`bg-primary py-20 relative transition-all duration-[2100ms] ease-in-out ${inView ? "mx-0 rounded-none" : "mx-11 rounded-lg"}`}
         onMouseEnter={() => setIsHovered(true)}
         onMouseLeave={() => setIsHovered(false)}
       >
@@ -39,12 +63,12 @@ const HeroContentCentered: FC<HeroContentCenteredProps> = ({ slice }) => {
         />
         
         {slice.primary.title && (
-          <div className="text-h2 text-center pt-18 relative z-10">
+          <div className="text-h2 text-center pt-18 relative z-10 mx-auto max-w-5xl">
             {asText(slice.primary.title)}
           </div>
         )}
         
-        <div className="container mx-auto pb-20 mx-auto w-3/5 pt-22 relative z-10">
+        <div className="mx-auto pb-20 w-full max-w-3xl pt-22 relative z-10">
           {slice.primary.subtitle && (
             <div className="text-h7 text-center pb-8">
               {asText(slice.primary.subtitle)}
