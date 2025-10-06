@@ -83,7 +83,8 @@ const MorphingIcon: FC<MorphingIconProps> = ({
         height="100%"
         dotColor={dotColor}
         dotOpacity={dotOpacity}
-        transitionMs={transitionMs}
+        moveTransitionMs={transitionMs}
+        fadeTransitionMs={transitionMs}
       />
     </div>
   );
