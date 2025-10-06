@@ -10,12 +10,18 @@ const TARGET_TEXT = "ie.";
 const START_PAUSE_MS = 0;       // pause before the first letter appears
 const FORWARD_DELAY_MS = 150;     // fixed delay per letter (forward)
 const REVERSE_DELAY_MS = 60;      // fixed delay per step (reverse)
+const AUTOPLAY_REVERSE_PAUSE_MS = 1000; // pause before starting reverse in autoplay mode
 
-export default function Opener() {
+type OpenerProps = {
+  startFromIE?: boolean;
+};
+
+export default function Opener({ startFromIE = false }: OpenerProps) {
   const [phase, setPhase] = useState<"idle" | "forward" | "reverse">("idle");
   const [text, setText] = useState<string>("");
   const timerRef = useRef<number | null>(null);
   const isAnimating = phase === "forward" || phase === "reverse";
+  const desiredEndTextRef = useRef<string | null>(null);
 
   const clearTimer = () => {
     if (timerRef.current) {
@@ -24,21 +30,79 @@ export default function Opener() {
     }
   };
 
-  const onClick = useCallback(() => {
-    if (isAnimating) return; // Ignore clicks during animation
+  // Hover handlers only used when startFromIE is true
+  const onMouseEnter = useCallback(() => {
+    if (!startFromIE) return;
+    desiredEndTextRef.current = FULL_TEXT;
     clearTimer();
-    // Decide direction based on current stable text
-    if (text === FULL_TEXT) {
-      setPhase("reverse");
-    } else {
-      setText("");
-      setPhase("forward");
-    }
-  }, [isAnimating, text]);
+    if (text !== FULL_TEXT) setPhase("forward");
+  }, [startFromIE, text]);
 
-  // Forward: i -> it -> ... -> itir eraslan.
+  const onMouseLeave = useCallback(() => {
+    if (!startFromIE) return;
+    desiredEndTextRef.current = TARGET_TEXT;
+    clearTimer();
+    if (text !== TARGET_TEXT) setPhase("reverse");
+  }, [startFromIE, text]);
+
+  // Initialize display based on mode
+  useEffect(() => {
+    if (startFromIE) {
+      if (text === "") setText(TARGET_TEXT);
+    } else {
+      // Autoplay once on mount when not in hover mode
+      if (phase === "idle" && text === "") {
+        setPhase("forward");
+      }
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [startFromIE]);
+
+  // Forward
   useEffect(() => {
     if (phase !== "forward") return;
+    if (startFromIE) {
+      // Custom sequence starting from "ie." and inserting characters before the final "e."
+      // Sequence as requested:
+      // ie. → ite. → itie. → itire. → itir e. → itir er. → itir era. → itir eras. → itir erasl. → itir erasla. → itir eraslan.
+      const sequence = [
+        "ie.",
+        "ite.",
+        "itie.",
+        "itire.",
+        "itir e.",
+        "itir er.",
+        "itir era.",
+        "itir eras.",
+        "itir erasl.",
+        "itir erasla.",
+        "itir eraslan.",
+      ];
+      // Continue from current position in the sequence (do not restart)
+      const currentIndex = sequence.indexOf(text);
+      let idx = (currentIndex >= 0 ? currentIndex + 1 : 0);
+      const tick = () => {
+        setText(sequence[idx]);
+        idx += 1;
+        if (idx < sequence.length) {
+          timerRef.current = window.setTimeout(tick, FORWARD_DELAY_MS);
+        } else {
+          setPhase("idle");
+          // If a different end state was requested during animation, continue toward it
+          const desired = desiredEndTextRef.current;
+          if (desired && desired !== sequence[sequence.length - 1]) {
+            setPhase(desired === FULL_TEXT ? "forward" : "reverse");
+          }
+        }
+      };
+      if (idx >= sequence.length) {
+        setPhase("idle");
+        return () => {};
+      }
+      timerRef.current = window.setTimeout(tick, START_PAUSE_MS);
+      return () => {};
+    }
+    // Default: i -> it -> ... -> itir eraslan.
     let i = 0;
     const step = () => {
       i += 1;
@@ -46,12 +110,15 @@ export default function Opener() {
       if (i < FULL_TEXT.length) {
         timerRef.current = window.setTimeout(step, FORWARD_DELAY_MS);
       } else {
-        setPhase("idle");
+        // In autoplay mode (startFromIE === false), wait before reversing
+        timerRef.current = window.setTimeout(() => {
+          setPhase("reverse");
+        }, AUTOPLAY_REVERSE_PAUSE_MS);
       }
     };
     timerRef.current = window.setTimeout(step, START_PAUSE_MS);
     return clearTimer;
-  }, [phase]);
+  }, [phase, startFromIE]);
 
   // Reverse: itir eraslan. -> ... -> ie.
   const reverseStep = (s: string): string => {
@@ -85,6 +152,10 @@ export default function Opener() {
         timerRef.current = window.setTimeout(tick, REVERSE_DELAY_MS);
       } else {
         setPhase("idle");
+        const desired = desiredEndTextRef.current;
+        if (desired && desired !== TARGET_TEXT) {
+          setPhase(desired === FULL_TEXT ? "forward" : "reverse");
+        }
       }
     };
     timerRef.current = window.setTimeout(tick, START_PAUSE_MS);
@@ -94,7 +165,8 @@ export default function Opener() {
   return (
     <div
       className="relative w-full flex items-center justify-center select-none py-20 cursor-pointer"
-      onClick={onClick}
+      onMouseEnter={onMouseEnter}
+      onMouseLeave={onMouseLeave}
       role="button"
       tabIndex={0}
     >
