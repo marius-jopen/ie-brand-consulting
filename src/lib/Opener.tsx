@@ -7,14 +7,15 @@ const TARGET_TEXT = "ie.";
 
 // Animation timing configuration
 // Two speeds only: one for forward, one for reverse
-const START_PAUSE_MS = 200;       // pause before the first letter appears
-const FORWARD_DELAY_MS = 250;     // fixed delay per letter (forward)
-const REVERSE_DELAY_MS = 70;      // fixed delay per step (reverse)
+const START_PAUSE_MS = 0;       // pause before the first letter appears
+const FORWARD_DELAY_MS = 150;     // fixed delay per letter (forward)
+const REVERSE_DELAY_MS = 60;      // fixed delay per step (reverse)
 
 export default function Opener() {
   const [phase, setPhase] = useState<"idle" | "forward" | "reverse">("idle");
   const [text, setText] = useState<string>("");
   const timerRef = useRef<number | null>(null);
+  const isAnimating = phase === "forward" || phase === "reverse";
 
   const clearTimer = () => {
     if (timerRef.current) {
@@ -24,14 +25,16 @@ export default function Opener() {
   };
 
   const onClick = useCallback(() => {
+    if (isAnimating) return; // Ignore clicks during animation
     clearTimer();
-    if (phase === "idle" || phase === "reverse") {
+    // Decide direction based on current stable text
+    if (text === FULL_TEXT) {
+      setPhase("reverse");
+    } else {
       setText("");
       setPhase("forward");
-    } else if (phase === "forward") {
-      setPhase("reverse");
     }
-  }, [phase]);
+  }, [isAnimating, text]);
 
   // Forward: i -> it -> ... -> itir eraslan.
   useEffect(() => {
@@ -42,6 +45,8 @@ export default function Opener() {
       setText(FULL_TEXT.slice(0, i));
       if (i < FULL_TEXT.length) {
         timerRef.current = window.setTimeout(step, FORWARD_DELAY_MS);
+      } else {
+        setPhase("idle");
       }
     };
     timerRef.current = window.setTimeout(step, START_PAUSE_MS);
@@ -78,6 +83,8 @@ export default function Opener() {
       setText(current);
       if (current !== TARGET_TEXT) {
         timerRef.current = window.setTimeout(tick, REVERSE_DELAY_MS);
+      } else {
+        setPhase("idle");
       }
     };
     timerRef.current = window.setTimeout(tick, START_PAUSE_MS);
