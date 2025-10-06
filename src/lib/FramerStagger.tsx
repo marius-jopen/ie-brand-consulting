@@ -2,7 +2,7 @@
 
 import { motion, type Variants, type MotionProps } from "framer-motion";
 import { usePathname } from "next/navigation";
-import type { FC, PropsWithChildren, ComponentType } from "react";
+import type { FC, PropsWithChildren, ComponentType, ReactNode } from "react";
 import { useEffect, useRef, useState } from "react";
 
 export const fadeInUpVariants: Variants = {
@@ -113,7 +113,8 @@ type FadeInUpProps = PropsWithChildren<{
 }>;
 
 export const FadeInUp: FC<FadeInUpProps> = ({ as = "div", className, children }) => {
-  const tagMap: Record<"div" | "p" | "li", ComponentType<MotionProps>> = {
+  type MotionTagProps = MotionProps & { className?: string; children?: ReactNode };
+  const tagMap: Record<"div" | "p" | "li", ComponentType<MotionTagProps>> = {
     div: motion.div,
     p: motion.p,
     li: motion.li,
