@@ -28,12 +28,7 @@ const RandomCircles: FC<RandomCirclesProps> = ({
   // Generate random positions on client side to avoid hydration issues
   useEffect(() => {
     const fixedSize = (minSize + maxSize) / 2; // Use average size for all circles
-    const dotRadius = fixedSize / 2; // Radius of each dot
-    const marginPx = 20; // 20px margin from border
-    const totalMarginPx = marginPx + dotRadius; // Total margin including dot radius
-    
-    // Use a more conservative margin percentage to ensure proper spacing
-    const marginPercent = 6; // Increased margin percentage to ensure 20px + radius spacing
+    const marginPercent = 6; // Conservative margin percentage to ensure spacing
     
     const newCircles = Array.from({ length: count }, (_, i) => {
       // Use true random positions for each page load

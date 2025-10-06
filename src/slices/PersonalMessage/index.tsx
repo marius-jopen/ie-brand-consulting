@@ -93,14 +93,13 @@ const AnimatedBlock: FC<AnimatedBlockProps> = ({ as, children, containerRef, inV
   }, []);
 
   useEffect(() => {
-    const anyDoc: any = document as any;
+    type DocumentWithFonts = Document & { fonts?: { ready?: Promise<void> } };
+    const docWithFonts = document as DocumentWithFonts;
     const onFontsReady = () => computeDelay();
-    if (anyDoc?.fonts?.ready?.then) {
-      anyDoc.fonts.ready.then(onFontsReady);
-    }
+    docWithFonts.fonts?.ready?.then(() => onFontsReady());
   }, []);
 
-  const MotionTag: any = as === "p" ? motion.p : motion.li;
+  const MotionTag = (as === "p" ? motion.p : motion.li) as unknown as React.ComponentType<any>;
 
   const readyToAnimate = inView && delaySec != null;
 

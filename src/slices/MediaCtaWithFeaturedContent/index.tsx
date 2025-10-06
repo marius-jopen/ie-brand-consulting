@@ -2,7 +2,7 @@
 import { FC } from "react";
 import { Content, asText } from "@prismicio/client";
 import { SliceComponentProps } from "@prismicio/react";
-import { PrismicRichText, PrismicImage } from "@prismicio/react";
+import { PrismicImage } from "@prismicio/react";
 import { PrismicNextLink } from "@prismicio/next";
 import MorphingIconRemount from "@/lib/MorphingIconRemount";
 import Button from "@/lib/Button";

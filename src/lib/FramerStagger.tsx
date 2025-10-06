@@ -1,6 +1,6 @@
 "use client";
 
-import { motion, type Variants } from "framer-motion";
+import { motion, type Variants, type MotionProps } from "framer-motion";
 import { usePathname } from "next/navigation";
 import type { FC, PropsWithChildren } from "react";
 import { useEffect, useRef, useState } from "react";
@@ -46,14 +46,12 @@ export const StaggerContainer: FC<StaggerContainerProps> = ({
       return rect.top < vh * (1 - viewportAmount) && rect.bottom > 0;
     };
 
-    // 1) Immediate check on mount / route change
     if (checkVisible()) {
       setShouldShow(true);
     } else {
       setShouldShow(false);
     }
 
-    // 2) IntersectionObserver to promote to visible as soon as it intersects
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
@@ -67,19 +65,19 @@ export const StaggerContainer: FC<StaggerContainerProps> = ({
     );
     observer.observe(el);
 
-    // 3) Re-check after layout/paint and after fonts load
     const rafId = window.requestAnimationFrame(() => {
       if (checkVisible()) setShouldShow(true);
     });
-    const anyDoc: any = document as any;
-    let fontsThen: any;
-    if (anyDoc?.fonts?.ready?.then) {
-      fontsThen = anyDoc.fonts.ready.then(() => {
+
+    type DocumentWithFonts = Document & { fonts?: { ready?: Promise<void> } };
+    const docWithFonts = document as DocumentWithFonts;
+    const fontsReady: Promise<void> | undefined = docWithFonts.fonts?.ready;
+    if (fontsReady) {
+      fontsReady.then(() => {
         if (checkVisible()) setShouldShow(true);
       });
     }
 
-    // 4) Safety timeout in case IO misses due to rapid route transitions
     const timeoutId = window.setTimeout(() => {
       if (checkVisible()) setShouldShow(true);
     }, 120);
@@ -115,7 +113,7 @@ type FadeInUpProps = PropsWithChildren<{
 }>;
 
 export const FadeInUp: FC<FadeInUpProps> = ({ as = "div", className, children }) => {
-  const MotionTag: any = (motion as any)[as] ?? motion.div;
+  const MotionTag = (motion as Record<string, React.ComponentType<MotionProps>>)[as] ?? motion.div;
   return (
     <MotionTag className={className} variants={fadeInUpVariants}>
       {children}
