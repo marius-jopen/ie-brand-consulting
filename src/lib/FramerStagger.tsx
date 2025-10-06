@@ -2,7 +2,7 @@
 
 import { motion, type Variants, type MotionProps } from "framer-motion";
 import { usePathname } from "next/navigation";
-import type { FC, PropsWithChildren, ComponentType, ReactHTML } from "react";
+import type { FC, PropsWithChildren, ComponentType } from "react";
 import { useEffect, useRef, useState } from "react";
 
 export const fadeInUpVariants: Variants = {
@@ -108,12 +108,17 @@ export const StaggerContainer: FC<StaggerContainerProps> = ({
 };
 
 type FadeInUpProps = PropsWithChildren<{
-  as?: keyof ReactHTML;
+  as?: "div" | "p" | "li";
   className?: string;
 }>;
 
 export const FadeInUp: FC<FadeInUpProps> = ({ as = "div", className, children }) => {
-  const MotionTag = (motion as Record<string, ComponentType<MotionProps>>)[as] ?? motion.div;
+  const tagMap: Record<"div" | "p" | "li", ComponentType<MotionProps>> = {
+    div: motion.div,
+    p: motion.p,
+    li: motion.li,
+  };
+  const MotionTag = tagMap[as] ?? motion.div;
   return (
     <MotionTag className={className} variants={fadeInUpVariants}>
       {children}
