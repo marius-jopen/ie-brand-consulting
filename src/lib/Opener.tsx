@@ -25,7 +25,6 @@ export default function Opener({ startFromIE = false, className, textClassName, 
   const [phase, setPhase] = useState<"idle" | "forward" | "reverse">("idle");
   const [text, setText] = useState<string>("");
   const timerRef = useRef<number | null>(null);
-  const isAnimating = phase === "forward" || phase === "reverse";
   const desiredEndTextRef = useRef<string | null>(null);
 
   const clearTimer = () => {

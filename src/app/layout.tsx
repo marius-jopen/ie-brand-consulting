@@ -3,7 +3,6 @@ import { repositoryName, createClient } from "@/prismicio";
 import HeaderWrapper from "@/lib/header-wrapper";
 import FooterWrapper from "@/lib/footer-wrapper";
 import PageFade from "@/lib/PageFade";
-import Opener from "@/lib/Opener";
 import Welcome from "@/lib/Welcome";
 import "./globals.css";
 
