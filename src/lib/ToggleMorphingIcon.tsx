@@ -68,7 +68,8 @@ const ToggleMorphingIcon: FC<ToggleMorphingIconProps> = ({
         height={rest.height ?? "100%"}
         dotColor={rest.dotColor}
         dotOpacity={rest.dotOpacity}
-        transitionMs={rest.transitionMs}
+        moveTransitionMs={rest.transitionMs}
+        fadeTransitionMs={rest.transitionMs}
         className={rest.className}
       />
     </div>
