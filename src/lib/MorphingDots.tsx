@@ -138,7 +138,7 @@ export const MorphingDots: FC<MorphingDotsProps> = ({
   className,
 }) => {
   // Shapes that should not animate position (only fade in/out)
-  const NO_MOTION_IDS = useRef(new Set<string>(["strategy"]))
+  const NO_MOTION_IDS = useRef(new Set<string>(["strategy"]));
 
   const containerRef = useRef<HTMLDivElement>(null);
   const { width: containerW, height: containerH } = useContainerSize(containerRef);
@@ -149,6 +149,10 @@ export const MorphingDots: FC<MorphingDotsProps> = ({
   const prevInternalActiveIdRef = useRef<string | null>(null);
   const holdOnNullIdRef = useRef<number | null>(null);
   const [holdOnNullId, setHoldOnNullId] = useState<string | null>(null);
+  // Keep the previously displayed shape and dot ordering to compute stable mappings
+  const prevDisplayShapeRef = useRef<Shape | null>(null);
+  const prevOrderedDotsRef = useRef<Dot[]>([]);
+  const [orderedTargetDots, setOrderedTargetDots] = useState<Dot[]>([]);
 
   // Load and parse all SVG sources when sources change
   useEffect(() => {
@@ -215,18 +219,124 @@ export const MorphingDots: FC<MorphingDotsProps> = ({
 
   const masterCount = useMemo(() => shapes.reduce((m, s) => Math.max(m, s.dots.length), 0), [shapes]);
 
-  // Prepare per-index target dot for current active shape
-  const targetDots = useMemo(() => {
-    if (!displayShape && shapes.length > 0) {
-      // No active: place dots in center and transparent
-      return Array.from({ length: masterCount }).map(() => ({ xPercent: 50, yPercent: 50, rPercentOfWidth: 3, rPx: 3 } as Dot));
-    }
-    if (!displayShape) return [] as Dot[];
-    const list = [...displayShape.dots];
-    // If fewer than master, pad with center points
-    while (list.length < masterCount) list.push({ xPercent: 50, yPercent: 50, rPercentOfWidth: 3, rPx: 3 });
+  // Helpers for mapping
+  const dist2 = (a: Dot, b: Dot) => {
+    const dx = (a.xPercent - b.xPercent);
+    const dy = (a.yPercent - b.yPercent);
+    return dx * dx + dy * dy;
+  };
+
+  const padDots = (dots: Dot[], count: number) => {
+    const list = [...dots];
+    while (list.length < count) list.push({ xPercent: 50, yPercent: 50, rPercentOfWidth: 3, rPx: 3 });
     return list;
+  };
+
+  // Compute ordered target dots whenever the active shape changes
+  useEffect(() => {
+    // No shapes yet: reset
+    if (shapes.length === 0) {
+      setOrderedTargetDots([]);
+      prevOrderedDotsRef.current = [];
+      prevDisplayShapeRef.current = null;
+      return;
+    }
+
+    // No active shape: all dots at center
+    if (!displayShape) {
+      const center = Array.from({ length: masterCount }).map(() => ({ xPercent: 50, yPercent: 50, rPercentOfWidth: 3, rPx: 3 } as Dot));
+      setOrderedTargetDots(center);
+      // Do not update prev references when no active shape
+      return;
+    }
+
+    // First activation: use the shape's native order padded
+    if (!prevDisplayShapeRef.current || prevOrderedDotsRef.current.length === 0) {
+      const nextDots = padDots(displayShape.dots, masterCount);
+      setOrderedTargetDots(nextDots);
+      prevOrderedDotsRef.current = nextDots;
+      prevDisplayShapeRef.current = displayShape;
+      return;
+    }
+
+    // Transition: compute a nearest-neighbor mapping from previous ordering to new shape
+    const prevDots = padDots(prevOrderedDotsRef.current, masterCount);
+    const rawNextDots = padDots(displayShape.dots, masterCount);
+
+    // Special-case heuristic: circle -> question leg reservation
+    const prevId = prevDisplayShapeRef.current?.id ?? "";
+    const nextId = displayShape.id;
+    const isCircleToQuestion = /circle/i.test(prevId) && /question/i.test(nextId);
+
+    const used = new Array(rawNextDots.length).fill(false);
+    const result: Dot[] = new Array(masterCount);
+
+    const reserveIndexes = (indicesPrev: number[], predicateNext: (d: Dot) => boolean) => {
+      const candidateNextIdxs = rawNextDots.map((d, idx) => ({ d, idx })).filter(({ d, idx }) => !used[idx] && predicateNext(d));
+      for (const i of indicesPrev) {
+        const prev = prevDots[i];
+        if (!prev) continue;
+        let bestIdx = -1;
+        let bestD2 = Infinity;
+        for (const { d, idx } of candidateNextIdxs) {
+          if (used[idx]) continue;
+          const d2 = dist2(prev, d);
+          if (d2 < bestD2) {
+            bestD2 = d2;
+            bestIdx = idx;
+          }
+        }
+        if (bestIdx !== -1) {
+          result[i] = rawNextDots[bestIdx];
+          used[bestIdx] = true;
+        }
+      }
+    };
+
+    if (isCircleToQuestion) {
+      // Choose a left-side cohort from the circle to become the leg
+      const leftPrevIdxs = prevDots
+        .map((d, i) => ({ d, i }))
+        .filter(({ d }) => d.xPercent < 45)
+        .sort((a, b) => a.d.xPercent - b.d.xPercent)
+        .slice(0, Math.max(1, Math.floor(masterCount * 0.18)))
+        .map(({ i }) => i);
+
+      // Leg region: bottom-ish cluster in the question mark
+      const legPredicate = (d: Dot) => d.yPercent > 80 && Math.abs(d.xPercent - 50) < 20;
+      reserveIndexes(leftPrevIdxs, legPredicate);
+    }
+
+    // Greedy nearest-neighbor for remaining indices
+    for (let i = 0; i < masterCount; i++) {
+      if (result[i]) continue;
+      const prev = prevDots[i];
+      let bestIdx = -1;
+      let bestD2 = Infinity;
+      for (let j = 0; j < rawNextDots.length; j++) {
+        if (used[j]) continue;
+        const d2 = dist2(prev, rawNextDots[j]);
+        if (d2 < bestD2) {
+          bestD2 = d2;
+          bestIdx = j;
+        }
+      }
+      if (bestIdx !== -1) {
+        result[i] = rawNextDots[bestIdx];
+        used[bestIdx] = true;
+      } else {
+        // Fallback to center if somehow we ran out of targets
+        result[i] = { xPercent: 50, yPercent: 50, rPercentOfWidth: 3, rPx: 3 };
+      }
+    }
+
+    setOrderedTargetDots(result);
+    prevOrderedDotsRef.current = result;
+    prevDisplayShapeRef.current = displayShape;
   }, [displayShape, masterCount, shapes.length]);
+
+  // The array used by renderer
+  const targetDots = orderedTargetDots;
 
   const numericWidth = typeof width === "number" ? width : 0;
   const numericHeight = typeof height === "number" ? height : 0;

@@ -40,7 +40,7 @@ const WorkHighlightsGrid: FC<WorkHighlightsGridProps> = ({ slice }) => {
       {slice.primary.projects && slice.primary.projects.length > 0 && (
         <div className="columns-2 gap-4 pb-12 mx-auto w-11/12">
           {slice.primary.projects.map((project, index) => (
-            <div className="text-center bg-primary rounded-lg pt-12 pb-12 px-8 mb-4 break-inside-avoid" key={index}>
+            <div className="text-center bg-primary rounded-lg pt-12 pb-12 px-8 mb-4 break-inside-avoid transition-all duration-300 ease-in-out hover:shadow-2xl hover:translate-y-[-4px] hover:bg-white" key={index}>
               <div className="flex gap-2 justify-center pb-8">
                 {project.project_category_short && <p className="font-bold">{project.project_category_short}</p>}
                 {project.project_category_full && <p>{project.project_category_full}</p>}

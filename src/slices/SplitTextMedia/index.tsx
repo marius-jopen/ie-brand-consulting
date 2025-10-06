@@ -55,7 +55,7 @@ const SplitTextMedia: FC<SplitTextMediaProps> = ({ slice }) => {
         {slice.primary.items && slice.primary.items.length > 0 && (
           <div className="p-8 space-y-6">
             {slice.primary.items.map((item, index) => (
-              <div className="bg-primary text-center px-20 rounded-lg pt-14 pb-14" key={index}>
+              <div className="bg-primary text-center px-20 rounded-lg pt-14 pb-14 transition-all duration-300 ease-in-out hover:shadow-2xl hover:translate-y-[-4px] hover:bg-white" key={index}>
                 {item.headline && <h3 className="text-h5 mb-20 text-hyphenate max-w-full">{item.headline}</h3>}
                 {item.text && <p className="text-p1">{asText(item.text)}</p>}
               </div>
