@@ -112,7 +112,7 @@ export default function Navigation({ settings, isDarkMode = false }: NavigationP
                     className={`block px-3 py-2 text-p3 font-medium transition-colors ${
                       isDarkMode 
                         ? 'text-white hover:text-gray-300' 
-                        : 'hover:text-secondary'
+                        : 'hover:text-[#D7D2CB]'
                     }`}
                   >
                     {item.links[0].text || "Link"}
