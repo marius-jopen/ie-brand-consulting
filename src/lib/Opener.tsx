@@ -7,18 +7,20 @@ const TARGET_TEXT = "ie.";
 
 // Animation timing configuration
 // Two speeds only: one for forward, one for reverse
-const START_PAUSE_MS = 0;       // pause before the first letter appears
-const FORWARD_DELAY_MS = 150;     // fixed delay per letter (forward)
-const REVERSE_DELAY_MS = 60;      // fixed delay per step (reverse)
+const FORWARD_START_DELAY_MS = 500; // delay before the first letter appears (non-hover autoplay)
+const FORWARD_DELAY_MS = 150;      // fixed delay per letter (forward)
+const REVERSE_START_DELAY_MS = 0;  // start reverse immediately
+const REVERSE_DELAY_MS = 60;       // fixed delay per step (reverse)
 const AUTOPLAY_REVERSE_PAUSE_MS = 1000; // pause before starting reverse in autoplay mode
 
 type OpenerProps = {
   startFromIE?: boolean;
   className?: string;
   textClassName?: string;
+  onFinished?: () => void;
 };
 
-export default function Opener({ startFromIE = false, className, textClassName }: OpenerProps) {
+export default function Opener({ startFromIE = false, className, textClassName, onFinished }: OpenerProps) {
   const [phase, setPhase] = useState<"idle" | "forward" | "reverse">("idle");
   const [text, setText] = useState<string>("");
   const timerRef = useRef<number | null>(null);
@@ -101,7 +103,8 @@ export default function Opener({ startFromIE = false, className, textClassName }
         setPhase("idle");
         return () => {};
       }
-      timerRef.current = window.setTimeout(tick, START_PAUSE_MS);
+      // In hover mode we start immediately
+      timerRef.current = window.setTimeout(tick, 0);
       return () => {};
     }
     // Default: i -> it -> ... -> itir eraslan.
@@ -118,7 +121,8 @@ export default function Opener({ startFromIE = false, className, textClassName }
         }, AUTOPLAY_REVERSE_PAUSE_MS);
       }
     };
-    timerRef.current = window.setTimeout(step, START_PAUSE_MS);
+    // In autoplay mode we delay the first letter
+    timerRef.current = window.setTimeout(step, FORWARD_START_DELAY_MS);
     return clearTimer;
   }, [phase, startFromIE]);
 
@@ -158,17 +162,21 @@ export default function Opener({ startFromIE = false, className, textClassName }
         if (desired && desired !== TARGET_TEXT) {
           setPhase(desired === FULL_TEXT ? "forward" : "reverse");
         }
+        // Fire completion only for non-hover autoplay flow
+        if (!startFromIE && typeof onFinished === "function") {
+          onFinished();
+        }
       }
     };
-    timerRef.current = window.setTimeout(tick, START_PAUSE_MS);
+    timerRef.current = window.setTimeout(tick, REVERSE_START_DELAY_MS);
     return clearTimer;
-  }, [phase]);
+  }, [phase, startFromIE, onFinished]);
 
   return (
     <div
       className={
         className ??
-        "relative w-full flex items-center justify-center select-none py-20 cursor-pointer"
+        "relative w-full flex items-center justify-start select-none py-20 cursor-pointer"
       }
       onMouseEnter={onMouseEnter}
       onMouseLeave={onMouseLeave}

@@ -12,7 +12,7 @@ export default function Logo({ variant = 'default' }: LogoProps) {
     <Link href="/" className={textColor}>
       <Opener
         startFromIE
-        className="relative flex items-center justify-center h-5 leading-none cursor-pointer"
+        className="relative flex items-center justify-start h-5 leading-none cursor-pointer"
         textClassName="whitespace-pre text-[20px] leading-none"
       />
     </Link>

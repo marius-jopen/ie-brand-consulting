@@ -4,6 +4,7 @@ import HeaderWrapper from "@/lib/header-wrapper";
 import FooterWrapper from "@/lib/footer-wrapper";
 import PageFade from "@/lib/PageFade";
 import Opener from "@/lib/Opener";
+import Welcome from "@/lib/Welcome";
 import "./globals.css";
 
 export default async function RootLayout({
@@ -18,10 +19,10 @@ export default async function RootLayout({
   return (
     <html lang="en">
       <body className="scrollbar-gutter-stable">
+        <Welcome />
         <HeaderWrapper settings={settings} />
         <main>
           <PageFade>
-            <Opener />
             {children}
           </PageFade>
         </main>
