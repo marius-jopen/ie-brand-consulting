@@ -69,7 +69,7 @@ export default function SectionDotsNav({ enabled = true }: SectionDotsNavProps) 
   return (
     <nav
       aria-label="Section navigation"
-      className="fixed left-4 top-1/2 -translate-y-1/2 z-10 hidden md:flex flex-col gap-12"
+      className="fixed left-4 top-1/2 -translate-y-1/2 z-50 pointer-events-auto hidden md:flex flex-col gap-12"
     >
       {sections.map((s, index) => {
         const isActive = index === activeIndex;
@@ -80,7 +80,7 @@ export default function SectionDotsNav({ enabled = true }: SectionDotsNavProps) 
             aria-current={isActive ? "true" : undefined}
             onClick={() => handleClick(index)}
             className={
-              "transition-transform focus:outline-none" +
+              "transition-transform focus:outline-none cursor-pointer" +
               (isActive ? " scale-100" : " opacity-60 hover:opacity-100")
             }
           >
