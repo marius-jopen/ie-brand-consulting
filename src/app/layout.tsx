@@ -20,6 +20,9 @@ export default async function RootLayout({
         <HeaderWrapper settings={settings} />
         <main>
           <PageFade>
+            {/* <div className="h-[400px] w-full bg-red-200">
+              OPENER
+            </div> */}
             {children}
           </PageFade>
         </main>

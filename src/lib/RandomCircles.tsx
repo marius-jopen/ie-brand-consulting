@@ -49,7 +49,6 @@ const RandomCircles: FC<RandomCirclesProps> = ({
   // Calculate diagonal alignment positions on hover
   const diagonalPositions = useMemo(() => {
     const positions = [];
-    const marginPercent = 6; // Conservative margin percentage to ensure 20px + radius spacing
     const centerX = 50; // Center of container
     const centerY = 50; // Center of container
     const dotRadius = 40; // Radius of each dot (half of 80px diameter)

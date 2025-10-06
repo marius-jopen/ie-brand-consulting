@@ -3,7 +3,7 @@
 import { FC, useEffect, useLayoutEffect, useRef, useState } from "react";
 import { Content, asText } from "@prismicio/client";
 import { SliceComponentProps, PrismicRichText } from "@prismicio/react";
-import { motion } from "framer-motion";
+import { motion, type HTMLMotionProps } from "framer-motion";
 import { StaggerContainer, FadeInUp } from "@/lib/FramerStagger";
 
 /**
@@ -99,13 +99,14 @@ const AnimatedBlock: FC<AnimatedBlockProps> = ({ as, children, containerRef, inV
     docWithFonts.fonts?.ready?.then(() => onFontsReady());
   }, []);
 
-  const MotionTag = (as === "p" ? motion.p : motion.li) as unknown as React.ComponentType<any>;
+  type MotionUnionProps = HTMLMotionProps<"p"> | HTMLMotionProps<"li">;
+  const MotionTag = (as === "p" ? motion.p : motion.li) as React.ComponentType<MotionUnionProps>;
 
   const readyToAnimate = inView && delaySec != null;
 
   return (
     <MotionTag
-      ref={elRef as any}
+      ref={(node: Element | null) => { elRef.current = (node as HTMLElement) ?? null; }}
       className="pm-block break-inside-avoid will-change-transform"
       initial={{ opacity: 0, y: 16 }}
       animate={readyToAnimate ? { opacity: 1, y: 0 } : {}}

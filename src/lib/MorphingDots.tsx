@@ -178,7 +178,7 @@ export const MorphingDots: FC<MorphingDotsProps> = ({
     return () => {
       cancelled = true;
     };
-  }, [JSON.stringify(sources)]);
+  }, [sources]);
 
   // Directly update active shape to ensure overlap without a gap
   useEffect(() => {
