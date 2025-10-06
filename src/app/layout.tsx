@@ -3,6 +3,7 @@ import { repositoryName, createClient } from "@/prismicio";
 import HeaderWrapper from "@/lib/header-wrapper";
 import FooterWrapper from "@/lib/footer-wrapper";
 import PageFade from "@/lib/PageFade";
+import Opener from "@/lib/Opener";
 import "./globals.css";
 
 export default async function RootLayout({
@@ -20,9 +21,7 @@ export default async function RootLayout({
         <HeaderWrapper settings={settings} />
         <main>
           <PageFade>
-            {/* <div className="h-[400px] w-full bg-red-200">
-              OPENER
-            </div> */}
+            <Opener />
             {children}
           </PageFade>
         </main>
