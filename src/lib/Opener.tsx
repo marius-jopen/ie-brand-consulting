@@ -187,7 +187,16 @@ export default function Opener({ startFromIE = false, className, textClassName, 
       role="button"
       tabIndex={0}
     >
-      <div className={textClassName ?? "whitespace-pre text-h1"}>{text}</div>
+      <div className={textClassName ?? "whitespace-pre text-h1"}>
+        {text.endsWith(".") ? (
+          <>
+            <span>{text.slice(0, -1)}</span>
+            <span className="text-quaternary">.</span>
+          </>
+        ) : (
+          text
+        )}
+      </div>
     </div>
   );
 }
