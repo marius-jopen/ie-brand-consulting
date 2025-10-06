@@ -7,6 +7,7 @@ type Dot = {
   yPercent: number; // 0..100 relative to svg height
   rPercentOfWidth: number; // radius relative to svg width (percentage)
   rPx: number; // original svg radius in px (svg coordinate system)
+  ghost?: boolean; // placeholder dot (not a real shape dot)
 };
 
 type Shape = {
@@ -79,6 +80,7 @@ function parseSvgTextToShape(id: string, svgText: string): Shape | null {
         yPercent: (cy / height) * 100,
         rPercentOfWidth: (r / width) * 100,
         rPx: r,
+        ghost: false,
       } as Dot;
     });
 
@@ -91,6 +93,7 @@ function parseSvgTextToShape(id: string, svgText: string): Shape | null {
         yPercent: (cy / height) * 100,
         rPercentOfWidth: (r / width) * 100,
         rPx: r,
+        ghost: false,
       } as Dot;
     });
 
@@ -228,7 +231,7 @@ export const MorphingDots: FC<MorphingDotsProps> = ({
 
   const padDots = (dots: Dot[], count: number) => {
     const list = [...dots];
-    while (list.length < count) list.push({ xPercent: 50, yPercent: 50, rPercentOfWidth: 3, rPx: 3 });
+    while (list.length < count) list.push({ xPercent: 50, yPercent: 50, rPercentOfWidth: 3, rPx: 3, ghost: true });
     return list;
   };
 
@@ -244,7 +247,7 @@ export const MorphingDots: FC<MorphingDotsProps> = ({
 
     // No active shape: all dots at center
     if (!displayShape) {
-      const center = Array.from({ length: masterCount }).map(() => ({ xPercent: 50, yPercent: 50, rPercentOfWidth: 3, rPx: 3 } as Dot));
+      const center = Array.from({ length: masterCount }).map(() => ({ xPercent: 50, yPercent: 50, rPercentOfWidth: 3, rPx: 3, ghost: true } as Dot));
       setOrderedTargetDots(center);
       // Do not update prev references when no active shape
       return;
@@ -326,7 +329,7 @@ export const MorphingDots: FC<MorphingDotsProps> = ({
         used[bestIdx] = true;
       } else {
         // Fallback to center if somehow we ran out of targets
-        result[i] = { xPercent: 50, yPercent: 50, rPercentOfWidth: 3, rPx: 3 };
+        result[i] = { xPercent: 50, yPercent: 50, rPercentOfWidth: 3, rPx: 3, ghost: true };
       }
     }
 
@@ -384,7 +387,7 @@ export const MorphingDots: FC<MorphingDotsProps> = ({
             diameterPx = 2 * rScaled;
             x = offsetX + cxSvg * scale - diameterPx / 2;
             y = offsetY + cySvg * scale - diameterPx / 2;
-            visible = i < (displayShape?.dots.length || 0);
+            visible = !!dot && dot.ghost !== true;
           }
           const isFadingOutNoMotion = holdOnNullId != null && NO_MOTION_IDS.current.has(holdOnNullId) && internalActiveId == null;
           const transformMs = ((internalActiveId != null && NO_MOTION_IDS.current.has(internalActiveId)) || isFadingOutNoMotion) ? 0 : moveTransitionMs;
