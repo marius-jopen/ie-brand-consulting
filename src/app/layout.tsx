@@ -21,7 +21,7 @@ export default async function RootLayout({
         <HeaderWrapper settings={settings} />
         <main>
           <PageFade>
-            <Opener startFromIE />
+            <Opener />
             {children}
           </PageFade>
         </main>

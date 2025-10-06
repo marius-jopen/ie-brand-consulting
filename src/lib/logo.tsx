@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Opener from "@/lib/Opener";
 
 interface LogoProps {
   variant?: 'default' | 'white';
@@ -9,7 +10,11 @@ export default function Logo({ variant = 'default' }: LogoProps) {
   
   return (
     <Link href="/" className={textColor}>
-      IE
+      <Opener
+        startFromIE
+        className="relative flex items-center justify-center h-5 leading-none cursor-pointer"
+        textClassName="whitespace-pre text-[20px] leading-none"
+      />
     </Link>
   );
 }

@@ -14,9 +14,11 @@ const AUTOPLAY_REVERSE_PAUSE_MS = 1000; // pause before starting reverse in auto
 
 type OpenerProps = {
   startFromIE?: boolean;
+  className?: string;
+  textClassName?: string;
 };
 
-export default function Opener({ startFromIE = false }: OpenerProps) {
+export default function Opener({ startFromIE = false, className, textClassName }: OpenerProps) {
   const [phase, setPhase] = useState<"idle" | "forward" | "reverse">("idle");
   const [text, setText] = useState<string>("");
   const timerRef = useRef<number | null>(null);
@@ -164,13 +166,16 @@ export default function Opener({ startFromIE = false }: OpenerProps) {
 
   return (
     <div
-      className="relative w-full flex items-center justify-center select-none py-20 cursor-pointer"
+      className={
+        className ??
+        "relative w-full flex items-center justify-center select-none py-20 cursor-pointer"
+      }
       onMouseEnter={onMouseEnter}
       onMouseLeave={onMouseLeave}
       role="button"
       tabIndex={0}
     >
-      <div className="whitespace-pre text-h1">{text}</div>
+      <div className={textClassName ?? "whitespace-pre text-h1"}>{text}</div>
     </div>
   );
 }
