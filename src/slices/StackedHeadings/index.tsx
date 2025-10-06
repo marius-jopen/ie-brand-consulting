@@ -1,10 +1,11 @@
 "use client";
 
-import { FC, useEffect, useMemo, useRef, useState } from "react";
+import { FC, useMemo, useState } from "react";
 import { Content } from "@prismicio/client";
 import { SliceComponentProps } from "@prismicio/react";
 import { PrismicNextLink } from "@prismicio/next";
 import MorphingDots from "@/lib/MorphingDots";
+import { StaggerContainer, FadeInUp } from "@/lib/FramerStagger";
 
 /**
  * Props for `StackedHeadings`.
@@ -19,30 +20,7 @@ const StackedHeadings: FC<StackedHeadingsProps> = ({ slice }) => {
   const items = slice.primary.items ?? [];
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
   const showIcons = !!slice.primary.icons;
-  const listRef = useRef<HTMLDivElement | null>(null);
-  const [inView, setInView] = useState(false);
-
-  useEffect(() => {
-    const element = listRef.current;
-    if (!element) return;
-
-    let hasTriggered = false;
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting && !hasTriggered) {
-            hasTriggered = true;
-            setInView(true);
-            observer.unobserve(entry.target);
-          }
-        });
-      },
-      { root: null, threshold: 0.15 }
-    );
-
-    observer.observe(element);
-    return () => observer.disconnect();
-  }, []);
+  // In-view animation handled by StaggerContainer
 
   // Map item.icon or fallback by index to local SVGs
   const sources = useMemo(() => {
@@ -87,31 +65,29 @@ const StackedHeadings: FC<StackedHeadingsProps> = ({ slice }) => {
         )}
 
         {items && items.length > 0 && (
-          <div className="pt-10 pb-20" ref={listRef}>
+          <StaggerContainer className="pt-10 pb-20" delayChildren={0} staggerChildren={0.5}>
             {items.map((item, index) => (
-              <div
-                className={`text-center transition-opacity duration-500 ${showIcons ? (hoveredIndex !== null ? (hoveredIndex === index ? "opacity-100 relative z-10" : "opacity-[3%] relative -z-10") : "opacity-100") : "opacity-100"}`}
-                key={index}
-                onMouseEnter={showIcons ? () => setHoveredIndex(index) : undefined}
-                onMouseLeave={showIcons ? () => setHoveredIndex(null) : undefined}
-              >
-                {item.title && (
-                  <div
-                    className={`${inView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-2"} transition-all duration-700`}
-                    style={{ transitionDelay: `${index * 700}ms` }}
-                  >
-                    {showIcons && item.link ? (
-                      <PrismicNextLink field={item.link}>
-                        <div className="text-h1 cursor-pointer">{item.title}</div>
-                      </PrismicNextLink>
-                    ) : (
-                      <div className="text-h1">{item.title}</div>
-                    )}
-                  </div>
-                )}
-              </div>
+              <FadeInUp key={index}>
+                <div
+                  className={`text-center transition-opacity duration-500 ${showIcons ? (hoveredIndex !== null ? (hoveredIndex === index ? "opacity-100 relative z-10" : "opacity-[3%] relative -z-10") : "opacity-100") : "opacity-100"}`}
+                  onMouseEnter={showIcons ? () => setHoveredIndex(index) : undefined}
+                  onMouseLeave={showIcons ? () => setHoveredIndex(null) : undefined}
+                >
+                  {item.title && (
+                    <div>
+                      {showIcons && item.link ? (
+                        <PrismicNextLink field={item.link}>
+                          <div className="text-h1 cursor-pointer">{item.title}</div>
+                        </PrismicNextLink>
+                      ) : (
+                        <div className="text-h1">{item.title}</div>
+                      )}
+                    </div>
+                  )}
+                </div>
+              </FadeInUp>
             ))}
-          </div>
+          </StaggerContainer>
         )}
       </div>
     </section>

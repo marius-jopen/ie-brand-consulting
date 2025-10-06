@@ -1,6 +1,9 @@
+"use client";
+
 import { FC } from "react";
 import { Content, asText } from "@prismicio/client";
 import { SliceComponentProps } from "@prismicio/react";
+import { StaggerContainer, FadeInUp } from "@/lib/FramerStagger";
 
 /**
  * Props for `CenteredDescription`.
@@ -18,9 +21,9 @@ const CenteredDescription: FC<CenteredDescriptionProps> = ({ slice }) => {
       data-slice-variation={slice.variation}
     >
       {slice.primary.description && (
-        <div className="text-center container mx-auto mx-auto w-3/5 pb-16">
-          {asText(slice.primary.description)}
-        </div>
+        <StaggerContainer className="text-center container mx-auto mx-auto w-3/5 pb-16">
+          <FadeInUp>{asText(slice.primary.description)}</FadeInUp>
+        </StaggerContainer>
       )}
     </section>
   );

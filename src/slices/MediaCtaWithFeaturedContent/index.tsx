@@ -6,6 +6,7 @@ import { PrismicRichText, PrismicImage } from "@prismicio/react";
 import { PrismicNextLink } from "@prismicio/next";
 import MorphingIconRemount from "@/lib/MorphingIconRemount";
 import Button from "@/lib/Button";
+import { StaggerContainer, FadeInUp } from "@/lib/FramerStagger";
 
 /**
  * Props for `MediaCtaWithFeaturedContent`.
@@ -27,47 +28,58 @@ const MediaCtaWithFeaturedContent: FC<MediaCtaWithFeaturedContentProps> = ({
     >
     <div className="flex min-h-full">
       <div className={`w-1/2 ${slice.primary.featured_content && slice.primary.featured_content.length > 0 ? 'sticky top-30 h-screen' : ''} overflow-y-auto`}>
-        <div className="p-8">
+        <StaggerContainer className="p-8">
           {slice.primary.media_title && (
-            <h1 className="text-h1 text-center">{asText(slice.primary.media_title)}</h1>
+            <FadeInUp>
+              <h1 className="text-h1 text-center">{asText(slice.primary.media_title)}</h1>
+            </FadeInUp>
           )}
           
           {/* Icon renders with morphing dots, chosen by keyword from Prismic field `icons` */}
-          <div className="text-center flex h-[300px] items-center justify-center">
-            <div className="w-[15vw] max-w-[500px] aspect-square">
-              <MorphingIconRemount keyword={slice.primary.icons || undefined} width="100%" height="100%" />
+          <FadeInUp>
+            <div className="text-center flex h-[300px] items-center justify-center">
+              <div className="w-[15vw] max-w-[500px] aspect-square">
+                <MorphingIconRemount keyword={slice.primary.icons || undefined} width="100%" height="100%" />
+              </div>
             </div>
-          </div>
+          </FadeInUp>
           
-          <div className="text-center pb-8 mx-12 text-p4">
-            {asText(slice.primary.media_description)}
-          </div>
+          <FadeInUp>
+            <div className="text-center pb-8 mx-12 text-p4">
+              {asText(slice.primary.media_description)}
+            </div>
+          </FadeInUp>
           
           {slice.primary.media_links && slice.primary.media_links.length > 0 && (
             <div className="flex justify-center gap-4">
               {slice.primary.media_links.map((link, index) => (
-                <Button key={index} field={link}>
-                  {link.text || "Media Link"}
-                </Button>
+                <FadeInUp key={index}>
+                  <Button field={link}>
+                    {link.text || "Media Link"}
+                  </Button>
+                </FadeInUp>
               ))}
             </div>
           )}
-        </div>
+        </StaggerContainer>
       </div>
       
       <div className="w-1/2 overflow-y-auto">
-        <div className="p-8 h-full">
+        <StaggerContainer className="p-8 h-full">
           {slice.primary.image && (
-            <PrismicImage className="h-full object-cover" field={slice.primary.image} />
+            <FadeInUp>
+              <PrismicImage className="h-full object-cover" field={slice.primary.image} />
+            </FadeInUp>
           )}
           
           {slice.primary.featured_content && slice.primary.featured_content.length > 0 && (
             <div>
               {slice.primary.featured_content.map((item, index) => (
-                <div key={index}>
-                  {item.image && <PrismicImage field={item.image} />}
+                <FadeInUp key={index}>
+                  <div>
+                    {item.image && <PrismicImage field={item.image} />}
 
-                  <div className="pb-14 pt-4">
+                    <div className="pb-14 pt-4">
                       {item.eyebrow && <div className="pb-3">{item.eyebrow}</div>}
 
                       {item.title && <div className="text-h8 pb-6">{asText(item.title)}</div>}
@@ -79,10 +91,11 @@ const MediaCtaWithFeaturedContent: FC<MediaCtaWithFeaturedContentProps> = ({
                       )}
                     </div>
                   </div>
+                </FadeInUp>
               ))}
             </div>
           )}
-        </div>
+        </StaggerContainer>
       </div>
     </div>
     </section>

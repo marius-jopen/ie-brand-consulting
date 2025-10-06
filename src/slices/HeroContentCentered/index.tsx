@@ -4,6 +4,7 @@ import { FC, useEffect, useRef, useState } from "react";
 import { Content, asText } from "@prismicio/client";
 import { SliceComponentProps } from "@prismicio/react";
 import RandomCircles from "@/lib/RandomCircles";
+import { StaggerContainer, FadeInUp } from "@/lib/FramerStagger";
 
 /**
  * Props for `HeroContentCentered`.
@@ -62,25 +63,33 @@ const HeroContentCentered: FC<HeroContentCenteredProps> = ({ slice }) => {
           isHovered={isHovered}
         />
         
-        {slice.primary.title && (
-          <div className="text-h2 text-center pt-18 relative z-10 mx-auto max-w-5xl">
-            {asText(slice.primary.title)}
-          </div>
-        )}
-        
-        <div className="mx-auto pb-20 w-full max-w-3xl pt-22 relative z-10">
-          {slice.primary.subtitle && (
-            <div className="text-h7 text-center pb-8">
-              {asText(slice.primary.subtitle)}
-            </div>
+        <StaggerContainer className="relative z-10">
+          {slice.primary.title && (
+            <FadeInUp>
+              <div className="text-h2 text-center pt-18 relative z-10 mx-auto max-w-5xl">
+                {asText(slice.primary.title)}
+              </div>
+            </FadeInUp>
           )}
           
-          {slice.primary.description && (
-            <div className="text-p1 text-center">
-              {asText(slice.primary.description)}
-            </div>
-          )}
-        </div>
+          <div className="mx-auto pb-20 w-full max-w-3xl pt-22 relative z-10">
+            {slice.primary.subtitle && (
+              <FadeInUp>
+                <div className="text-h7 text-center pb-8">
+                  {asText(slice.primary.subtitle)}
+                </div>
+              </FadeInUp>
+            )}
+            
+            {slice.primary.description && (
+              <FadeInUp>
+                <div className="text-p1 text-center">
+                  {asText(slice.primary.description)}
+                </div>
+              </FadeInUp>
+            )}
+          </div>
+        </StaggerContainer>
       </div>
     </section>
   );

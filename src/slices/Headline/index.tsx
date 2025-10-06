@@ -5,6 +5,7 @@ import { Content } from "@prismicio/client";
 import { SliceComponentProps } from "@prismicio/react";
 import { PrismicNextLink } from "@prismicio/next";
 import MorphingDots from "@/lib/MorphingDots";
+import { StaggerContainer, FadeInUp } from "@/lib/FramerStagger";
 
 /**
  * Props for `Headline`.
@@ -57,26 +58,27 @@ const Headline: FC<HeadlineProps> = ({ slice }) => {
         />
       </div>
 
-      <div className="flex gap-4 flex-wrap mx-12 justify-center ">
+      <StaggerContainer className="flex gap-4 flex-wrap mx-12 justify-center ">
         {items.map((item, index) => (
-          <div
-            key={index}
-            className={`transition-opacity duration-300 ${hoveredIndex !== null ? (hoveredIndex === index ? "opacity-100 relative z-10" : "opacity-[3%] relative -z-10") : "opacity-100"}`}
-            onMouseEnter={() => setHoveredIndex(index)}
-            onMouseLeave={() => setHoveredIndex(null)}
-          >
-            {item.title && (
-              item.link ? (
-                <PrismicNextLink field={item.link}>
+          <FadeInUp key={index}>
+            <div
+              className={`transition-opacity duration-300 ${hoveredIndex !== null ? (hoveredIndex === index ? "opacity-100 relative z-10" : "opacity-[3%] relative -z-10") : "opacity-100"}`}
+              onMouseEnter={() => setHoveredIndex(index)}
+              onMouseLeave={() => setHoveredIndex(null)}
+            >
+              {item.title && (
+                item.link ? (
+                  <PrismicNextLink field={item.link}>
+                    <div className="text-h1">{item.title}</div>
+                  </PrismicNextLink>
+                ) : (
                   <div className="text-h1">{item.title}</div>
-                </PrismicNextLink>
-              ) : (
-                <div className="text-h1">{item.title}</div>
-              )
-            )}
-          </div>
+                )
+              )}
+            </div>
+          </FadeInUp>
         ))}
-      </div>
+      </StaggerContainer>
     </section>
   );
 };
