@@ -12,6 +12,7 @@ const FORWARD_DELAY_MS = 150;      // fixed delay per letter (forward)
 const REVERSE_START_DELAY_MS = 0;  // start reverse immediately
 const REVERSE_DELAY_MS = 60;       // fixed delay per step (reverse)
 const AUTOPLAY_REVERSE_PAUSE_MS = 1000; // pause before starting reverse in autoplay mode
+const WORD_BREAK_EXTRA_MS = 400;   // extra pause when showing the space between words
 
 type OpenerProps = {
   startFromIE?: boolean;
@@ -89,6 +90,7 @@ export default function Opener({ startFromIE = false, className, textClassName, 
         setText(sequence[idx]);
         idx += 1;
         if (idx < sequence.length) {
+          // Hover mode: no extra pause at word break
           timerRef.current = window.setTimeout(tick, FORWARD_DELAY_MS);
         } else {
           setPhase("idle");
@@ -113,7 +115,9 @@ export default function Opener({ startFromIE = false, className, textClassName, 
       i += 1;
       setText(FULL_TEXT.slice(0, i));
       if (i < FULL_TEXT.length) {
-        timerRef.current = window.setTimeout(step, FORWARD_DELAY_MS);
+        const justAddedChar = FULL_TEXT[i - 1];
+        const delay = FORWARD_DELAY_MS + (justAddedChar === " " ? WORD_BREAK_EXTRA_MS : 0);
+        timerRef.current = window.setTimeout(step, delay);
       } else {
         // In autoplay mode (startFromIE === false), wait before reversing
         timerRef.current = window.setTimeout(() => {
