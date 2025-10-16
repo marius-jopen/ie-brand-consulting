@@ -54,6 +54,7 @@ const SplitTextMedia: FC<SplitTextMediaProps> = ({ slice }) => {
                   height="100%"
                   firstId="question-1"
                   secondId="question-2"
+                  trigger="hover"
                   palette={[
                     { id: "question-1", url: "/svgs/question-1.svg" },
                     { id: "question-2", url: "/svgs/question-2.svg" },

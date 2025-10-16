@@ -1,6 +1,6 @@
 "use client";
 
-import { FC, KeyboardEvent, useMemo, useState } from "react";
+import { FC, KeyboardEvent, MouseEvent as ReactMouseEvent, useMemo, useState } from "react";
 import MorphingDots from "@/lib/MorphingDots";
 export type ToggleMorphingIconProps = {
   width?: number | string;
@@ -14,6 +14,7 @@ export type ToggleMorphingIconProps = {
   secondId?: string;
   initial?: "first" | "second";
   wrapperClassName?: string;
+  trigger?: "click" | "hover";
 };
 
 const ToggleMorphingIcon: FC<ToggleMorphingIconProps> = ({
@@ -21,9 +22,11 @@ const ToggleMorphingIcon: FC<ToggleMorphingIconProps> = ({
   secondId = "read",
   initial = "first",
   wrapperClassName,
+  trigger = "click",
   ...rest
 }) => {
   const [useFirst, setUseFirst] = useState(initial === "first");
+  const initialIsFirst = initial === "first";
   const activeId = useFirst ? firstId : secondId;
 
   const DEFAULT_PALETTE: Array<{ id: string; url: string }> = useMemo(() => ([
@@ -45,20 +48,33 @@ const ToggleMorphingIcon: FC<ToggleMorphingIconProps> = ({
 
   const toggle = () => setUseFirst((v) => !v);
   const onKeyDown = (e: KeyboardEvent<HTMLDivElement>) => {
+    if (trigger !== "click") return;
     if (e.key === "Enter" || e.key === " ") {
       e.preventDefault();
       toggle();
     }
   };
 
+  const onMouseEnter = (_e: ReactMouseEvent<HTMLDivElement>) => {
+    if (trigger !== "hover") return;
+    setUseFirst(!initialIsFirst);
+  };
+
+  const onMouseLeave = (_e: ReactMouseEvent<HTMLDivElement>) => {
+    if (trigger !== "hover") return;
+    setUseFirst(initialIsFirst);
+  };
+
   return (
     <div
-      role="button"
-      tabIndex={0}
-      aria-pressed={!useFirst}
-      onClick={toggle}
+      role={trigger === "click" ? "button" : undefined}
+      tabIndex={trigger === "click" ? 0 : undefined}
+      aria-pressed={trigger === "click" ? !useFirst : undefined}
+      onClick={trigger === "click" ? toggle : undefined}
       onKeyDown={onKeyDown}
-      className={wrapperClassName ? `${wrapperClassName} cursor-pointer` : "cursor-pointer"}
+      onMouseEnter={onMouseEnter}
+      onMouseLeave={onMouseLeave}
+      className={wrapperClassName ? `${wrapperClassName} ${trigger === "click" ? "cursor-pointer" : ""}` : (trigger === "click" ? "cursor-pointer" : undefined)}
       style={{ width: "100%", height: "100%" }}
     >
       <MorphingDots
