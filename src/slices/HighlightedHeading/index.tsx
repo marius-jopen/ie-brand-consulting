@@ -20,7 +20,7 @@ const HighlightedHeading: FC<HighlightedHeadingProps> = ({ slice }) => {
       data-slice-type={slice.slice_type}
       data-slice-variation={slice.variation}
     >
-      <StaggerContainer className="text-center pt-8 pb-12  mx-auto w-4/5 pt-30">
+      <StaggerContainer className="text-center pt-8 pb-16  mx-auto w-2/3 pt-30">
         {slice.primary.subtitle && (
           <FadeInUp>
             <h4 className="text-h4 text-secondary">
