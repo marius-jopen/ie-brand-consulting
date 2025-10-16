@@ -48,10 +48,7 @@ const HeroContentCentered: FC<HeroContentCenteredProps> = ({ slice }) => {
       data-slice-variation={slice.variation}
     >
       <div 
-        className={`bg-primary py-20 relative transition-all duration-[2100ms] ease-in-out ${inView ? "mx-0 rounded-none" : "mx-11 rounded-lg"}`}
-        onMouseEnter={() => setIsHovered(true)}
-        onMouseLeave={() => setIsHovered(false)}
-      >
+        className={`bg-primary py-20 relative transition-all duration-[2100ms] h-screen ease-in-out ${inView ? "mx-0 rounded-none" : "mx-11 rounded-lg"}`}>
         {/* Random white circles with hover animation */}
         <RandomCircles
           count={8}
@@ -63,31 +60,37 @@ const HeroContentCentered: FC<HeroContentCenteredProps> = ({ slice }) => {
           isHovered={isHovered}
         />
         
-        <StaggerContainer className="relative z-10">
-          {slice.primary.title && (
-            <FadeInUp>
-              <div className="text-h2 text-center pt-18 relative z-10 mx-auto max-w-5xl">
-                {asText(slice.primary.title)}
-              </div>
-            </FadeInUp>
-          )}
-          
-          <div className="mx-auto pb-20 w-full max-w-3xl pt-22 relative z-10">
-            {slice.primary.subtitle && (
+        <StaggerContainer className="relative z-10 flex items-center justify-center h-full">
+          <div
+            onMouseEnter={() => setIsHovered(true)}
+            onMouseLeave={() => setIsHovered(false)}
+            >
+            {slice.primary.title && (
               <FadeInUp>
-                <div className="text-h7 text-center pb-8">
-                  {asText(slice.primary.subtitle)}
+                <div
+                  className="text-h3-variable text-center pt-18 relative z-10 mx-auto max-w-7xl">
+                  {asText(slice.primary.title)}
                 </div>
               </FadeInUp>
             )}
             
-            {slice.primary.description && (
-              <FadeInUp>
-                <div className="text-p1 text-center">
-                  {asText(slice.primary.description)}
-                </div>
-              </FadeInUp>
-            )}
+            <div className="mx-auto pb-20 w-full max-w-3xl pt-22 relative z-10">
+              {slice.primary.subtitle && (
+                <FadeInUp>
+                  <div className="text-h7 text-center pb-8">
+                    {asText(slice.primary.subtitle)}
+                  </div>
+                </FadeInUp>
+              )}
+              
+              {slice.primary.description && (
+                <FadeInUp>
+                  <div className="text-p1 text-center">
+                    {asText(slice.primary.description)}
+                  </div>
+                </FadeInUp>
+              )}
+            </div>
           </div>
         </StaggerContainer>
       </div>

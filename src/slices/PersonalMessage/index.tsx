@@ -153,33 +153,35 @@ const PersonalMessage: FC<PersonalMessageProps> = ({ slice }) => {
       data-slice-type={slice.slice_type}
       data-slice-variation={slice.variation}
     >
-      <StaggerContainer className="mx-auto w-10/12 pt-24 pb-24 text-box">
-        {slice.primary.heading && (
-          <FadeInUp>
-            <div className="text-h4 text-center pb-20 will-change-transform">
-              {asText(slice.primary.heading)}
-            </div>
-          </FadeInUp>
-        )}
+      <StaggerContainer className="mx-auto w-10/12 min-h-screen flex items-center justify-center">
+        <div className="pt-24 pb-24 text-box">
+            {slice.primary.heading && (
+              <FadeInUp>
+                <div className="text-h4 text-center pb-20 will-change-transform">
+                  {asText(slice.primary.heading)}
+                </div>
+              </FadeInUp>
+            )}
 
-        {slice.primary.text && (
-          <div ref={columnsRef} className="text-p1 columns-3 gap-8">
-            <PrismicRichText
-              field={slice.primary.text}
-              components={{
-                paragraph: ({ children }) => (
-                  <AnimatedBlock as="p" containerRef={columnsRef} inView={inView} baseDelaySec={0.2}>{children}</AnimatedBlock>
-                ),
-                listItem: ({ children }) => (
-                  <AnimatedBlock as="li" containerRef={columnsRef} inView={inView} baseDelaySec={0.2}>{children}</AnimatedBlock>
-                ),
-                oListItem: ({ children }) => (
-                  <AnimatedBlock as="li" containerRef={columnsRef} inView={inView} baseDelaySec={0.2}>{children}</AnimatedBlock>
-                ),
-              }}
-            />
-          </div>
-        )}
+            {slice.primary.text && (
+              <div ref={columnsRef} className="text-p1 columns-3 gap-8">
+                <PrismicRichText
+                  field={slice.primary.text}
+                  components={{
+                    paragraph: ({ children }) => (
+                      <AnimatedBlock as="p" containerRef={columnsRef} inView={inView} baseDelaySec={0.2}>{children}</AnimatedBlock>
+                    ),
+                    listItem: ({ children }) => (
+                      <AnimatedBlock as="li" containerRef={columnsRef} inView={inView} baseDelaySec={0.2}>{children}</AnimatedBlock>
+                    ),
+                    oListItem: ({ children }) => (
+                      <AnimatedBlock as="li" containerRef={columnsRef} inView={inView} baseDelaySec={0.2}>{children}</AnimatedBlock>
+                    ),
+                  }}
+                />
+              </div>
+            )}
+        </div>
       </StaggerContainer>
     </section>
   );

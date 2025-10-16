@@ -183,7 +183,15 @@ body {
         font-family: 'Supreme LL TT', sans-serif;
         font-weight: 900;
         font-size: 163.17px;
-        line-height: 142.33px;
+        line-height: 172.33px;
+        letter-spacing: -0.03em;
+    }
+
+    .text-h3-variable {
+        font-family: 'Supreme LL TT', sans-serif;
+        font-weight: 900;
+        font-size: 10vw;
+        line-height: 11vw;
         letter-spacing: -0.03em;
     }
     
