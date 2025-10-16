@@ -34,7 +34,7 @@ export default function Welcome() {
     >
       <div className="w-full h-full flex items-center justify-start px-6">
         <div className="px-24">
-          <Opener onFinished={handleFinished} textClassName="whitespace-pre text-h1 text-white" />
+          <Opener onFinished={handleFinished} textClassName="whitespace-pre text-opener text-white" />
         </div>
       </div>
     </div>

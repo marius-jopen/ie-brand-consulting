@@ -2,7 +2,7 @@
 
 body {
     font-family: 'Supreme LL TT', sans-serif;
-overflow-x: scroll;
+    overflow-x: scroll;
     font-family: 'Supreme LL TT', sans-serif;
     font-weight: 400;
     font-size: 20px;
@@ -73,6 +73,15 @@ overflow-x: scroll;
     font-display: swap;
 }
 
+@font-face {
+    font-family: 'gt_ultra_fineblack';
+    src: url('/fonts/gt_ultra_fine_black-webfont.woff2') format('woff2'),
+        url('/fonts/gt_ultra_fine_black-webfont.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+
 @layer utilities {
     /* Custom Colors */
     .bg-primary {
@@ -108,10 +117,21 @@ overflow-x: scroll;
         color: #D2BA36;
     }
 
+    .text-ultra-black {
+        font-family: 'gt_ultra_fineblack', sans-serif;
+    }
 
     
     /* Custom Typography Styles */
     
+    .text-opener {
+        font-family: 'gt_ultra_fineblack', sans-serif;
+        font-weight: 900;
+        font-size: 12vw;
+        line-height: 10.5vw;
+        letter-spacing: -0.03em;
+    }
+
     .text-h1 {
         font-family: 'Supreme LL TT', sans-serif;
         font-weight: 900;
@@ -174,6 +194,10 @@ overflow-x: scroll;
         font-size: 28px;
         line-height: 32.3px;
         letter-spacing: 0.01em;
+    }
+    
+    .font-gt-ultra-black {
+        font-family: 'gt_ultra_fineblack', sans-serif;
     }
     
     .text-p2 {
