@@ -4,6 +4,7 @@ import HeaderWrapper from "@/lib/header-wrapper";
 import FooterWrapper from "@/lib/footer-wrapper";
 import PageFade from "@/lib/PageFade";
 import Welcome from "@/lib/Welcome";
+import CursorDot from "@/lib/CursorDot";
 import "./globals.css";
 
 export default async function RootLayout({
@@ -18,6 +19,7 @@ export default async function RootLayout({
   return (
     <html lang="en" className="welcome-active">
       <body className="scrollbar-gutter-stable antialiased">
+        <CursorDot />
         <Welcome />
         <HeaderWrapper settings={settings} />
         <main>

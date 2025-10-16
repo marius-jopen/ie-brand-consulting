@@ -9,6 +9,38 @@ body {
     letter-spacing: 0.02em;
 }
 
+/* Custom cursor: small gray dot that inverts on interactive elements */
+@media (pointer: fine) {
+    html, body {
+        cursor: none;
+    }
+    /* Ensure no native pointer appears over interactive elements */
+    a, button, [role=button], input, select, textarea, label, summary,
+    .cursor-pointer, [data-cursor-invert] {
+        cursor: none !important;
+    }
+    .cursor-dot {
+        position: fixed;
+        left: 0;
+        top: 0;
+        width: 12px;
+        height: 12px;
+        border-radius: 9999px;
+        background: #9CA3AF; /* neutral-400 */
+        pointer-events: none;
+        transform: translate(-50%, -50%);
+        transition: opacity 120ms ease, background-color 120ms ease, filter 120ms ease;
+        z-index: 9999;
+        opacity: 0;
+        mix-blend-mode: normal;
+    }
+    .cursor-dot.is-invert {
+        /* Solid black on interactive hover for clarity */
+        background: #000;
+        filter: none;
+    }
+}
+
 @font-face {
     font-family: 'Supreme LL TT Light';
     src: url('/fonts/SupremeLLTT-Light.woff2') format('woff2'),
