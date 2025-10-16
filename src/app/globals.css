@@ -256,6 +256,15 @@ body {
         letter-spacing: 0%;
     }
 
+    .text-menu {
+        font-family: Supreme LL TT;
+        font-weight: 400;
+        font-style: Regular;
+        font-size: 13px;
+        line-height: 100%;
+        letter-spacing: 0%;        
+    }
+
     .text-hyphenate {
         hyphens: auto;
         -webkit-hyphens: auto;

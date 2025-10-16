@@ -109,7 +109,7 @@ export default function Navigation({ settings, isDarkMode = false }: NavigationP
                 {item.links && item.links[0] && (
                   <PrismicNextLink 
                     field={item.links[0]}
-                    className={`block px-3 py-2 text-p3 font-medium transition-colors ${
+                    className={`block px-3 py-1.5 text-menu font-medium transition-colors ${
                       isDarkMode 
                         ? 'text-white hover:text-gray-300' 
                         : 'hover:text-[#D7D2CB]'
@@ -129,13 +129,11 @@ export default function Navigation({ settings, isDarkMode = false }: NavigationP
             const { hasMultipleLinks, isSubPage } = currentPageStates[index] || { hasMultipleLinks: false, isSubPage: false };
             const showSubNav = isSubPage && hasMultipleLinks;
 
-            // Only render if has multiple links and is on a subpage
-            if (!showSubNav) return null;
-
             return (
               <div 
                 key={`subnav-${index}`}
-                className="absolute top-0 left-1/2 transform -translate-x-1/2 flex justify-center gap-8 pt-2 px-4 py-2"
+                aria-hidden={!showSubNav}
+                className={`absolute top-0 left-1/2 transform -translate-x-1/2 flex justify-center gap-8 pt-2 px-4 py-2 transition-opacity duration-700 ease-in-out ${showSubNav ? 'opacity-100' : 'opacity-0 pointer-events-none'}`}
               >
                 <div className="flex justify-center gap-4">
                 {item.links?.slice(1).map((link, linkIndex) => {
@@ -145,7 +143,7 @@ export default function Navigation({ settings, isDarkMode = false }: NavigationP
                     <PrismicNextLink 
                       key={linkIndex} 
                       field={link}
-                      className={`inline-block text-p3 transition-colors px-3 py-1 ${
+                      className={`inline-block text-menu transition-colors px-3 py-1 ${
                         isCurrentLink
                           ? isDarkMode 
                             ? 'text-white underline font-medium' 
