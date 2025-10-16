@@ -8,10 +8,10 @@ const TARGET_TEXT = "ie.";
 // Animation timing configuration
 // Two speeds only: one for forward, one for reverse
 const FORWARD_START_DELAY_MS = 500; // delay before the first letter appears (non-hover autoplay)
-const FORWARD_DELAY_MS = 150;      // fixed delay per letter (forward)
+const FORWARD_DELAY_MS = 60;      // fixed delay per letter (forward)
 const REVERSE_START_DELAY_MS = 0;  // start reverse immediately
-const REVERSE_DELAY_MS = 60;       // fixed delay per step (reverse)
-const AUTOPLAY_REVERSE_PAUSE_MS = 1000; // pause before starting reverse in autoplay mode
+const REVERSE_DELAY_MS = 50;       // fixed delay per step (reverse)
+const AUTOPLAY_REVERSE_PAUSE_MS = 600; // pause before starting reverse in autoplay mode
 const WORD_BREAK_EXTRA_MS = 400;   // extra pause when showing the space between words
 
 type OpenerProps = {
