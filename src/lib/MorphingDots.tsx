@@ -148,6 +148,7 @@ export const MorphingDots: FC<MorphingDotsProps> = ({
 
   const [shapes, setShapes] = useState<Shape[]>([]);
   const [internalActiveId, setInternalActiveId] = useState<string | null>(null);
+  const pendingActiveIdRef = useRef<string | null>(null);
   // removed RAF-based one-frame reset to avoid visual gap when switching shapes
   const prevInternalActiveIdRef = useRef<string | null>(null);
   const holdOnNullIdRef = useRef<number | null>(null);
@@ -180,11 +181,32 @@ export const MorphingDots: FC<MorphingDotsProps> = ({
     };
   }, [sources]);
 
-  // Directly update active shape to ensure overlap without a gap
+  // Update internal active id only when the target shape is loaded; otherwise defer
   useEffect(() => {
-    if (shapes.length === 0) return;
-    setInternalActiveId(activeId ?? null);
-  }, [shapes.length, activeId]);
+    if (activeId == null) {
+      pendingActiveIdRef.current = null;
+      setInternalActiveId(null);
+      return;
+    }
+    const hasTarget = shapes.some((s) => s.id === activeId);
+    if (hasTarget) {
+      pendingActiveIdRef.current = null;
+      setInternalActiveId(activeId);
+    } else {
+      pendingActiveIdRef.current = activeId;
+      // Do not change internalActiveId yet; wait until the shape loads
+    }
+  }, [activeId, shapes]);
+
+  // When shapes load, if there is a deferred target pending, activate it once available
+  useEffect(() => {
+    if (!pendingActiveIdRef.current) return;
+    const hasPending = shapes.some((s) => s.id === pendingActiveIdRef.current);
+    if (hasPending) {
+      setInternalActiveId(pendingActiveIdRef.current);
+      pendingActiveIdRef.current = null;
+    }
+  }, [shapes]);
 
   // Special handling: if a no-motion shape is being deactivated to "no shape",
   // keep its positions for the duration of the fade-out so dots don't fly away.
