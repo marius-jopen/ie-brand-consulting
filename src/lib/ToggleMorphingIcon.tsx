@@ -1,6 +1,6 @@
 "use client";
 
-import { FC, KeyboardEvent, MouseEvent as ReactMouseEvent, useMemo, useState } from "react";
+import { FC, KeyboardEvent, useMemo, useState } from "react";
 import MorphingDots from "@/lib/MorphingDots";
 export type ToggleMorphingIconProps = {
   width?: number | string;
@@ -55,12 +55,12 @@ const ToggleMorphingIcon: FC<ToggleMorphingIconProps> = ({
     }
   };
 
-  const onMouseEnter = (_e: ReactMouseEvent<HTMLDivElement>) => {
+  const onMouseEnter = () => {
     if (trigger !== "hover") return;
     setUseFirst(!initialIsFirst);
   };
 
-  const onMouseLeave = (_e: ReactMouseEvent<HTMLDivElement>) => {
+  const onMouseLeave = () => {
     if (trigger !== "hover") return;
     setUseFirst(initialIsFirst);
   };

@@ -81,9 +81,9 @@ export default function CursorDot() {
 
     return () => {
       cancelAnimationFrame(rafId);
-      document.removeEventListener("pointermove", onPointerMove as any);
-      document.removeEventListener("pointerdown", onPointerDown as any);
-      window.removeEventListener("mouseout", onMouseLeave as any);
+      document.removeEventListener("pointermove", onPointerMove);
+      document.removeEventListener("pointerdown", onPointerDown);
+      window.removeEventListener("mouseout", onMouseLeave);
     };
   }, []);
 
