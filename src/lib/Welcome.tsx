@@ -1,12 +1,42 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import type { TransitionEvent } from "react";
 import Opener from "@/lib/Opener";
 
 export default function Welcome() {
   const [visible, setVisible] = useState(true);
   const [render, setRender] = useState(true);
+
+  // Adjust these to control when page animations start relative to the overlay fade-out.
+  // Must match the CSS transition duration on the overlay (duration-[2000ms]).
+  const WELCOME_FADE_OUT_MS = 2000;
+  const WELCOME_EARLY_START_MS = 2000; // start page animations this many ms BEFORE overlay fade ends
+
+  useEffect(() => {
+    const root = document.documentElement;
+    root.classList.add("welcome-active");
+    return () => {
+      root.classList.remove("welcome-active");
+    };
+  }, []);
+
+  useEffect(() => {
+    // When the overlay begins fading out, schedule early release so page animations can start
+    if (!visible) {
+      const releaseAfterMs = Math.max(0, WELCOME_FADE_OUT_MS - WELCOME_EARLY_START_MS);
+      const id = window.setTimeout(() => {
+        document.documentElement.classList.remove("welcome-active");
+      }, releaseAfterMs);
+      return () => window.clearTimeout(id);
+    }
+  }, [visible]);
+
+  useEffect(() => {
+    if (!render) {
+      document.documentElement.classList.remove("welcome-active");
+    }
+  }, [render]);
 
   const handleFinished = () => {
     window.setTimeout(() => {

@@ -6,11 +6,11 @@ import type { FC, PropsWithChildren, ComponentType, ReactNode } from "react";
 import { useEffect, useRef, useState } from "react";
 
 export const fadeInUpVariants: Variants = {
-  hidden: { opacity: 0, y: 16 },
+  hidden: { opacity: 0, y: 10 },
   show: {
     opacity: 1,
     y: 0,
-    transition: { duration: 0.8, ease: "easeOut" },
+    transition: { duration: 1.6, ease: "easeOut" },
   },
 };
 
@@ -27,7 +27,7 @@ export const StaggerContainer: FC<StaggerContainerProps> = ({
   children,
   className,
   delayChildren = 0.1,
-  staggerChildren = 0.12,
+  staggerChildren = 0.24,
   viewportAmount = 0.05,
   viewportOnce = false,
   retriggerOnPathname = true,
@@ -41,12 +41,14 @@ export const StaggerContainer: FC<StaggerContainerProps> = ({
     if (!el) return;
 
     const vh = window.innerHeight || document.documentElement.clientHeight;
-    const checkVisible = () => {
+    const isWelcomeActive = () =>
+      document.documentElement.classList.contains("welcome-active");
+    const canTrigger = () => {
       const rect = el.getBoundingClientRect();
-      return rect.top < vh * (1 - viewportAmount) && rect.bottom > 0;
+      return rect.top < vh * (1 - viewportAmount) && rect.bottom > 0 && !isWelcomeActive();
     };
 
-    if (checkVisible()) {
+    if (canTrigger()) {
       setShouldShow(true);
     } else {
       setShouldShow(false);
@@ -56,17 +58,28 @@ export const StaggerContainer: FC<StaggerContainerProps> = ({
       (entries) => {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
-            setShouldShow(true);
-            observer.disconnect();
+            if (!isWelcomeActive()) {
+              setShouldShow(true);
+              observer.disconnect();
+            }
           }
         });
       },
-      { root: null, rootMargin: "0px 0px -5% 0px", threshold: 0 }
+      { root: null, rootMargin: "0px 0px -4% 0px", threshold: 0 }
     );
     observer.observe(el);
 
+    const rootEl = document.documentElement;
+    const classObserver = new MutationObserver(() => {
+      if (!isWelcomeActive() && canTrigger()) {
+        setShouldShow(true);
+        classObserver.disconnect();
+      }
+    });
+    classObserver.observe(rootEl, { attributes: true, attributeFilter: ["class"] });
+
     const rafId = window.requestAnimationFrame(() => {
-      if (checkVisible()) setShouldShow(true);
+      if (canTrigger()) setShouldShow(true);
     });
 
     type DocumentWithFonts = Document & { fonts?: { ready?: Promise<void> } };
@@ -74,16 +87,17 @@ export const StaggerContainer: FC<StaggerContainerProps> = ({
     const fontsReady: Promise<void> | undefined = docWithFonts.fonts?.ready;
     if (fontsReady) {
       fontsReady.then(() => {
-        if (checkVisible()) setShouldShow(true);
+        if (canTrigger()) setShouldShow(true);
       });
     }
 
     const timeoutId = window.setTimeout(() => {
-      if (checkVisible()) setShouldShow(true);
+      if (canTrigger()) setShouldShow(true);
     }, 120);
 
     return () => {
       observer.disconnect();
+      classObserver.disconnect();
       window.cancelAnimationFrame(rafId);
       window.clearTimeout(timeoutId);
     };
@@ -93,9 +107,9 @@ export const StaggerContainer: FC<StaggerContainerProps> = ({
       ref={containerRef}
       key={retriggerOnPathname ? pathname : undefined}
       className={className}
-      initial={shouldShow ? "show" : "hidden"}
+      initial="hidden"
       animate={shouldShow ? "show" : undefined}
-      whileInView="show"
+      whileInView={shouldShow ? "show" : undefined}
       viewport={{ once: viewportOnce, amount: viewportAmount }}
       variants={{
         hidden: {},
@@ -110,9 +124,10 @@ export const StaggerContainer: FC<StaggerContainerProps> = ({
 type FadeInUpProps = PropsWithChildren<{
   as?: "div" | "p" | "li";
   className?: string;
+  delay?: number;
 }>;
 
-export const FadeInUp: FC<FadeInUpProps> = ({ as = "div", className, children }) => {
+export const FadeInUp: FC<FadeInUpProps> = ({ as = "div", className, children, delay }) => {
   type MotionTagProps = MotionProps & { className?: string; children?: ReactNode };
   const tagMap: Record<"div" | "p" | "li", ComponentType<MotionTagProps>> = {
     div: motion.div,
@@ -121,7 +136,7 @@ export const FadeInUp: FC<FadeInUpProps> = ({ as = "div", className, children })
   };
   const MotionTag = tagMap[as] ?? motion.div;
   return (
-    <MotionTag className={className} variants={fadeInUpVariants}>
+    <MotionTag className={className} variants={fadeInUpVariants} transition={delay !== undefined ? { delay } : undefined}>
       {children}
     </MotionTag>
   );

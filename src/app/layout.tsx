@@ -16,8 +16,8 @@ export default async function RootLayout({
   const settings = await client.getSingle("settings");
 
   return (
-    <html lang="en">
-      <body className="scrollbar-gutter-stable">
+    <html lang="en" className="welcome-active">
+      <body className="scrollbar-gutter-stable antialiased">
         <Welcome />
         <HeaderWrapper settings={settings} />
         <main>

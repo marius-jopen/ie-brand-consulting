@@ -1,9 +1,8 @@
 @import "tailwindcss";
 
 body {
-    font-family: 'Supreme LL TT', sans-serif;
+    font-family: 'Supreme LL TT Regular';
     overflow-x: scroll;
-    font-family: 'Supreme LL TT', sans-serif;
     font-weight: 400;
     font-size: 20px;
     line-height: 28px;
@@ -11,7 +10,7 @@ body {
 }
 
 @font-face {
-    font-family: 'Supreme LL TT';
+    font-family: 'Supreme LL TT Light';
     src: url('/fonts/SupremeLLTT-Light.woff2') format('woff2'),
         url('/fonts/SupremeLLTT-Light.woff') format('woff');
     font-weight: 300;
@@ -23,7 +22,7 @@ body {
     font-family: 'Supreme LL TT Book';
     src: url('/fonts/SupremeLLTT-Book.woff2') format('woff2'),
         url('/fonts/SupremeLLTT-Book.woff') format('woff');
-    font-weight: 500;
+    font-weight: 400;
     font-style: normal;
     font-display: swap;
 }
@@ -56,7 +55,7 @@ body {
 }
 
 @font-face {
-    font-family: 'Supreme LL TT';
+    font-family: 'Supreme LL TT Regular';
     src: url('/fonts/SupremeLLTT-Regular.woff2') format('woff2'),
         url('/fonts/SupremeLLTT-Regular.woff') format('woff');
     font-weight: normal;
@@ -65,7 +64,7 @@ body {
 }
 
 @font-face {
-    font-family: 'Supreme LL TT';
+    font-family: 'Supreme LL TT Thin';
     src: url('/fonts/SupremeLLTT-Thin.woff2') format('woff2'),
         url('/fonts/SupremeLLTT-Thin.woff') format('woff');
     font-weight: 100;
