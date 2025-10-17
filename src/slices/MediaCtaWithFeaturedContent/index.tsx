@@ -31,7 +31,7 @@ const MediaCtaWithFeaturedContent: FC<MediaCtaWithFeaturedContentProps> = ({
         <StaggerContainer className="p-8">
           {slice.primary.media_title && (
             <FadeInUp>
-              <h1 className="text-h1 text-center">{asText(slice.primary.media_title)}</h1>
+              <h1 className="text-h0 text-center">{asText(slice.primary.media_title)}</h1>
             </FadeInUp>
           )}
           
