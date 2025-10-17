@@ -240,7 +240,7 @@ body {
     }
     
     .text-p2 {
-        font-family: 'Supreme LL TT', sans-serif;
+        font-family: 'Supreme LL TT Regular';
         font-weight: 400;
         font-size: 22.76px;
         line-height: 31.48px;
@@ -248,7 +248,7 @@ body {
     }
 
     .text-p3 {
-        font-family: Supreme LL TT;
+        font-family: 'Supreme LL TT Regular';
         font-weight: 400;
         font-style: Regular;
         font-size: 15px;
@@ -257,7 +257,7 @@ body {
     }
 
     .text-p4 {
-        font-family: 'Supreme LL TT', sans-serif;
+        font-family: 'Supreme LL TT Regular';
         font-weight: 400;
         font-size: 17px;
         line-height: 135%;

@@ -80,20 +80,20 @@ const MediaCtaWithFeaturedContent: FC<MediaCtaWithFeaturedContentProps> = ({
             <div>
               {slice.primary.featured_content.map((item, index) => (
                 <FadeInUp key={index}>
-                  <div>
+                  <div className="group">
                     {item.image?.url ? (
-                      <PrismicImage field={item.image} />
+                      <PrismicImage className="w-full transition duration-300 ease-out filter group-hover:brightness-90" field={item.image} />
                     ) : (
-                      <div className="w-full aspect-[6/3] bg-gray-200" />
+                      <div className="w-full aspect-[6/3] bg-primary transition duration-300 ease-out filter group-hover:brightness-90" />
                     )}
 
                     <div className="pb-14 pt-4">
-                      {item.eyebrow && <div className="pb-3">{item.eyebrow}</div>}
+                      {item.eyebrow && <div className="pb-3 text-p4">{item.eyebrow}</div>}
 
                       {item.title && <div className="text-h8 pb-6">{asText(item.title)}</div>}
 
                       {item.cta_link && (
-                        <PrismicNextLink className=" underline-offset-4 hover:underline transition-all duration-300" field={item.cta_link}>
+                        <PrismicNextLink className="text-p4 underline underline-offset-4 decoration-1 decoration-transparent group-hover:decoration-black transition-colors duration-300" field={item.cta_link}>
                           {item.cta_link.text || "CTA Link"}
                         </PrismicNextLink>
                       )}
