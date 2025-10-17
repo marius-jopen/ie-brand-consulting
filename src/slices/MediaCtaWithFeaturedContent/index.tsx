@@ -66,9 +66,13 @@ const MediaCtaWithFeaturedContent: FC<MediaCtaWithFeaturedContentProps> = ({
       
       <div className="w-1/2 overflow-y-auto">
         <StaggerContainer className="p-8 h-full">
-          {slice.primary.image && (
+          {(!slice.primary.featured_content || slice.primary.featured_content.length === 0) && (
             <FadeInUp>
-              <PrismicImage className="h-full object-cover" field={slice.primary.image} />
+              {slice.primary.image?.url ? (
+                <PrismicImage className="h-full object-cover" field={slice.primary.image} />
+              ) : (
+                <div className="w-full h-full bg-gray-200" />
+              )}
             </FadeInUp>
           )}
           
@@ -77,7 +81,11 @@ const MediaCtaWithFeaturedContent: FC<MediaCtaWithFeaturedContentProps> = ({
               {slice.primary.featured_content.map((item, index) => (
                 <FadeInUp key={index}>
                   <div>
-                    {item.image && <PrismicImage field={item.image} />}
+                    {item.image?.url ? (
+                      <PrismicImage field={item.image} />
+                    ) : (
+                      <div className="w-full aspect-[6/3] bg-gray-200" />
+                    )}
 
                     <div className="pb-14 pt-4">
                       {item.eyebrow && <div className="pb-3">{item.eyebrow}</div>}
