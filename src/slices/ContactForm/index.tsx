@@ -4,6 +4,7 @@ import { FC, useMemo, useState } from "react";
 import { Content, asText } from "@prismicio/client";
 import { SliceComponentProps } from "@prismicio/react";
 import { PrismicRichText } from "@prismicio/react";
+import { PrismicNextLink } from "@prismicio/next";
 import { StaggerContainer, FadeInUp } from "@/lib/FramerStagger";
 
 /**
@@ -33,7 +34,7 @@ const ContactForm: FC<ContactFormProps> = ({ slice }) => {
 
   return (
     <section
-      className="bg-tertiary text-white min-h-screen flex flex-col items-center justify-center pb-16 pt-24 px-4"
+      className="bg-tertiary text-white min-h-screen flex flex-col items-center justify-center pb-0 pt-24 px-4"
       data-slice-type={slice.slice_type}
       data-slice-variation={slice.variation}
     >
@@ -53,7 +54,7 @@ const ContactForm: FC<ContactFormProps> = ({ slice }) => {
               {/* First Name */}
               <FadeInUp>
                 <div className="space-y-2">
-                  <label className="block text-sm font-medium text-gray-300">First Name*</label>
+                  <label className="block text-sm font-medium text-p4">First Name*</label>
                   <input
                     type="text"
                     name="firstName"
@@ -68,7 +69,7 @@ const ContactForm: FC<ContactFormProps> = ({ slice }) => {
               {/* Last Name */}
               <FadeInUp>
                 <div className="space-y-2">
-                  <label className="block text-sm font-medium text-gray-300">Last Name*</label>
+                  <label className="block text-sm font-medium text-p4">Last Name*</label>
                   <input
                     type="text"
                     name="lastName"
@@ -83,7 +84,7 @@ const ContactForm: FC<ContactFormProps> = ({ slice }) => {
               {/* Email (left column under First Name); keep right column empty to drop Message to next row */}
               <FadeInUp>
                 <div className="space-y-2 md:col-span-1">
-                  <label className="block text-sm font-medium text-gray-300">Email*</label>
+                  <label className="block text-sm font-medium text-p4">Email*</label>
                   <input
                     type="email"
                     name="email"
@@ -101,11 +102,11 @@ const ContactForm: FC<ContactFormProps> = ({ slice }) => {
               {/* Message (spans two columns) */}
               <FadeInUp>
                 <div className="space-y-2 md:col-span-2">
-                  <label className="block text-sm font-medium text-gray-300">Message</label>
+                  <label className="block text-sm font-medium text-p4">Message</label>
                   <textarea
                     name="message"
                     placeholder="Write here your message"
-                    rows={4}
+                    rows={3}
                     value={message}
                     onChange={(e) => setMessage(e.target.value)}
                     className="w-full bg-transparent text-white placeholder-gray-500 focus:outline-none py-2 text-lg resize-none"
@@ -114,47 +115,53 @@ const ContactForm: FC<ContactFormProps> = ({ slice }) => {
               </FadeInUp>
 
               {/* Divider line separate full width row */}
-              <div className="md:col-span-2 border-b border-white/40" />
+              <div className="md:col-span-2 border-b border-white" />
 
-              {/* Privacy Policy Checkbox */}
-              <FadeInUp>
-                <div className="md:col-span-2 flex items-start gap-3">
-                  <input
-                    type="checkbox"
-                    name="agreement"
-                    id="agreement"
-                    checked={agreed}
-                    onChange={(e) => setAgreed(e.target.checked)}
-                    className="mt-1 w-4 h-4 appearance-none border-2 border-white rounded-full grid place-content-center bg-transparent focus:outline-none focus:ring-0 focus:ring-offset-0 checked:bg-white"
-                  />
-                  <label htmlFor="agreement" className="text-sm text-gray-300 leading-relaxed">
-                    {slice.primary.agreement_text && (
-                      <PrismicRichText
-                        field={slice.primary.agreement_text}
-                        components={{
-                          paragraph: ({ children }) => <span>{children}</span>,
-                          strong: ({ children }) => <span className="text-white font-medium">{children}</span>,
-                        }}
+              {/* Agreement + Submit stacked full width */}
+              <div className="md:col-span-2">
+                <FadeInUp>
+                  <div className="w-full flex flex-col gap-8">
+                    <div className="flex items-start gap-3">
+                      <input
+                        type="checkbox"
+                        name="agreement"
+                        id="agreement"
+                        checked={agreed}
+                        onChange={(e) => setAgreed(e.target.checked)}
+                        className="mt-1 w-4 h-4 appearance-none border-1 border-white rounded-full grid place-content-center bg-transparent focus:outline-none focus:ring-0 focus:ring-offset-0 checked:bg-white"
                       />
-                    )}
-                  </label>
-                </div>
-              </FadeInUp>
+                      <label htmlFor="agreement" className="text-sm text-p4 leading-relaxed w-2/3">
+                        {slice.primary.agreement_text && (
+                          <PrismicRichText
+                            field={slice.primary.agreement_text}
+                            components={{
+                              paragraph: ({ children }) => <span>{children}</span>,
+                              strong: ({ children }) => <span className="text-white font-medium">{children}</span>,
+                              hyperlink: ({ node, children }) => (
+                                <PrismicNextLink field={node.data} className="text-gray-400">
+                                  {children}
+                                </PrismicNextLink>
+                              ),
+                            }}
+                          />
+                        )}
+                      </label>
+                    </div>
 
-              {/* Send Button */}
-              <FadeInUp>
-                <div className="md:col-span-2 flex justify-center pt-8">
-                  <button
-                    type="submit"
-                    disabled={isSendDisabled}
-                    className={`text-h4 font-bold text-white transition-colors duration-200 ${
-                      isSendDisabled ? "opacity-50 cursor-not-allowed" : "hover:text-gray-300"
-                    }`}
-                  >
-                    Send
-                  </button>
-                </div>
-              </FadeInUp>
+                    <div className="flex justify-center pt-8 w-full">
+                      <button
+                        type="submit"
+                        disabled={isSendDisabled}
+                        className={`text-h5 font-bold text-white transition-colors duration-200 ${
+                          isSendDisabled ? "opacity-50 cursor-not-allowed" : "hover:text-gray-300"
+                        }`}
+                      >
+                        Send
+                      </button>
+                    </div>
+                  </div>
+                </FadeInUp>
+              </div>
             </div>
           </StaggerContainer>
         </form>
