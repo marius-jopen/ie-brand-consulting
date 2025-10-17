@@ -140,9 +140,6 @@ export const MorphingDots: FC<MorphingDotsProps> = ({
   fadeTransitionMs = 650,
   className,
 }) => {
-  // Shapes that should not animate position (only fade in/out)
-  const NO_MOTION_IDS = useRef(new Set<string>(["strategy"]));
-
   const containerRef = useRef<HTMLDivElement>(null);
   const { width: containerW, height: containerH } = useContainerSize(containerRef);
 
@@ -208,13 +205,12 @@ export const MorphingDots: FC<MorphingDotsProps> = ({
     }
   }, [shapes]);
 
-  // Special handling: if a no-motion shape is being deactivated to "no shape",
-  // keep its positions for the duration of the fade-out so dots don't fly away.
+  // When deactivating to "no shape", keep previous shape positions for the duration
+  // of the fade-out so dots don't fly away. This applies to all shapes.
   useEffect(() => {
     const prev = prevInternalActiveIdRef.current;
-    const isPrevNoMotion = prev != null && NO_MOTION_IDS.current.has(prev);
     const isNowNull = internalActiveId == null;
-    if (isPrevNoMotion && isNowNull) {
+    if (prev != null && isNowNull) {
       setHoldOnNullId(prev);
       if (holdOnNullIdRef.current) window.clearTimeout(holdOnNullIdRef.current);
       holdOnNullIdRef.current = window.setTimeout(() => {
@@ -411,8 +407,8 @@ export const MorphingDots: FC<MorphingDotsProps> = ({
             y = offsetY + cySvg * scale - diameterPx / 2;
             visible = !!dot && dot.ghost !== true;
           }
-          const isFadingOutNoMotion = holdOnNullId != null && NO_MOTION_IDS.current.has(holdOnNullId) && internalActiveId == null;
-          const transformMs = ((internalActiveId != null && NO_MOTION_IDS.current.has(internalActiveId)) || isFadingOutNoMotion) ? 0 : moveTransitionMs;
+          const isFadingOut = holdOnNullId != null && internalActiveId == null;
+          const transformMs = isFadingOut ? 0 : moveTransitionMs;
           const style: CSSProperties = {
             position: "absolute",
             left: 0,
@@ -422,8 +418,9 @@ export const MorphingDots: FC<MorphingDotsProps> = ({
             height: diameterPx,
             borderRadius: "9999px",
             background: dotColor,
-            opacity: visible ? (isFadingOutNoMotion ? 0 : dotOpacity) : 0,
-            transition: `transform ${transformMs}ms ease, opacity ${fadeTransitionMs}ms ease`,
+            opacity: visible ? (isFadingOut ? 0 : dotOpacity) : 0,
+            transition: `transform ${transformMs}ms cubic-bezier(.22,.61,.36,1), opacity ${fadeTransitionMs}ms cubic-bezier(.22,.61,.36,1)`,
+            willChange: "transform, opacity",
           };
           return <span key={i} style={style} />;
         })}
