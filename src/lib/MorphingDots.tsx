@@ -215,7 +215,7 @@ export const MorphingDots: FC<MorphingDotsProps> = ({
       if (holdOnNullIdRef.current) window.clearTimeout(holdOnNullIdRef.current);
       holdOnNullIdRef.current = window.setTimeout(() => {
         setHoldOnNullId(null);
-      }, fadeTransitionMs) as unknown as number;
+      }, Math.max(fadeTransitionMs, moveTransitionMs)) as unknown as number;
     } else if (!isNowNull) {
       // If activating another shape, drop any hold
       if (holdOnNullIdRef.current) window.clearTimeout(holdOnNullIdRef.current);
@@ -225,7 +225,7 @@ export const MorphingDots: FC<MorphingDotsProps> = ({
     return () => {
       // no-op
     };
-  }, [internalActiveId, fadeTransitionMs]);
+  }, [internalActiveId, fadeTransitionMs, moveTransitionMs]);
 
   useEffect(() => {
     return () => {
@@ -406,9 +406,31 @@ export const MorphingDots: FC<MorphingDotsProps> = ({
             x = offsetX + cxSvg * scale - diameterPx / 2;
             y = offsetY + cySvg * scale - diameterPx / 2;
             visible = !!dot && dot.ghost !== true;
+
+            // Smooth radial fly-out on exit (keep transform animated while fading)
+            const isExiting = holdOnNullId != null && internalActiveId == null;
+            if (isExiting) {
+              const centerX = W / 2;
+              const centerY = H / 2;
+              const dotCenterX = x + diameterPx / 2;
+              const dotCenterY = y + diameterPx / 2;
+              const dx = dotCenterX - centerX;
+              const dy = dotCenterY - centerY;
+              // Deterministic pseudo-random jitter per index (no re-renders)
+              const seed = Math.sin((i + 1) * 12.9898) * 43758.5453;
+              const frac = seed - Math.floor(seed);
+              const jitter = (frac * 2 - 1);
+              const radialScale = 1.25 + jitter * 0.15; // 25% outward push + variance
+              const driftX = (W * 0.015) * jitter; // small horizontal drift
+              const driftY = (H * 0.02) * (1 - Math.abs(jitter)); // small vertical drift
+              const targetX = centerX + dx * radialScale + driftX;
+              const targetY = centerY + dy * radialScale + driftY;
+              x = targetX - diameterPx / 2;
+              y = targetY - diameterPx / 2;
+            }
           }
-          const isFadingOut = holdOnNullId != null && internalActiveId == null;
-          const transformMs = isFadingOut ? 0 : moveTransitionMs;
+          const isExiting = holdOnNullId != null && internalActiveId == null;
+          const transformMs = moveTransitionMs; // keep transform animated even when exiting
           const style: CSSProperties = {
             position: "absolute",
             left: 0,
@@ -418,7 +440,7 @@ export const MorphingDots: FC<MorphingDotsProps> = ({
             height: diameterPx,
             borderRadius: "9999px",
             background: dotColor,
-            opacity: visible ? (isFadingOut ? 0 : dotOpacity) : 0,
+            opacity: visible ? (isExiting ? 0 : dotOpacity) : 0,
             transition: `transform ${transformMs}ms cubic-bezier(.22,.61,.36,1), opacity ${fadeTransitionMs}ms cubic-bezier(.22,.61,.36,1)`,
             willChange: "transform, opacity",
           };
