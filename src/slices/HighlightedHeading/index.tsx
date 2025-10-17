@@ -21,21 +21,19 @@ const HighlightedHeading: FC<HighlightedHeadingProps> = ({ slice }) => {
       data-slice-variation={slice.variation}
     >
       <StaggerContainer className="text-center pt-8 pb-16  mx-auto w-2/3 pt-30">
-        {slice.primary.subtitle && (
-          <FadeInUp>
-            <h4 className="text-h4 text-secondary">
-              {asText(slice.primary.subtitle)}
-            </h4>
-          </FadeInUp>
+      <FadeInUp>
+        {slice.primary.subtitle && (   
+          <h4 className="text-h4 text-secondary">
+            {asText(slice.primary.subtitle)}
+          </h4>     
         )}
         
         {slice.primary.title && (
-          <FadeInUp>
-            <h4 className="text-h4">
-              {asText(slice.primary.title)}
-            </h4>
-          </FadeInUp>
+          <h4 className="text-h4">
+            {asText(slice.primary.title)}
+          </h4>
         )}
+        </FadeInUp>
       </StaggerContainer>
     </section>
   );

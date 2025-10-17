@@ -100,6 +100,8 @@ export default function Navigation({ settings, isDarkMode = false }: NavigationP
         {/* Main navigation items */}
         <div className="flex gap-4">
           {items?.map((item, index) => {
+            const state = currentPageStates[index] || { isParent: false, isSubPage: false };
+            const isActive = state.isParent || state.isSubPage;
             return (
               <div 
                 className="relative group" 
@@ -110,9 +112,13 @@ export default function Navigation({ settings, isDarkMode = false }: NavigationP
                   <PrismicNextLink 
                     field={item.links[0]}
                     className={`block px-3 py-1.5 text-menu font-medium transition-colors ${
-                      isDarkMode 
-                        ? 'text-white hover:text-gray-300' 
-                        : 'hover:text-[#D7D2CB]'
+                      isActive
+                        ? (isDarkMode 
+                            ? 'text-white underline underline-offset-4' 
+                            : 'text-black underline underline-offset-4')
+                        : (isDarkMode 
+                            ? 'text-white hover:text-gray-300' 
+                            : 'hover:text-[#D7D2CB]')
                     }`}
                   >
                     {item.links[0].text || "Link"}
@@ -146,8 +152,8 @@ export default function Navigation({ settings, isDarkMode = false }: NavigationP
                       className={`inline-block text-menu transition-colors px-3 py-1 ${
                         isCurrentLink
                           ? isDarkMode 
-                            ? 'text-white underline font-medium' 
-                            : 'text-black underline font-medium'
+                            ? 'text-white underline underline-offset-4 font-medium' 
+                            : 'text-black underline underline-offset-4 font-medium'
                           : isDarkMode
                             ? 'text-white hover:text-white/80'
                             : 'text-secondary hover:text-black'

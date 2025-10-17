@@ -53,10 +53,10 @@ const WorkHighlightsGrid: FC<WorkHighlightsGridProps> = ({ slice }) => {
       {projects.length > 0 && (
         <div className="pb-12 mx-auto w-11/12">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <StaggerContainer className="flex flex-col" delayChildren={1} staggerChildren={1.24}>
+            <StaggerContainer className="flex flex-col" delayChildren={0.5} staggerChildren={0.6}>
               {leftColumnProjects.map((project, index) => (
                 <FadeInUp key={`left-${index}`}>
-                  <div className="text-center bg-primary rounded-lg pt-12 pb-12 px-8 mb-4 break-inside-avoid transition-all duration-300 ease-in-out hover:shadow-2xl hover:translate-y-[-4px] hover:bg-white">
+                  <div className="text-center bg-primary rounded-lg pt-12 pb-12 px-8 mb-4 break-inside-avoid transition-all duration-600 ease-in-out hover:shadow-2xl hover:translate-y-[-4px] hover:bg-white">
                     <div className="flex gap-2 justify-center pb-8">
                       {project.project_category_short && <p className="font-bold">{project.project_category_short}</p>}
                       {project.project_category_full && <p>{project.project_category_full}</p>}
@@ -77,10 +77,10 @@ const WorkHighlightsGrid: FC<WorkHighlightsGridProps> = ({ slice }) => {
                 </FadeInUp>
               ))}
             </StaggerContainer>
-            <StaggerContainer className="flex flex-col" delayChildren={1} staggerChildren={1.24}>
+            <StaggerContainer className="flex flex-col" delayChildren={0.5} staggerChildren={0.6}>
               {rightColumnProjects.map((project, index) => (
                 <FadeInUp key={`right-${index}`}>
-                  <div className="text-center bg-primary rounded-lg pt-12 pb-12 px-8 mb-4 break-inside-avoid transition-all duration-300 ease-in-out hover:shadow-2xl hover:translate-y-[-4px] hover:bg-white">
+                  <div className="text-center bg-primary rounded-lg pt-12 pb-12 px-8 mb-4 break-inside-avoid transition-all duration-600 ease-in-out hover:shadow-2xl hover:translate-y-[-4px] hover:bg-white">
                     <div className="flex gap-2 justify-center pb-8">
                       {project.project_category_short && <p className="font-bold">{project.project_category_short}</p>}
                       {project.project_category_full && <p>{project.project_category_full}</p>}
