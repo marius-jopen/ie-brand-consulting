@@ -234,7 +234,10 @@ export const MorphingDots: FC<MorphingDotsProps> = ({
   }, []);
 
   const displayShape = useMemo(() => {
-    const idToUse = internalActiveId ?? holdOnNullId;
+    // Avoid a one-frame gap when activeId becomes null by falling back
+    // to the previous internal active id synchronously during that frame.
+    const fallbackPrev = prevInternalActiveIdRef.current;
+    const idToUse = internalActiveId ?? holdOnNullId ?? fallbackPrev;
     return shapes.find((s) => s.id === idToUse) || null;
   }, [shapes, internalActiveId, holdOnNullId]);
 
@@ -263,11 +266,14 @@ export const MorphingDots: FC<MorphingDotsProps> = ({
       return;
     }
 
-    // No active shape: all dots at center
+    // No active shape: during exit, keep previous mapping; otherwise center ghosts
     if (!displayShape) {
+      if (prevDisplayShapeRef.current && prevOrderedDotsRef.current.length > 0) {
+        setOrderedTargetDots(prevOrderedDotsRef.current);
+        return;
+      }
       const center = Array.from({ length: masterCount }).map(() => ({ xPercent: 50, yPercent: 50, rPercentOfWidth: 3, rPx: 3, ghost: true } as Dot));
       setOrderedTargetDots(center);
-      // Do not update prev references when no active shape
       return;
     }
 
@@ -354,7 +360,7 @@ export const MorphingDots: FC<MorphingDotsProps> = ({
     setOrderedTargetDots(result);
     prevOrderedDotsRef.current = result;
     prevDisplayShapeRef.current = displayShape;
-  }, [displayShape, masterCount, shapes.length]);
+  }, [displayShape, masterCount, shapes.length, internalActiveId]);
 
   // The array used by renderer
   const targetDots = orderedTargetDots;
@@ -429,8 +435,10 @@ export const MorphingDots: FC<MorphingDotsProps> = ({
               y = targetY - diameterPx / 2;
             }
           }
-          const isExiting = holdOnNullId != null && internalActiveId == null;
+          const isExiting = (holdOnNullId != null && internalActiveId == null) || (!internalActiveId && prevInternalActiveIdRef.current != null);
           const transformMs = moveTransitionMs; // keep transform animated even when exiting
+          const effectiveFadeMs = isExiting ? Math.round(fadeTransitionMs * 1.25) : fadeTransitionMs;
+          const opacityEase = isExiting ? "cubic-bezier(.16,1,.3,1)" : "cubic-bezier(.22,.61,.36,1)";
           const style: CSSProperties = {
             position: "absolute",
             left: 0,
@@ -441,7 +449,7 @@ export const MorphingDots: FC<MorphingDotsProps> = ({
             borderRadius: "9999px",
             background: dotColor,
             opacity: visible ? (isExiting ? 0 : dotOpacity) : 0,
-            transition: `transform ${transformMs}ms cubic-bezier(.22,.61,.36,1), opacity ${fadeTransitionMs}ms cubic-bezier(.22,.61,.36,1)`,
+            transition: `transform ${transformMs}ms cubic-bezier(.22,.61,.36,1), opacity ${effectiveFadeMs}ms ${opacityEase}`,
             willChange: "transform, opacity",
           };
           return <span key={i} style={style} />;
