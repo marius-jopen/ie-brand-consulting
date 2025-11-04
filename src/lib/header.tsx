@@ -45,6 +45,9 @@ export default function Header({ settings, isDarkMode = false }: HeaderProps) {
     : "";
   
   const logoVariant = isDarkMode ? 'white' : 'default';
+  const logoContainerClasses = `fixed top-4 left-4 z-10 transform transition-all duration-700 ease-in-out ${
+    isNavHidden ? "-translate-y-10 opacity-0 pointer-events-none" : "translate-y-0 opacity-100"
+  }`;
   const navContainerClasses = `fixed top-4 left-1/2 transform -translate-x-1/2 z-10 transition-all duration-700 ease-in-out ${
     isNavHidden ? "-translate-y-10 opacity-0 pointer-events-none" : "translate-y-0 opacity-100"
   }`;
@@ -54,7 +57,7 @@ export default function Header({ settings, isDarkMode = false }: HeaderProps) {
       <div className="container mx-auto">
         <div className="relative w-full">
           {/* Logo - Fixed top left */}
-          <div className="fixed top-4 left-4 z-10">
+          <div className={logoContainerClasses}>
             <Logo variant={logoVariant} />
           </div>
 
