@@ -18,10 +18,11 @@ type OpenerProps = {
   startFromIE?: boolean;
   className?: string;
   textClassName?: string;
+  dotClassName?: string;
   onFinished?: () => void;
 };
 
-export default function Opener({ startFromIE = false, className, textClassName, onFinished }: OpenerProps) {
+export default function Opener({ startFromIE = false, className, textClassName, dotClassName, onFinished }: OpenerProps) {
   const [phase, setPhase] = useState<"idle" | "forward" | "reverse">("idle");
   const [text, setText] = useState<string>("");
   const timerRef = useRef<number | null>(null);
@@ -83,7 +84,10 @@ export default function Opener({ startFromIE = false, className, textClassName, 
         "itir eraslan.",
       ];
       // Continue from current position in the sequence (do not restart)
-      const currentIndex = sequence.indexOf(text);
+      // Read current text from state at the start of the effect (not in deps to avoid re-running)
+      // eslint-disable-next-line react-hooks/exhaustive-deps
+      const currentText = text;
+      const currentIndex = sequence.indexOf(currentText);
       let idx = (currentIndex >= 0 ? currentIndex + 1 : 0);
       const tick = () => {
         setText(sequence[idx]);
@@ -127,7 +131,7 @@ export default function Opener({ startFromIE = false, className, textClassName, 
     // In autoplay mode we delay the first letter
     timerRef.current = window.setTimeout(step, FORWARD_START_DELAY_MS);
     return clearTimer;
-  }, [phase, startFromIE]);
+  }, [phase, startFromIE]); // text is read at start but not in deps to prevent re-running during animation
 
   // Reverse: itir eraslan. -> ... -> ie.
   const reverseStep = (s: string): string => {
@@ -152,6 +156,8 @@ export default function Opener({ startFromIE = false, className, textClassName, 
 
   useEffect(() => {
     if (phase !== "reverse") return;
+    // Read current text at start (not in deps to avoid re-running during animation)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     let current = text && text.length > 0 ? text : FULL_TEXT;
     setText(current);
     const tick = () => {
@@ -174,7 +180,7 @@ export default function Opener({ startFromIE = false, className, textClassName, 
     };
     timerRef.current = window.setTimeout(tick, REVERSE_START_DELAY_MS);
     return clearTimer;
-  }, [phase, startFromIE, onFinished]);
+  }, [phase, startFromIE, onFinished]); // Removed 'text' from dependencies to prevent re-running during animation
 
   return (
     <div
@@ -191,7 +197,7 @@ export default function Opener({ startFromIE = false, className, textClassName, 
         {text.endsWith(".") ? (
           <>
             <span>{text.slice(0, -1)}</span>
-            <span className="text-quaternary">.</span>
+            <span className={dotClassName ?? "text-quaternary"}>.</span>
           </>
         ) : (
           text

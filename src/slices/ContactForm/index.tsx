@@ -54,14 +54,14 @@ const ContactForm: FC<ContactFormProps> = ({ slice }) => {
               {/* First Name */}
               <FadeInUp>
                 <div className="space-y-2">
-                  <label className="block text-sm font-medium text-p4">First Name*</label>
+                  <label className="block text-white">First Name*</label>
                   <input
                     type="text"
                     name="firstName"
                     placeholder="John"
                     value={firstName}
                     onChange={(e) => setFirstName(e.target.value)}
-                    className="w-full bg-transparent border-0 border-b border-white text-white placeholder-gray-500 focus:border-white focus:outline-none py-2 text-lg"
+                    className="w-full bg-transparent border-0 border-b border-white text-white placeholder-gray-500 focus:border-white focus:outline-none py-2"
                   />
                 </div>
               </FadeInUp>
@@ -69,14 +69,14 @@ const ContactForm: FC<ContactFormProps> = ({ slice }) => {
               {/* Last Name */}
               <FadeInUp>
                 <div className="space-y-2">
-                  <label className="block text-sm font-medium text-p4">Last Name*</label>
+                  <label className="block text-white">Last Name*</label>
                   <input
                     type="text"
                     name="lastName"
                     placeholder="Doe"
                     value={lastName}
                     onChange={(e) => setLastName(e.target.value)}
-                    className="w-full bg-transparent border-0 border-b border-white text-white placeholder-gray-500 focus:border-white focus:outline-none py-2 text-lg"
+                    className="w-full bg-transparent border-0 border-b border-white text-white placeholder-gray-500 focus:border-white focus:outline-none py-2"
                   />
                 </div>
               </FadeInUp>
@@ -91,7 +91,7 @@ const ContactForm: FC<ContactFormProps> = ({ slice }) => {
                     placeholder="youremail@gmail.com"
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
-                    className="w-full bg-transparent border-0 border-b border-white text-white placeholder-gray-500 focus:border-white focus:outline-none py-2 text-lg"
+                    className="w-full bg-transparent border-0 border-b border-white text-white placeholder-gray-500 focus:border-white focus:outline-none py-2 text-p4"
                   />
                 </div>
               </FadeInUp>
@@ -109,7 +109,7 @@ const ContactForm: FC<ContactFormProps> = ({ slice }) => {
                     rows={3}
                     value={message}
                     onChange={(e) => setMessage(e.target.value)}
-                    className="w-full bg-transparent text-white placeholder-gray-500 focus:outline-none py-2 text-lg resize-none"
+                    className="w-full bg-transparent text-white placeholder-gray-500 focus:outline-none py-2 text-p4 resize-none"
                   />
                 </div>
               </FadeInUp>
