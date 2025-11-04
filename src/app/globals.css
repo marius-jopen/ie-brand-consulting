@@ -11,8 +11,12 @@ body {
 
 /* Custom cursor: small gray dot that inverts on interactive elements */
 @media (pointer: fine) {
+    /* Hide cursor on all elements - comprehensive approach */
+    *, *::before, *::after {
+        cursor: none !important;
+    }
     html, body {
-        cursor: none;
+        cursor: none !important;
     }
     /* Ensure no native pointer appears over interactive elements */
     a, button, [role=button], input, select, textarea, label, summary,
@@ -26,7 +30,7 @@ body {
         width: 12px;
         height: 12px;
         border-radius: 9999px;
-        background: #9CA3AF; /* neutral-400 */
+        background: #D2BA36; /* neutral-400 */
         pointer-events: none;
         transform: translate(-50%, -50%);
         transition: opacity 120ms ease, background-color 120ms ease, filter 120ms ease;
