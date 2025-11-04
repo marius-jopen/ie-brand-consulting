@@ -164,10 +164,11 @@ export default function Opener({ startFromIE = false, className, textClassName, 
         const desired = desiredEndTextRef.current;
         if (desired && desired !== TARGET_TEXT) {
           setPhase(desired === FULL_TEXT ? "forward" : "reverse");
-        }
-        // Fire completion only for non-hover autoplay flow
-        if (!startFromIE && typeof onFinished === "function") {
-          onFinished();
+        } else {
+          // Fire completion callback when reverse animation completes
+          if (typeof onFinished === "function") {
+            onFinished();
+          }
         }
       }
     };
