@@ -65,7 +65,7 @@ const MediaCtaWithFeaturedContent: FC<MediaCtaWithFeaturedContentProps> = ({
       </div>
       
       <div className="w-1/2 overflow-y-auto">
-        <StaggerContainer className="p-8 h-full">
+        <StaggerContainer className="pt-8 px-8 h-full">
           {(!slice.primary.featured_content || slice.primary.featured_content.length === 0) && (
             <FadeInUp>
               {slice.primary.image?.url ? (

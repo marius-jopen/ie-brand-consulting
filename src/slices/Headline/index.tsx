@@ -51,6 +51,7 @@ const Headline: FC<HeadlineProps> = ({ slice }) => {
           activeId={activeId}
           width="100%"
           height="100%"
+          className="scale-[0.9] translate-y-[10%]"
           dotColor="#E4E1DB"
           dotOpacity={1}
           moveTransitionMs={650}

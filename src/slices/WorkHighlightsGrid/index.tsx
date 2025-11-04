@@ -58,7 +58,7 @@ const WorkHighlightsGrid: FC<WorkHighlightsGridProps> = ({ slice }) => {
                 <FadeInUp key={`left-${index}`}>
                   <div className="text-center bg-primary rounded-lg pt-12 pb-12 px-8 mb-4 break-inside-avoid transition-all duration-600 ease-in-out hover:shadow-2xl hover:translate-y-[-4px] hover:bg-white">
                     <div className="flex gap-2 justify-center pb-8">
-                      {project.project_category_short && <p className="font-bold">{project.project_category_short}</p>}
+                      {/* {project.project_category_short && <p className="font-bold">{project.project_category_short}</p>} */}
                       {project.project_category_full && <p>{project.project_category_full}</p>}
                     </div>
 
@@ -66,11 +66,11 @@ const WorkHighlightsGrid: FC<WorkHighlightsGridProps> = ({ slice }) => {
                       {project.project_title && <PrismicRichText field={project.project_title} />}
                     </div>
 
-                    <div>
+                    <div className="pb-8 w-4/5 mx-auto">
                       {project.project_quote && <PrismicRichText field={project.project_quote} />}
                     </div>
 
-                    <div>
+                    <div className="w-4/5 mx-auto">
                       {project.project_services && <p>{project.project_services}</p>}
                     </div>
                   </div>
@@ -82,7 +82,7 @@ const WorkHighlightsGrid: FC<WorkHighlightsGridProps> = ({ slice }) => {
                 <FadeInUp key={`right-${index}`}>
                   <div className="text-center bg-primary rounded-lg pt-12 pb-12 px-8 mb-4 break-inside-avoid transition-all duration-600 ease-in-out hover:shadow-2xl hover:translate-y-[-4px] hover:bg-white">
                     <div className="flex gap-2 justify-center pb-8">
-                      {project.project_category_short && <p className="font-bold">{project.project_category_short}</p>}
+                      {/* {project.project_category_short && <p className="font-bold">{project.project_category_short}</p>} */}
                       {project.project_category_full && <p>{project.project_category_full}</p>}
                     </div>
 
@@ -90,11 +90,11 @@ const WorkHighlightsGrid: FC<WorkHighlightsGridProps> = ({ slice }) => {
                       {project.project_title && <PrismicRichText field={project.project_title} />}
                     </div>
 
-                    <div>
+                    <div className="pb-8 w-4/5 mx-auto">
                       {project.project_quote && <PrismicRichText field={project.project_quote} />}
                     </div>
 
-                    <div>
+                    <div className="w-4/5 mx-auto">
                       {project.project_services && <p>{project.project_services}</p>}
                     </div>
                   </div>

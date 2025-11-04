@@ -5,7 +5,14 @@ import FooterWrapper from "@/lib/footer-wrapper";
 import PageFade from "@/lib/PageFade";
 import Welcome from "@/lib/Welcome";
 import CursorDot from "@/lib/CursorDot";
+import type { Metadata } from "next";
 import "./globals.css";
+
+export const metadata: Metadata = {
+  icons: {
+    icon: "/svgs/favicon-white.png",
+  },
+};
 
 export default async function RootLayout({
   children,
