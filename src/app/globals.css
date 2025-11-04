@@ -179,7 +179,7 @@ body {
         font-family: 'Supreme LL TT', sans-serif;
         font-weight: 900;
         font-size: 12vw;
-        line-height: 10.5vw;
+        line-height: 12.4vw;
         letter-spacing: -0.03em;
     }
     
@@ -210,24 +210,24 @@ body {
     .text-h4 {
         font-family: 'Supreme LL TT', sans-serif;
         font-weight: 900;
-        font-size: 80.04px;
-        line-height: 74px;
+        font-size: 77.04px;
+        line-height: 82px;
         letter-spacing: 0em;
     }
     
     .text-h5 {
         font-family: 'Supreme LL TT', sans-serif;
         font-weight: 900;
-        font-size: 100.28px;
-        line-height: 87.47px;
+        font-size: 90.28px;
+        line-height: 96px;
         letter-spacing: -0.02em;
     }
     
     .text-h6 {
         font-family: 'Supreme LL TT', sans-serif;
         font-weight: 900;
-        font-size: 61px;
-        line-height: 60px;
+        font-size: 50px;
+        line-height: 55px;
         letter-spacing: -0.02em;
     }
     
