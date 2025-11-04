@@ -21,7 +21,9 @@ export default async function RootLayout({
       <body className="scrollbar-gutter-stable antialiased">
         <CursorDot />
         <Welcome />
+        <PageFade className="relative z-40">
         <HeaderWrapper settings={settings} />
+        </PageFade>
         <main>
           <PageFade>
             {children}
