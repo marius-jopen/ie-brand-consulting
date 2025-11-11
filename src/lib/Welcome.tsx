@@ -63,7 +63,7 @@ export default function Welcome() {
       aria-hidden
     >
       <div className="w-full h-full flex items-center justify-start px-6">
-        <div className="px-24">
+        <div className="md:px-24">
           <Opener onFinished={handleFinished} textClassName="whitespace-pre text-opener text-white" />
         </div>
       </div>
