@@ -15,5 +15,6 @@ export const components = {
   personal_message: dynamic(() => import("./PersonalMessage")),
   split_text_media: dynamic(() => import("./SplitTextMedia")),
   stacked_headings: dynamic(() => import("./StackedHeadings")),
+  text: dynamic(() => import("./Text")),
   work_highlights_grid: dynamic(() => import("./WorkHighlightsGrid")),
 };

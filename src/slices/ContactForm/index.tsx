@@ -21,15 +21,60 @@ const ContactForm: FC<ContactFormProps> = ({ slice }) => {
   const [email, setEmail] = useState("");
   const [message, setMessage] = useState("");
   const [agreed, setAgreed] = useState(false);
+  const [status, setStatus] = useState<
+    "idle" | "submitting" | "success" | "error"
+  >("idle");
+  const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
   const isSendDisabled = useMemo(() => {
     return email.trim().length === 0 || message.trim().length === 0;
   }, [email, message]);
 
-  const handleSubmit: React.FormEventHandler<HTMLFormElement> = (e) => {
+  const handleSubmit: React.FormEventHandler<HTMLFormElement> = async (e) => {
     e.preventDefault();
-    if (isSendDisabled) return;
-    // Submission handling can be wired later
+    if (isSendDisabled || status === "submitting") return;
+
+    setStatus("submitting");
+    setErrorMessage(null);
+
+    try {
+      const response = await fetch("/api/contact", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          firstName,
+          lastName,
+          email,
+          message,
+          agreement: agreed ? "yes" : "no",
+          name: `${firstName} ${lastName}`.trim(),
+          replyTo: email,
+        }),
+      });
+
+      if (!response.ok) {
+        const errorBody = await response.json().catch(() => null);
+        throw new Error(
+          errorBody?.message ?? "We couldn't send your message right now."
+        );
+      }
+
+      setStatus("success");
+      setFirstName("");
+      setLastName("");
+      setEmail("");
+      setMessage("");
+      setAgreed(false);
+    } catch (error) {
+      setStatus("error");
+      setErrorMessage(
+        error instanceof Error
+          ? error.message
+          : "We couldn't send your message right now."
+      );
+    }
   };
 
   return (
@@ -151,13 +196,28 @@ const ContactForm: FC<ContactFormProps> = ({ slice }) => {
                     <div className="flex justify-center pt-8 w-full">
                       <button
                         type="submit"
-                        disabled={isSendDisabled}
+                        disabled={isSendDisabled || status === "submitting"}
                         className={`text-h5 font-bold text-white transition-colors duration-200 ${
-                          isSendDisabled ? "opacity-50 cursor-not-allowed" : "hover:text-gray-300"
+                          isSendDisabled || status === "submitting"
+                            ? "opacity-50 cursor-not-allowed"
+                            : "hover:text-gray-300"
                         }`}
                       >
-                        Send
+                        {status === "submitting" ? "Sending..." : "Send"}
                       </button>
+                    </div>
+                    <div className="min-h-[1.5rem] text-center text-sm" aria-live="polite">
+                      {status === "success" && (
+                        <p className="text-p4 text-gray-300">
+                          Thank you! Your message has been sent.
+                        </p>
+                      )}
+                      {status === "error" && (
+                        <p className="text-p4 text-red-300">
+                          {errorMessage ??
+                            "Something went wrong. Please try again in a moment."}
+                        </p>
+                      )}
                     </div>
                   </div>
                 </FadeInUp>

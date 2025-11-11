@@ -70,6 +70,7 @@ type ContentRelationshipFieldWithData<
 }[Exclude<TCustomType[number], string>["id"]];
 
 type PageDocumentDataSlicesSlice =
+  | TextSlice
   | WorkHighlightsGridSlice
   | StackedHeadingsSlice
   | MediaCtaWithFeaturedContentSlice
@@ -1016,6 +1017,48 @@ export type StackedHeadingsSlice = prismic.SharedSlice<
 >;
 
 /**
+ * Primary content in *Text → Default → Primary*
+ */
+export interface TextSliceDefaultPrimary {
+  /**
+   * Text field in *Text → Default → Primary*
+   *
+   * - **Field Type**: Rich Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: text.default.primary.text
+   * - **Documentation**: https://prismic.io/docs/fields/rich-text
+   */
+  text: prismic.RichTextField;
+}
+
+/**
+ * Default variation for Text Slice
+ *
+ * - **API ID**: `default`
+ * - **Description**: Default
+ * - **Documentation**: https://prismic.io/docs/slices
+ */
+export type TextSliceDefault = prismic.SharedSliceVariation<
+  "default",
+  Simplify<TextSliceDefaultPrimary>,
+  never
+>;
+
+/**
+ * Slice variation for *Text*
+ */
+type TextSliceVariation = TextSliceDefault;
+
+/**
+ * Text Shared Slice
+ *
+ * - **API ID**: `text`
+ * - **Description**: Text
+ * - **Documentation**: https://prismic.io/docs/slices
+ */
+export type TextSlice = prismic.SharedSlice<"text", TextSliceVariation>;
+
+/**
  * Item in *WorkHighlightsGrid → Default → Primary → Projects Grid*
  */
 export interface WorkHighlightsGridSliceDefaultPrimaryProjectsItem {
@@ -1220,6 +1263,10 @@ declare module "@prismicio/client" {
       StackedHeadingsSliceDefaultPrimary,
       StackedHeadingsSliceVariation,
       StackedHeadingsSliceDefault,
+      TextSlice,
+      TextSliceDefaultPrimary,
+      TextSliceVariation,
+      TextSliceDefault,
       WorkHighlightsGridSlice,
       WorkHighlightsGridSliceDefaultPrimaryProjectsItem,
       WorkHighlightsGridSliceDefaultPrimary,
