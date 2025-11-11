@@ -1,6 +1,13 @@
 "use client";
 
-import { FC, useEffect, useLayoutEffect, useRef, useState } from "react";
+import {
+  FC,
+  useCallback,
+  useEffect,
+  useLayoutEffect,
+  useRef,
+  useState,
+} from "react";
 import { Content, asText } from "@prismicio/client";
 import { SliceComponentProps, PrismicRichText } from "@prismicio/react";
 import { motion, type HTMLMotionProps } from "framer-motion";
@@ -27,7 +34,7 @@ const AnimatedBlock: FC<AnimatedBlockProps> = ({ as, children, containerRef, inV
   const elRef = useRef<HTMLElement | null>(null);
   const [delaySec, setDelaySec] = useState<number | null>(null);
 
-  const computeDelay = () => {
+  const computeDelay = useCallback(() => {
     const container = containerRef.current;
     const el = elRef.current;
     if (!container || !el) return;
@@ -80,7 +87,7 @@ const AnimatedBlock: FC<AnimatedBlockProps> = ({ as, children, containerRef, inV
 
     const delay = colIndex * COL_STAGGER_SEC + itemIndex * WITHIN_STAGGER_SEC;
     setDelaySec(delay);
-  };
+  }, [containerRef]);
 
   useLayoutEffect(() => {
     const raf = requestAnimationFrame(() => computeDelay());
@@ -90,14 +97,14 @@ const AnimatedBlock: FC<AnimatedBlockProps> = ({ as, children, containerRef, inV
       cancelAnimationFrame(raf);
       window.removeEventListener("resize", onResize);
     };
-  }, []);
+  }, [computeDelay]);
 
   useEffect(() => {
     type DocumentWithFonts = Document & { fonts?: { ready?: Promise<void> } };
     const docWithFonts = document as DocumentWithFonts;
     const onFontsReady = () => computeDelay();
     docWithFonts.fonts?.ready?.then(() => onFontsReady());
-  }, []);
+  }, [computeDelay]);
 
   type MotionUnionProps = HTMLMotionProps<"p"> | HTMLMotionProps<"li">;
   const MotionTag = (as === "p" ? motion.p : motion.li) as React.ComponentType<MotionUnionProps>;

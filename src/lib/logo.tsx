@@ -10,16 +10,13 @@ interface LogoProps {
 }
 
 export default function Logo({ variant = 'default' }: LogoProps) {
-  const [isHovering, setIsHovering] = useState(false);
   const [showOpener, setShowOpener] = useState(false);
   
   const handleMouseEnter = () => {
-    setIsHovering(true);
     setShowOpener(true);
   };
   
   const handleMouseLeave = () => {
-    setIsHovering(false);
     // Don't hide opener immediately - wait for reverse animation to complete
   };
   

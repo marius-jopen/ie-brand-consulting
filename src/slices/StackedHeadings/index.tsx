@@ -17,7 +17,10 @@ export type StackedHeadingsProps =
  * Component for "StackedHeadings" Slices.
  */
 const StackedHeadings: FC<StackedHeadingsProps> = ({ slice }) => {
-  const items = slice.primary.items ?? [];
+  const items = useMemo(
+    () => slice.primary.items ?? [],
+    [slice.primary.items]
+  );
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
   const showIcons = !!slice.primary.icons;
   // In-view animation handled by StaggerContainer

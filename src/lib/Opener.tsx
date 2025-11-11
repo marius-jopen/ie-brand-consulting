@@ -26,6 +26,7 @@ export default function Opener({ startFromIE = false, className, textClassName, 
   const [phase, setPhase] = useState<"idle" | "forward" | "reverse">("idle");
   const [text, setText] = useState<string>("");
   const timerRef = useRef<number | null>(null);
+  const textRef = useRef<string>("");
   const desiredEndTextRef = useRef<string | null>(null);
 
   const clearTimer = () => {
@@ -50,18 +51,19 @@ export default function Opener({ startFromIE = false, className, textClassName, 
     if (text !== TARGET_TEXT) setPhase("reverse");
   }, [startFromIE, text]);
 
+  useEffect(() => {
+    textRef.current = text;
+  }, [text]);
+
   // Initialize display based on mode
   useEffect(() => {
     if (startFromIE) {
       if (text === "") setText(TARGET_TEXT);
-    } else {
+    } else if (phase === "idle" && text === "") {
       // Autoplay once on mount when not in hover mode
-      if (phase === "idle" && text === "") {
-        setPhase("forward");
-      }
+      setPhase("forward");
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [startFromIE]);
+  }, [startFromIE, text, phase]);
 
   // Forward
   useEffect(() => {
@@ -85,8 +87,7 @@ export default function Opener({ startFromIE = false, className, textClassName, 
       ];
       // Continue from current position in the sequence (do not restart)
       // Read current text from state at the start of the effect (not in deps to avoid re-running)
-      // eslint-disable-next-line react-hooks/exhaustive-deps
-      const currentText = text;
+      const currentText = textRef.current;
       const currentIndex = sequence.indexOf(currentText);
       let idx = (currentIndex >= 0 ? currentIndex + 1 : 0);
       const tick = () => {
@@ -157,8 +158,8 @@ export default function Opener({ startFromIE = false, className, textClassName, 
   useEffect(() => {
     if (phase !== "reverse") return;
     // Read current text at start (not in deps to avoid re-running during animation)
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    let current = text && text.length > 0 ? text : FULL_TEXT;
+    let current =
+      textRef.current && textRef.current.length > 0 ? textRef.current : FULL_TEXT;
     setText(current);
     const tick = () => {
       current = reverseStep(current);

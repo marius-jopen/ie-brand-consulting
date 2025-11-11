@@ -16,7 +16,10 @@ export type HeadlineProps = SliceComponentProps<Content.HeadlineSlice>;
  * Component for "Headline" Slices.
  */
 const Headline: FC<HeadlineProps> = ({ slice }) => {
-  const items = slice.primary.items ?? [];
+  const items = useMemo(
+    () => slice.primary.items ?? [],
+    [slice.primary.items]
+  );
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
 
   // Map titles to icons
