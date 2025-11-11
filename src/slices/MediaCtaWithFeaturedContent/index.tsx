@@ -26,15 +26,15 @@ const MediaCtaWithFeaturedContent: FC<MediaCtaWithFeaturedContentProps> = ({
       data-slice-variation={slice.variation}
       className="pt-30"
     >
-    <div className="flex min-h-full">
+    <div className="flex flex-col md:flex-row min-h-full">
       <div
-        className={`w-1/2 ${
+        className={`w-full md:w-1/2 ${
           slice.primary.featured_content && slice.primary.featured_content.length > 0
-            ? "sticky top-30 h-screen"
+            ? "md:sticky md:top-30 md:h-screen"
             : ""
         }`}
       >
-        <StaggerContainer className="p-8">
+        <StaggerContainer className="p-6 md:p-8">
           {slice.primary.media_title && (
             <FadeInUp>
               <h1 className="text-h0 text-center">{asText(slice.primary.media_title)}</h1>
@@ -43,21 +43,21 @@ const MediaCtaWithFeaturedContent: FC<MediaCtaWithFeaturedContentProps> = ({
           
           {/* Icon renders with morphing dots, chosen by keyword from Prismic field `icons` */}
           <FadeInUp>
-            <div className="text-center flex h-[300px] items-center justify-center">
-              <div className="w-[15vw] max-w-[500px] aspect-square">
+            <div className="text-center flex h-[240px] md:h-[300px] items-center justify-center">
+              <div className="w-44 md:w-[15vw] max-w-[320px] md:max-w-[500px] aspect-square mx-auto">
                 <MorphingIconRemount keyword={slice.primary.icons || undefined} width="100%" height="100%" />
               </div>
             </div>
           </FadeInUp>
           
           <FadeInUp>
-            <div className="text-center pb-8 mx-12 text-p4">
+            <div className="text-center pb-8 mx-6 md:mx-12 text-p4">
               {asText(slice.primary.media_description)}
             </div>
           </FadeInUp>
           
           {slice.primary.media_links && slice.primary.media_links.length > 0 && (
-            <div className="flex justify-center gap-4">
+            <div className="flex flex-col md:flex-row justify-center items-center md:items-stretch gap-4">
               {slice.primary.media_links.map((link, index) => (
                 <FadeInUp key={index}>
                   <Button field={link}>
@@ -70,25 +70,25 @@ const MediaCtaWithFeaturedContent: FC<MediaCtaWithFeaturedContentProps> = ({
         </StaggerContainer>
       </div>
       
-      <div className="w-1/2">
-        <StaggerContainer className="pt-8 px-8 h-full">
+      <div className="w-full md:w-1/2">
+        <StaggerContainer className="pt-8 px-6 md:px-8 h-full">
           {(!slice.primary.featured_content || slice.primary.featured_content.length === 0) && (
             <FadeInUp>
               {slice.primary.image?.url ? (
-                <div className="relative h-full w-full overflow-hidden bg-primary">
+                <div className="relative w-full overflow-hidden bg-primary">
                   <PrismicImage
                     className="h-full w-full object-cover mix-blend-multiply filter grayscale contrast-125"
                     field={slice.primary.image}
                   />
                 </div>
               ) : (
-                <div className="w-full h-full bg-primary" />
+                <div className="w-full h-72 md:h-full bg-primary" />
               )}
             </FadeInUp>
           )}
           
           {slice.primary.featured_content && slice.primary.featured_content.length > 0 && (
-            <div>
+            <div className="space-y-2 md:space-y-12">
               {slice.primary.featured_content.map((item, index) => (
                 <FadeInUp key={index}>
                   <div className="group">
@@ -103,10 +103,10 @@ const MediaCtaWithFeaturedContent: FC<MediaCtaWithFeaturedContentProps> = ({
                       )}
                     </div>
 
-                    <div className="pb-14 pt-4">
+                    <div className="pb-10 md:pb-14 pt-4 px-2 md:px-0">
                       {item.eyebrow && <div className="pb-3 text-p4">{item.eyebrow}</div>}
 
-                      {item.title && <div className="text-h8 pb-6">{asText(item.title)}</div>}
+                      {item.title && <div className="text-h8 pb-3 md:pb-6">{asText(item.title)}</div>}
 
                       {item.cta_link && (
                         <PrismicNextLink className="text-p4 underline underline-offset-4 decoration-1 decoration-transparent group-hover:decoration-black transition-colors duration-300" field={item.cta_link}>
