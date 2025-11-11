@@ -16,7 +16,8 @@ export type HeroContentCenteredProps =
  * Component for "HeroContentCentered" Slices.
  */
 const HeroContentCentered: FC<HeroContentCenteredProps> = ({ slice }) => {
-  const [isHovered, setIsHovered] = useState(false);
+  const [shouldAlignCircles, setShouldAlignCircles] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
   const [inView, setInView] = useState(false);
   const sectionRef = useRef<HTMLElement | null>(null);
 
@@ -41,29 +42,57 @@ const HeroContentCentered: FC<HeroContentCenteredProps> = ({ slice }) => {
     };
   }, []);
 
+  useEffect(() => {
+    const mediaQuery = window.matchMedia("(max-width: 767px)");
+
+    const handleMediaChange = (event: MediaQueryListEvent | MediaQueryList) => {
+      setIsMobile(event.matches);
+    };
+
+    handleMediaChange(mediaQuery);
+
+    if (typeof mediaQuery.addEventListener === "function") {
+      mediaQuery.addEventListener("change", handleMediaChange);
+    } else {
+      mediaQuery.addListener(handleMediaChange);
+    }
+
+    return () => {
+      if (typeof mediaQuery.removeEventListener === "function") {
+        mediaQuery.removeEventListener("change", handleMediaChange);
+      } else {
+        mediaQuery.removeListener(handleMediaChange);
+      }
+    };
+  }, []);
+
+  useEffect(() => {
+    setShouldAlignCircles(inView);
+  }, [inView]);
+
   return (
     <section
       ref={sectionRef}
       data-slice-type={slice.slice_type}
       data-slice-variation={slice.variation}
     >
-      <div 
-        className={`bg-primary py-20 relative transition-all duration-[2100ms] h-screen ease-in-out ${inView ? "mx-0 rounded-none" : "mx-11 rounded-lg"}`}>
+      <div
+        className={`bg-primary py-16 md:py-20 relative transition-all duration-[2100ms] min-h-[70vh] md:min-h-screen md:h-screen ease-in-out ${inView ? "mx-4 md:mx-0 rounded-lg md:rounded-none" : "mx-4 md:mx-11 rounded-lg"}`}>
         {/* Random white circles with hover animation */}
         <RandomCircles
           count={8}
-          minSize={80}
-          maxSize={80}
+          minSize={isMobile ? 35 : 80}
+          maxSize={isMobile ? 35 : 80}
           color="#ffffff"
           opacity={1}
           transitionMs={1200}
-          isHovered={isHovered}
+          isHovered={shouldAlignCircles}
         />
         
-        <StaggerContainer className="relative z-10 flex items-center justify-center h-full">
+        <StaggerContainer className="relative z-10 flex items-center justify-center h-full px-6 md:px-0">
           <div
-            onMouseEnter={() => setIsHovered(true)}
-            onMouseLeave={() => setIsHovered(false)}
+            onMouseEnter={() => setShouldAlignCircles(true)}
+            onMouseLeave={() => setShouldAlignCircles(inView)}
             >
             {slice.primary.title && (
               <FadeInUp>
@@ -74,7 +103,11 @@ const HeroContentCentered: FC<HeroContentCenteredProps> = ({ slice }) => {
               </FadeInUp>
             )}
             
-            <div className="mx-auto pb-20 w-full max-w-3xl pt-22 relative z-10">
+            <div
+              className={`mx-auto pb-10 md:pb-16 w-full max-w-3xl pt-[50vw] md:pt-16 md:pt-22 relative z-10 px-6 ${
+                inView ? "md:px-11" : "md:px-0"
+              }`}
+            >
               {slice.primary.subtitle && (
                 <FadeInUp>
                   <div className="text-h7 text-center pb-8">
