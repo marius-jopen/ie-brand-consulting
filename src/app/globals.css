@@ -165,88 +165,77 @@ body {
     .text-opener {
         font-family: 'gt_ultra_fineblack', sans-serif;
         font-weight: 900;
-        font-size: 12vw;
-        line-height: 10.5vw;
+        @apply text-[12vw] leading-[10.5vw];
         letter-spacing: -0.03em;
     }
 
     .text-h0 {
         font-family: 'Supreme LL TT', sans-serif;
         font-weight: 900;
-        font-size: 14vw;
-        line-height: 13.5vw;
+        @apply text-[14vw] leading-[13.5vw];
         letter-spacing: -0.05em;
     }
 
     .text-h1 {
         font-family: 'Supreme LL TT', sans-serif;
         font-weight: 900;
-        font-size: 12vw;
-        line-height: 12.4vw;
+        @apply text-[12vw] leading-[12.4vw];
         letter-spacing: -0.03em;
     }
     
     .text-h2 {
         font-family: 'Supreme LL TT', sans-serif;
         font-weight: 900;
-        font-size: 9vw;
-        line-height: 9.7vw;
+        @apply text-[9vw] leading-[9.7vw];
         letter-spacing: -0.04em;
     }
     
     .text-h3 {
         font-family: 'Supreme LL TT', sans-serif;
         font-weight: 900;
-        font-size: 163.17px;
-        line-height: 172.33px;
+        @apply text-[163.17px] leading-[172.33px];
         letter-spacing: -0.03em;
     }
 
     .text-h3-variable {
         font-family: 'Supreme LL TT', sans-serif;
         font-weight: 900;
-        font-size: 10vw;
-        line-height: 11vw;
+        @apply text-[10vw] leading-[11vw];
         letter-spacing: -0.03em;
     }
     
     .text-h4 {
         font-family: 'Supreme LL TT', sans-serif;
         font-weight: 900;
-        font-size: 75.04px;
-        line-height: 82px;
+        @apply text-[75.04px] leading-[82px];
         letter-spacing: 0em;
     }
     
     .text-h5 {
         font-family: 'Supreme LL TT', sans-serif;
         font-weight: 900;
-        font-size: 90.28px;
-        line-height: 96px;
+        @apply text-[90.28px] leading-[96px];
         letter-spacing: -0.02em;
     }
     
     .text-h6 {
         font-family: 'Supreme LL TT', sans-serif;
         font-weight: 900;
-        font-size: 50px;
-        line-height: 55px;
+        @apply text-[50px] leading-[55px];
         letter-spacing: -0.02em;
     }
     
     .text-h7 {
         font-family: 'Supreme LL TT', sans-serif;
         font-weight: 900;
-        font-size: 35.25px;
-        line-height: 42.3px;
+        @apply text-[35.25px] leading-[42.3px];
         letter-spacing: 0.01em;
     }
 
     .text-h8{
         font-family: 'Supreme LL TT', sans-serif;
         font-weight: 900;
-        font-size: 28px;
-        line-height: 32.3px;
+        @apply text-[28px] leading-[32.3px];
         letter-spacing: 0.01em;
     }
     
