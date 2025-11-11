@@ -69,9 +69,14 @@ const MediaCtaWithFeaturedContent: FC<MediaCtaWithFeaturedContentProps> = ({
           {(!slice.primary.featured_content || slice.primary.featured_content.length === 0) && (
             <FadeInUp>
               {slice.primary.image?.url ? (
-                <PrismicImage className="h-full object-cover" field={slice.primary.image} />
+                <div className="relative h-full w-full overflow-hidden bg-secondary">
+                  <PrismicImage
+                    className="h-full w-full object-cover mix-blend-multiply filter grayscale contrast-125"
+                    field={slice.primary.image}
+                  />
+                </div>
               ) : (
-                <div className="w-full h-full bg-gray-200" />
+                <div className="w-full h-full bg-secondary" />
               )}
             </FadeInUp>
           )}
