@@ -160,11 +160,11 @@ const PersonalMessage: FC<PersonalMessageProps> = ({ slice }) => {
       data-slice-type={slice.slice_type}
       data-slice-variation={slice.variation}
     >
-      <StaggerContainer className="mx-auto w-10/12 min-h-screen flex items-center justify-center">
-        <div className="pt-24 pb-24 text-box">
+      <StaggerContainer className="mx-auto w-10/12 md:min-h-screen flex items-center justify-center">
+        <div className="pt-24 pb-10 md:pb-24 text-box">
             {slice.primary.heading && (
               <FadeInUp>
-                <div className="text-h4 text-center pb-8 md:pb-20 will-change-transform">
+                <div className="text-h4 text-center pb-8 md:pb-20 will-change-transform px-8 md:px-0">
                   {asText(slice.primary.heading)}
                 </div>
               </FadeInUp>

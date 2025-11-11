@@ -3,7 +3,7 @@
 body {
     font-family: 'Supreme LL TT Regular';
     overflow-x: scroll;
-    @apply text-[20px] leading-[28px];
+    @apply text-[16px] leading-[23px] md:text-[20px] md:leading-[28px];
     font-weight: 400;
     letter-spacing: 0.02em;
 }
@@ -179,7 +179,7 @@ body {
     .text-h1 {
         font-family: 'Supreme LL TT', sans-serif;
         font-weight: 900;
-        @apply text-[12vw] leading-[12.4vw];
+        @apply text-[20vw] leading-[20.5vw] md:text-[12vw] md:leading-[12.4vw];
         letter-spacing: -0.03em;
     }
     
@@ -207,7 +207,7 @@ body {
     .text-h4 {
         font-family: 'Supreme LL TT', sans-serif;
         font-weight: 900;
-        @apply text-[58px] leading-[60px] md:text-[75.04px] md:leading-[82px];
+        @apply text-[54px] leading-[60px] md:text-[75.04px] md:leading-[82px];
         letter-spacing: 0em;
     }
     
