@@ -15,12 +15,6 @@ interface NavigationMobileProps {
 export default function NavigationMobile({ settings, isDarkMode = false, isNavHidden = false, onMenuToggle }: NavigationMobileProps) {
   const [isOpen, setIsOpen] = useState(false);
 
-  if (!settings?.data) {
-    return null;
-  }
-
-  const { items, socials } = settings.data;
-
   // Lock scroll when menu is open
   useEffect(() => {
     if (isOpen) {
@@ -47,6 +41,12 @@ export default function NavigationMobile({ settings, isDarkMode = false, isNavHi
       document.body.style.width = '';
     };
   }, [isOpen]);
+
+  if (!settings?.data) {
+    return null;
+  }
+
+  const { items, socials } = settings.data;
 
   // Toggle menu
   const toggleMenu = () => {
