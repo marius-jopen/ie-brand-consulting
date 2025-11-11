@@ -20,11 +20,11 @@ const HeadingList: FC<HeadingListProps> = ({ slice }) => {
       data-slice-type={slice.slice_type}
       data-slice-variation={slice.variation}
     >
-      <StaggerContainer className="mx-auto w-3/5 mb-12" retriggerOnPathname>
+      <StaggerContainer className="mx-auto px-8 md:px-0 md:w-3/5 mb-12" retriggerOnPathname>
         <FadeInUp className="rounded-lg bg-primary pt-8">
           <div>
             <FadeInUp>
-              <div className="text-center pb-6">
+              <div className="text-center pb-4 md:pb-6">
                 {slice.primary.title && (
                   <div className="uppercase font-medium">
                     <PrismicRichText field={slice.primary.title} />
@@ -34,7 +34,7 @@ const HeadingList: FC<HeadingListProps> = ({ slice }) => {
             </FadeInUp>
 
             {slice.primary.items && slice.primary.items.length > 0 && (
-              <ul className="flex flex-col justify-center gap-4 pb-10">
+              <ul className="flex flex-col justify-center gap-3 md:gap-4 pb-10">
                 {slice.primary.items.map((item, index) => (
                   <FadeInUp key={index}>
                     <div className="w-full flex justify-center">

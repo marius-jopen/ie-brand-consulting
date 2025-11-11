@@ -21,7 +21,7 @@ const CenteredDescription: FC<CenteredDescriptionProps> = ({ slice }) => {
       data-slice-variation={slice.variation}
     >
       {slice.primary.description && (
-        <StaggerContainer className="text-center container mx-auto mx-auto w-1/2 pb-20">
+        <StaggerContainer className="text-center container mx-auto mx-auto md:w-1/2 pb-20 px-8 md:px-0">
           <FadeInUp>{asText(slice.primary.description)}</FadeInUp>
         </StaggerContainer>
       )}
