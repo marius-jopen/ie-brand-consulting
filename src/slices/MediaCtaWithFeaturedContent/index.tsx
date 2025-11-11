@@ -69,14 +69,14 @@ const MediaCtaWithFeaturedContent: FC<MediaCtaWithFeaturedContentProps> = ({
           {(!slice.primary.featured_content || slice.primary.featured_content.length === 0) && (
             <FadeInUp>
               {slice.primary.image?.url ? (
-                <div className="relative h-full w-full overflow-hidden bg-secondary">
+                <div className="relative h-full w-full overflow-hidden bg-primary">
                   <PrismicImage
                     className="h-full w-full object-cover mix-blend-multiply filter grayscale contrast-125"
                     field={slice.primary.image}
                   />
                 </div>
               ) : (
-                <div className="w-full h-full bg-secondary" />
+                <div className="w-full h-full bg-primary" />
               )}
             </FadeInUp>
           )}
@@ -86,11 +86,16 @@ const MediaCtaWithFeaturedContent: FC<MediaCtaWithFeaturedContentProps> = ({
               {slice.primary.featured_content.map((item, index) => (
                 <FadeInUp key={index}>
                   <div className="group">
-                    {item.image?.url ? (
-                      <PrismicImage className="w-full transition duration-300 ease-out filter group-hover:brightness-90" field={item.image} />
-                    ) : (
-                      <div className="w-full aspect-[6/3] bg-primary transition duration-300 ease-out filter group-hover:brightness-90" />
-                    )}
+                    <div className="relative w-full overflow-hidden bg-primary">
+                      {item.image?.url ? (
+                        <PrismicImage
+                          className="w-full object-cover mix-blend-multiply filter grayscale contrast-125 transition duration-300 ease-out group-hover:brightness-90"
+                          field={item.image}
+                        />
+                      ) : (
+                        <div className="w-full aspect-[6/3] bg-primary transition duration-300 ease-out group-hover:brightness-90" />
+                      )}
+                    </div>
 
                     <div className="pb-14 pt-4">
                       {item.eyebrow && <div className="pb-3 text-p4">{item.eyebrow}</div>}
@@ -99,7 +104,7 @@ const MediaCtaWithFeaturedContent: FC<MediaCtaWithFeaturedContentProps> = ({
 
                       {item.cta_link && (
                         <PrismicNextLink className="text-p4 underline underline-offset-4 decoration-1 decoration-transparent group-hover:decoration-black transition-colors duration-300" field={item.cta_link}>
-                          {item.cta_link.text || "CTA Link"}
+                          {item.cta_link.text || "Learn more"}
                         </PrismicNextLink>
                       )}
                     </div>
