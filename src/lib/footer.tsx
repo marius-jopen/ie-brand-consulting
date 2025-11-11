@@ -54,7 +54,7 @@ export default function Footer({ settings, isDarkMode = false }: FooterProps) {
         </div>
 
         {/* Desktop Layout */}
-        <div className="hidden md:flex items-center flex-nowrap md:mt-8 translate-y-[8px]">
+        <div className="hidden md:flex items-center flex-nowrap md:mt-8 md:translate-y-[8px]">
           <div className="flex-1">
             {location && <p>{location}</p>}
           </div>
