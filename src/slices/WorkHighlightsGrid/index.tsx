@@ -24,9 +24,9 @@ const WorkHighlightsGrid: FC<WorkHighlightsGridProps> = ({ slice }) => {
     <section
       data-slice-type={slice.slice_type}
       data-slice-variation={slice.variation}
-      className="pt-20"
+      className="pt-16 md:pt-20"
     >
-      <StaggerContainer className="text-center pt-12">
+      <StaggerContainer className="text-center pt-12 px-6 md:px-0">
         {slice.primary.section_title && (
           <FadeInUp>
             <h4 className="text-h4 pb-10">{asText(slice.primary.section_title)}</h4>
@@ -35,7 +35,7 @@ const WorkHighlightsGrid: FC<WorkHighlightsGridProps> = ({ slice }) => {
     
         {slice.primary.section_intro && (
           <FadeInUp>
-            <div className="mx-auto w-2/5 pb-8">
+            <div className="mx-auto w-full md:w-2/5 pb-8">
               <PrismicRichText field={slice.primary.section_intro} />
             </div>
           </FadeInUp>
@@ -43,7 +43,7 @@ const WorkHighlightsGrid: FC<WorkHighlightsGridProps> = ({ slice }) => {
         
         {slice.primary.section_cta && (
           <FadeInUp>
-            <div className="mx-auto w-2/5 pb-24">
+            <div className="mx-auto w-full md:w-2/5 pb-16 md:pb-24">
               <PrismicRichText field={slice.primary.section_cta} />
             </div>
           </FadeInUp>
@@ -51,50 +51,25 @@ const WorkHighlightsGrid: FC<WorkHighlightsGridProps> = ({ slice }) => {
       </StaggerContainer>
       
       {projects.length > 0 && (
-        <div className="pb-12 mx-auto w-11/12">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <StaggerContainer className="flex flex-col" delayChildren={0.5} staggerChildren={0.6}>
-              {leftColumnProjects.map((project, index) => (
-                <FadeInUp key={`left-${index}`}>
-                  <div className="text-center bg-primary rounded-lg pt-12 pb-12 px-8 mb-4 break-inside-avoid transition-all duration-600 ease-in-out hover:shadow-2xl hover:translate-y-[-4px] hover:bg-white">
-                    <div className="flex gap-2 justify-center pb-8">
-                      {/* {project.project_category_short && <p className="font-bold">{project.project_category_short}</p>} */}
+        <div className="pb-12 mx-auto w-11/12 md:w-4/5">
+          <div className="space-y-6">
+            <StaggerContainer className="flex flex-col space-y-6" delayChildren={0.5} staggerChildren={0.6}>
+              {projects.map((project, index) => (
+                <FadeInUp key={`project-${index}`}>
+                  <div className="text-center bg-primary rounded-lg pt-10 md:pt-12 pb-10 md:pb-12 px-6 md:px-8 break-inside-avoid transition-all duration-600 ease-in-out hover:shadow-2xl hover:translate-y-[-4px] hover:bg-white">
+                    <div className="flex flex-wrap gap-2 justify-center pb-6 md:pb-8">
                       {project.project_category_full && <p>{project.project_category_full}</p>}
                     </div>
 
-                    <div className="text-h6 pb-8">
+                    <div className="text-h6 pb-6 md:pb-8">
                       {project.project_title && <PrismicRichText field={project.project_title} />}
                     </div>
 
-                    <div className="pb-8 w-4/5 mx-auto">
+                    <div className="pb-6 md:pb-8 w-full md:w-4/5 mx-auto">
                       {project.project_quote && <PrismicRichText field={project.project_quote} />}
                     </div>
 
-                    <div className="w-4/5 mx-auto">
-                      {project.project_services && <p>{project.project_services}</p>}
-                    </div>
-                  </div>
-                </FadeInUp>
-              ))}
-            </StaggerContainer>
-            <StaggerContainer className="flex flex-col" delayChildren={0.5} staggerChildren={0.6}>
-              {rightColumnProjects.map((project, index) => (
-                <FadeInUp key={`right-${index}`}>
-                  <div className="text-center bg-primary rounded-lg pt-12 pb-12 px-8 mb-4 break-inside-avoid transition-all duration-600 ease-in-out hover:shadow-2xl hover:translate-y-[-4px] hover:bg-white">
-                    <div className="flex gap-2 justify-center pb-8">
-                      {/* {project.project_category_short && <p className="font-bold">{project.project_category_short}</p>} */}
-                      {project.project_category_full && <p>{project.project_category_full}</p>}
-                    </div>
-
-                    <div className="text-h6 pb-8">
-                      {project.project_title && <PrismicRichText field={project.project_title} />}
-                    </div>
-
-                    <div className="pb-8 w-4/5 mx-auto">
-                      {project.project_quote && <PrismicRichText field={project.project_quote} />}
-                    </div>
-
-                    <div className="w-4/5 mx-auto">
+                    <div className="w-full md:w-4/5 mx-auto">
                       {project.project_services && <p>{project.project_services}</p>}
                     </div>
                   </div>
