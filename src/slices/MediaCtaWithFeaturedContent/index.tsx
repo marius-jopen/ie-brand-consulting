@@ -27,7 +27,13 @@ const MediaCtaWithFeaturedContent: FC<MediaCtaWithFeaturedContentProps> = ({
       className="pt-30"
     >
     <div className="flex min-h-full">
-      <div className={`w-1/2 ${slice.primary.featured_content && slice.primary.featured_content.length > 0 ? 'sticky top-30 h-screen' : ''} overflow-y-auto`}>
+      <div
+        className={`w-1/2 ${
+          slice.primary.featured_content && slice.primary.featured_content.length > 0
+            ? "sticky top-30 h-screen"
+            : ""
+        }`}
+      >
         <StaggerContainer className="p-8">
           {slice.primary.media_title && (
             <FadeInUp>
@@ -64,7 +70,7 @@ const MediaCtaWithFeaturedContent: FC<MediaCtaWithFeaturedContentProps> = ({
         </StaggerContainer>
       </div>
       
-      <div className="w-1/2 overflow-y-auto">
+      <div className="w-1/2">
         <StaggerContainer className="pt-8 px-8 h-full">
           {(!slice.primary.featured_content || slice.primary.featured_content.length === 0) && (
             <FadeInUp>

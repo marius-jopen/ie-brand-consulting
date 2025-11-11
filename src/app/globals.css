@@ -156,6 +156,10 @@ body {
         font-family: 'gt_ultra_fineblack', sans-serif;
     }
 
+    .scrollbar-gutter-stable {
+        scrollbar-gutter: stable both-edges;
+    }
+    
     
     /* Custom Typography Styles */
     
