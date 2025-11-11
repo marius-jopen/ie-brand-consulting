@@ -77,7 +77,11 @@ const HeroContentCentered: FC<HeroContentCenteredProps> = ({ slice }) => {
       data-slice-variation={slice.variation}
     >
       <div
-        className={`bg-primary py-16 md:py-20 relative transition-all duration-[2100ms] min-h-[70vh] md:min-h-screen md:h-screen ease-in-out ${inView ? "mx-4 md:mx-0 rounded-lg md:rounded-none" : "mx-4 md:mx-11 rounded-lg"}`}>
+        className={`bg-primary py-16 md:py-20 relative min-h-[70vh] md:min-h-screen md:h-screen transition-all duration-[2100ms] ease-in-out ${
+          inView 
+            ? "mx-0 rounded-none" 
+            : "mx-4 rounded-lg md:mx-11 md:rounded-lg"
+        }`}>
         {/* Random white circles with hover animation */}
         <RandomCircles
           count={8}
@@ -97,17 +101,14 @@ const HeroContentCentered: FC<HeroContentCenteredProps> = ({ slice }) => {
             {slice.primary.title && (
               <FadeInUp>
                 <div
-                  className="text-h3-variable text-center pt-18 relative z-10 mx-auto max-w-7xl">
+                  className="text-h3-variable text-center pt-18 relative z-10 mx-auto w-[85vw] md:max-w-7xl">
                   {asText(slice.primary.title)}
                 </div>
               </FadeInUp>
             )}
             
-            <div
-              className={`mx-auto pb-10 md:pb-16 w-full max-w-3xl pt-[50vw] md:pt-16 md:pt-22 relative z-10 px-6 ${
-                inView ? "md:px-11" : "md:px-0"
-              }`}
-            >
+            <div className="mx-auto pb-10 md:pb-16 w-[85vw] md:max-w-3xl pt-[50vw] md:pt-16 md:pt-22 relative z-10">
+            
               {slice.primary.subtitle && (
                 <FadeInUp>
                   <div className="text-h7 text-center pb-8">
