@@ -164,7 +164,7 @@ const PersonalMessage: FC<PersonalMessageProps> = ({ slice }) => {
         <div className="pt-24 pb-24 text-box">
             {slice.primary.heading && (
               <FadeInUp>
-                <div className="text-h4 text-center pb-20 will-change-transform">
+                <div className="text-h4 text-center pb-8 md:pb-20 will-change-transform">
                   {asText(slice.primary.heading)}
                 </div>
               </FadeInUp>
