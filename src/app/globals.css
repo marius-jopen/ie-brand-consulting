@@ -3,9 +3,8 @@
 body {
     font-family: 'Supreme LL TT Regular';
     overflow-x: scroll;
+    @apply text-[20px] leading-[28px];
     font-weight: 400;
-    font-size: 20px;
-    line-height: 28px;
     letter-spacing: 0.02em;
 }
 
@@ -254,12 +253,18 @@ body {
     .font-gt-ultra-black {
         font-family: 'gt_ultra_fineblack', sans-serif;
     }
+
+    .text-p1 {
+        font-family: 'Supreme LL TT Regular';
+        @apply text-[20px] leading-[28px];
+        font-weight: 400;
+        letter-spacing: 0.02em;
+    }
     
     .text-p2 {
         font-family: 'Supreme LL TT Regular';
+        @apply text-[22.76px] leading-[31.48px];
         font-weight: 400;
-        font-size: 22.76px;
-        line-height: 31.48px;
         letter-spacing: 0.02em;
     }
 
@@ -267,16 +272,14 @@ body {
         font-family: 'Supreme LL TT Regular';
         font-weight: 400;
         font-style: Regular;
-        font-size: 15px;
-        line-height: 100%;
+        @apply text-[15px] leading-[100%];
         letter-spacing: 0%;        
     }
 
     .text-p4 {
         font-family: 'Supreme LL TT Regular';
         font-weight: 400;
-        font-size: 17px;
-        line-height: 135%;
+        @apply text-[17px] leading-[135%];
         letter-spacing: 0%;
     }
 
@@ -284,8 +287,7 @@ body {
         font-family: Supreme LL TT;
         font-weight: 400;
         font-style: Regular;
-        font-size: 13px;
-        line-height: 100%;
+        @apply text-[13px] leading-[100%];
         letter-spacing: 0%;        
     }
 

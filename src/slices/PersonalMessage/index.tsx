@@ -171,7 +171,10 @@ const PersonalMessage: FC<PersonalMessageProps> = ({ slice }) => {
             )}
 
             {slice.primary.text && (
-              <div ref={columnsRef} className="text-p1 columns-3 gap-8">
+              <div
+                ref={columnsRef}
+                className="text-p1 space-y-6 md:space-y-0 md:columns-3 md:gap-8"
+              >
                 <PrismicRichText
                   field={slice.primary.text}
                   components={{
