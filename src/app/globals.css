@@ -151,6 +151,10 @@ body {
         color: #D2BA36;
     }
 
+    .bg-quinary {
+        background-color: #1a1a1a;
+    }
+
     .text-ultra-black {
         font-family: 'gt_ultra_fineblack', sans-serif;
     }
