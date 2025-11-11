@@ -18,7 +18,6 @@ export type SplitTextMediaProps =
 const SplitTextMedia: FC<SplitTextMediaProps> = ({ slice }) => {
   const [mobileIconState, setMobileIconState] = useState<"first" | "second">("first");
   const mobileIconRef = useRef<HTMLDivElement>(null);
-  const [iconKey, setIconKey] = useState(0);
   const [isMobileDevice, setIsMobileDevice] = useState(false);
 
   useEffect(() => {
@@ -42,10 +41,8 @@ const SplitTextMedia: FC<SplitTextMediaProps> = ({ slice }) => {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
             setMobileIconState("second");
-            setIconKey(prev => prev + 1);
           } else {
             setMobileIconState("first");
-            setIconKey(prev => prev + 1);
           }
         });
       },
