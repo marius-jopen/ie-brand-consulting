@@ -79,7 +79,7 @@ const ContactForm: FC<ContactFormProps> = ({ slice }) => {
 
   return (
     <section
-      className="bg-tertiary text-white min-h-screen flex flex-col items-center justify-center pb-0 pt-24 px-4"
+      className="bg-tertiary text-white min-h-screen flex flex-col items-center pb-0 pt-24 md:pt-32 px-4"
       data-slice-type={slice.slice_type}
       data-slice-variation={slice.variation}
     >
@@ -129,14 +129,14 @@ const ContactForm: FC<ContactFormProps> = ({ slice }) => {
               {/* Email (left column under First Name); keep right column empty to drop Message to next row */}
               <FadeInUp>
                 <div className="space-y-2 md:col-span-1">
-                  <label className="block text-sm font-medium text-p4">Email*</label>
+                  <label className="block text-white">Email*</label>
                   <input
                     type="email"
                     name="email"
                     placeholder="youremail@gmail.com"
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
-                    className="w-full bg-transparent border-0 border-b border-white text-white placeholder-gray-500 focus:border-white focus:outline-none py-2 text-p4"
+                    className="w-full bg-transparent border-0 border-b border-white text-white placeholder-gray-500 focus:border-white focus:outline-none py-2"
                   />
                 </div>
               </FadeInUp>
@@ -147,14 +147,14 @@ const ContactForm: FC<ContactFormProps> = ({ slice }) => {
               {/* Message (spans two columns) */}
               <FadeInUp>
                 <div className="space-y-2 md:col-span-2">
-                  <label className="block text-sm font-medium text-p4">Message</label>
+                  <label className="block text-white">Message</label>
                   <textarea
                     name="message"
                     placeholder="Write here your message"
                     rows={3}
                     value={message}
                     onChange={(e) => setMessage(e.target.value)}
-                    className="w-full bg-transparent text-white placeholder-gray-500 focus:outline-none py-2 text-p4 resize-none"
+                    className="w-full bg-transparent text-white placeholder-gray-500 focus:outline-none py-2 resize-none"
                   />
                 </div>
               </FadeInUp>
@@ -173,9 +173,12 @@ const ContactForm: FC<ContactFormProps> = ({ slice }) => {
                         id="agreement"
                         checked={agreed}
                         onChange={(e) => setAgreed(e.target.checked)}
-                        className="mt-1 w-4 h-4 appearance-none border-1 border-white rounded-full grid place-content-center bg-transparent focus:outline-none focus:ring-0 focus:ring-offset-0 checked:bg-white"
+                        className="mt-1 w-4 h-4 shrink-0 appearance-none border-1 border-white rounded-full grid place-content-center bg-transparent focus:outline-none focus:ring-0 focus:ring-offset-0 checked:bg-white"
                       />
-                      <label htmlFor="agreement" className="text-sm text-p4 leading-relaxed w-2/3">
+                      <label
+                        htmlFor="agreement"
+                        className="text-sm text-p4 leading-relaxed w-full md:w-2/3"
+                      >
                         {slice.primary.agreement_text && (
                           <PrismicRichText
                             field={slice.primary.agreement_text}
