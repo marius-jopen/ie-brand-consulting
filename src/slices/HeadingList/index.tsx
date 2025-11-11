@@ -20,7 +20,7 @@ const HeadingList: FC<HeadingListProps> = ({ slice }) => {
       data-slice-type={slice.slice_type}
       data-slice-variation={slice.variation}
     >
-      <StaggerContainer className="mx-auto px-8 md:px-0 md:w-3/5 mb-12" retriggerOnPathname>
+      <StaggerContainer className="mx-auto px-4 md:px-0 md:w-3/5 mb-12" retriggerOnPathname>
         <FadeInUp className="rounded-lg bg-primary pt-8">
           <div>
             <FadeInUp>

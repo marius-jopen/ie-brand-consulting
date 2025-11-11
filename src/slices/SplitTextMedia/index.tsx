@@ -1,6 +1,6 @@
 "use client";
 
-import { FC } from "react";
+import { FC, useEffect, useRef, useState } from "react";
 import { Content, asText } from "@prismicio/client";
 import { SliceComponentProps } from "@prismicio/react";
 import ToggleMorphingIconRemount from "@/lib/ToggleMorphingIconRemount";
@@ -16,6 +16,49 @@ export type SplitTextMediaProps =
  * Component for "SplitTextMedia" Slices.
  */
 const SplitTextMedia: FC<SplitTextMediaProps> = ({ slice }) => {
+  const [mobileIconState, setMobileIconState] = useState<"first" | "second">("first");
+  const mobileIconRef = useRef<HTMLDivElement>(null);
+  const [iconKey, setIconKey] = useState(0);
+  const [isMobileDevice, setIsMobileDevice] = useState(false);
+
+  useEffect(() => {
+    // Check if mobile on mount
+    const checkMobile = () => {
+      setIsMobileDevice(window.matchMedia("(max-width: 767px)").matches);
+    };
+    
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
+
+  useEffect(() => {
+    const element = mobileIconRef.current;
+    if (!element || !isMobileDevice) return;
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            setMobileIconState("second");
+            setIconKey(prev => prev + 1);
+          } else {
+            setMobileIconState("first");
+            setIconKey(prev => prev + 1);
+          }
+        });
+      },
+      { threshold: 0.33 }
+    );
+
+    observer.observe(element);
+
+    return () => {
+      observer.disconnect();
+    };
+  }, [isMobileDevice]);
+
   return (
     <section
       data-slice-type={slice.slice_type}
@@ -34,13 +77,14 @@ const SplitTextMedia: FC<SplitTextMediaProps> = ({ slice }) => {
           )}
 
           <FadeInUp>
-            <div className="aspect-square flex md:hidden items-center justify-center">
+            <div ref={mobileIconRef} className="aspect-square flex md:hidden items-center justify-center">
               <div className="w-[60vw] max-w-[500px] aspect-square mt-10 mb-0 ">
                 <ToggleMorphingIconRemount
                   width="100%"
                   height="100%"
                   firstId="question-1"
                   secondId="question-2"
+                  initial={mobileIconState}
                   trigger="hover"
                   palette={[
                     { id: "question-1", url: "/svgs/question-1.svg" },

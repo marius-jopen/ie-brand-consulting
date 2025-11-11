@@ -24,7 +24,7 @@ const MediaCtaWithFeaturedContent: FC<MediaCtaWithFeaturedContentProps> = ({
     <section
       data-slice-type={slice.slice_type}
       data-slice-variation={slice.variation}
-      className="pt-30"
+      className="mt-20 md:pt-30"
     >
     <div className="flex flex-col md:flex-row min-h-full">
       <div

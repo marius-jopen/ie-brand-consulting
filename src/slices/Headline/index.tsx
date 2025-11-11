@@ -62,11 +62,11 @@ const Headline: FC<HeadlineProps> = ({ slice }) => {
         />
       </div>
 
-      <StaggerContainer className="flex gap-4 flex-wrap mx-12 justify-center ">
+      <StaggerContainer className="flex md:gap-4 flex-wrap flex-col md:flex-row mx-12 justify-center ">
         {items.map((item, index) => (
           <FadeInUp key={index}>
             <div
-              className={`transition-opacity duration-300 ${hoveredIndex !== null ? (hoveredIndex === index ? "opacity-100 relative z-10" : "opacity-[3%] relative -z-10") : "opacity-100"}`}
+              className={`text-center md:text-left transition-opacity duration-300 ${hoveredIndex !== null ? (hoveredIndex === index ? "opacity-100 relative z-10" : "opacity-[3%] relative -z-10") : "opacity-100"}`}
               onMouseEnter={() => setHoveredIndex(index)}
               onMouseLeave={() => setHoveredIndex(null)}
             >

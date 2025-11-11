@@ -225,7 +225,7 @@ body {
     .text-h6 {
         font-family: 'Supreme LL TT', sans-serif;
         font-weight: 900;
-        @apply text-[35px] leading-[40px] md:text-[50px] md:leading-[55px];
+        @apply text-[30px] leading-[35px] md:text-[50px] md:leading-[55px];
         letter-spacing: -0.02em;
     }
     
