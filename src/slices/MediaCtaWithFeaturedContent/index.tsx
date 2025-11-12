@@ -24,7 +24,7 @@ const MediaCtaWithFeaturedContent: FC<MediaCtaWithFeaturedContentProps> = ({
     <section
       data-slice-type={slice.slice_type}
       data-slice-variation={slice.variation}
-      className="mt-20 md:pt-30"
+      className="mt-20 md:pt-10"
     >
     <div className="flex flex-col md:flex-row min-h-full">
       <div
@@ -77,7 +77,7 @@ const MediaCtaWithFeaturedContent: FC<MediaCtaWithFeaturedContentProps> = ({
               {slice.primary.image?.url ? (
                 <div className="relative w-full overflow-hidden bg-primary">
                   <PrismicImage
-                    className="h-full w-full object-cover mix-blend-multiply filter grayscale contrast-125"
+                    className="h-full max-h-[calc(100vh-220px)] w-full object-cover mix-blend-multiply filter grayscale contrast-125"
                     field={slice.primary.image}
                   />
                 </div>

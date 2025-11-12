@@ -35,7 +35,7 @@ const WorkHighlightsGrid: FC<WorkHighlightsGridProps> = ({ slice }) => {
     
         {slice.primary.section_intro && (
           <FadeInUp>
-            <div className="mx-auto w-full md:w-2/5 pb-8">
+            <div className="mx-auto w-full md:w-3/5 pb-8">
               <PrismicRichText field={slice.primary.section_intro} />
             </div>
           </FadeInUp>
