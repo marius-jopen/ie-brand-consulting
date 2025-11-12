@@ -5,6 +5,7 @@ import { Content, asText } from "@prismicio/client";
 import { SliceComponentProps } from "@prismicio/react";
 import ToggleMorphingIconRemount from "@/lib/ToggleMorphingIconRemount";
 import { StaggerContainer, FadeInUp } from "@/lib/FramerStagger";
+import HyphenatedHeadline from "@/lib/HyphenatedHeadline";
 
 /**
  * Props for `SplitTextMedia`.
@@ -137,7 +138,7 @@ const SplitTextMedia: FC<SplitTextMediaProps> = ({ slice }) => {
               {slice.primary.items.map((item, index) => (
                 <FadeInUp key={index}>
                   <div className="bg-primary text-center px-8 md:px-20 rounded-lg pt-14 pb-14 transition-all duration-300 ease-in-out hover:shadow-2xl hover:translate-y-[-4px] hover:bg-white">
-                    {item.headline && <h3 className="text-h4 mb-8 text-hyphenate max-w-full">{item.headline}</h3>}
+                    {item.headline && <HyphenatedHeadline text={item.headline} className="text-h4 mb-8 text-hyphenate max-w-full" />}
                     {item.text && <p className="text-p1">{asText(item.text)}</p>}
                   </div>
                 </FadeInUp>

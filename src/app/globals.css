@@ -211,7 +211,7 @@ body {
     .text-h4 {
         font-family: 'Supreme LL TT', sans-serif;
         font-weight: 900;
-        @apply text-[44px] leading-[47px] md:text-[75.04px] md:leading-[82px];
+        @apply text-[44px] leading-[47px] md:text-[85.04px] md:leading-[89px];
         letter-spacing: 0em;
     }
     
@@ -289,9 +289,7 @@ body {
         -webkit-hyphens: auto;
         -moz-hyphens: auto;
         -ms-hyphens: auto;
-        word-wrap: break-word;
-        overflow-wrap: break-word;
-        word-break: break-word;
+        hyphenate-limit-chars: 6 3 2;
     }
 
 

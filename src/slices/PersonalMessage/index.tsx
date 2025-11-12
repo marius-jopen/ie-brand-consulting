@@ -12,6 +12,7 @@ import { Content, asText } from "@prismicio/client";
 import { SliceComponentProps, PrismicRichText } from "@prismicio/react";
 import { motion, type HTMLMotionProps } from "framer-motion";
 import { StaggerContainer, FadeInUp } from "@/lib/FramerStagger";
+import Image from "next/image";
 
 /**
  * Props for `PersonalMessage`.
@@ -161,7 +162,7 @@ const PersonalMessage: FC<PersonalMessageProps> = ({ slice }) => {
       data-slice-variation={slice.variation}
     >
       <StaggerContainer className="mx-auto w-10/12 md:min-h-screen flex items-center justify-center">
-        <div className="pt-24 pb-10 md:pb-24 text-box">
+        <div className="pt-24 pb-10 md:pb-24 text-box relative">
             {slice.primary.heading && (
               <FadeInUp>
                 <div className="text-h4 text-center pb-8 md:pb-20 will-change-transform px-8 md:px-0">
@@ -191,6 +192,23 @@ const PersonalMessage: FC<PersonalMessageProps> = ({ slice }) => {
                 />
               </div>
             )}
+
+            <motion.div
+              className="absolute bottom-0 right-0 w-24 md:w-32 lg:w-36"
+              initial={{ opacity: 0 }}
+              animate={inView ? { opacity: 1 } : {}}
+              transition={{
+                opacity: { duration: 0.8, ease: "easeOut", delay: 1.8 },
+              }}
+            >
+              <Image
+                src="/svgs/signature.svg"
+                alt="Signature"
+                width={283}
+                height={271}
+                className="w-full h-auto"
+              />
+            </motion.div>
         </div>
       </StaggerContainer>
     </section>

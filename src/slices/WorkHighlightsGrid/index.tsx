@@ -61,9 +61,9 @@ const WorkHighlightsGrid: FC<WorkHighlightsGridProps> = ({ slice }) => {
                       {project.project_category_full && <p>{project.project_category_full}</p>}
                     </div>
 
-                    <div className="text-h6 pb-8">
+                    {/* <div className="text-h6 pb-8">
                       {project.project_title && <PrismicRichText field={project.project_title} />}
-                    </div>
+                    </div> */}
 
                     <div className="pb-8 w-4/5 mx-auto">
                       {project.project_quote && <PrismicRichText field={project.project_quote} />}
@@ -84,9 +84,9 @@ const WorkHighlightsGrid: FC<WorkHighlightsGridProps> = ({ slice }) => {
                       {project.project_category_full && <p>{project.project_category_full}</p>}
                     </div>
 
-                    <div className="text-h6 pb-8">
+                    {/* <div className="text-h6 pb-8">
                       {project.project_title && <PrismicRichText field={project.project_title} />}
-                    </div>
+                    </div> */}
 
                     <div className="pb-8 w-4/5 mx-auto">
                       {project.project_quote && <PrismicRichText field={project.project_quote} />}
