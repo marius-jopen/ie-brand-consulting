@@ -10,7 +10,7 @@ import "./globals.css";
 
 export const metadata: Metadata = {
   icons: {
-    icon: "/svgs/favicon-white.png",
+    icon: "/svgs/favicon-transparent.png",
   },
 };
 
