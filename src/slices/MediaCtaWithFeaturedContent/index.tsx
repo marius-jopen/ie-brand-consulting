@@ -92,14 +92,14 @@ const MediaCtaWithFeaturedContent: FC<MediaCtaWithFeaturedContentProps> = ({
               {slice.primary.featured_content.map((item, index) => (
                 <FadeInUp key={index}>
                   <div className="group">
-                    <div className="relative w-full overflow-hidden bg-primary">
+                    <div className="relative w-full overflow-hidden bg-white">
                       {item.image?.url ? (
                         <PrismicImage
-                          className="w-full object-cover mix-blend-multiply filter grayscale contrast-125 transition duration-300 ease-out group-hover:brightness-90"
+                          className="w-full object-cover mix-blend-multiply filter grayscale  transition duration-300 ease-out "
                           field={item.image}
                         />
                       ) : (
-                        <div className="w-full aspect-[6/3] bg-primary transition duration-300 ease-out group-hover:brightness-90" />
+                        <div className="w-full aspect-[6/3] bg-primary transition duration-300 ease-out " />
                       )}
                     </div>
 

@@ -79,7 +79,7 @@ const ContactForm: FC<ContactFormProps> = ({ slice }) => {
 
   return (
     <section
-      className="bg-tertiary text-white min-h-screen flex flex-col items-center pb-0 pt-24 md:pt-32 px-4"
+      className="bg-tertiary text-white min-h-screen flex flex-col items-center pb-0 pt-24 md:pt-20 px-4"
       data-slice-type={slice.slice_type}
       data-slice-variation={slice.variation}
     >
@@ -98,7 +98,7 @@ const ContactForm: FC<ContactFormProps> = ({ slice }) => {
             <div className="grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-10">
               {/* First Name */}
               <FadeInUp>
-                <div className="space-y-2">
+                <div className="space-y-1">
                   <label className="block text-white">First Name*</label>
                   <input
                     type="text"
@@ -113,7 +113,7 @@ const ContactForm: FC<ContactFormProps> = ({ slice }) => {
 
               {/* Last Name */}
               <FadeInUp>
-                <div className="space-y-2">
+                <div className="space-y-1">
                   <label className="block text-white">Last Name*</label>
                   <input
                     type="text"
@@ -128,7 +128,7 @@ const ContactForm: FC<ContactFormProps> = ({ slice }) => {
 
               {/* Email (left column under First Name); keep right column empty to drop Message to next row */}
               <FadeInUp>
-                <div className="space-y-2 md:col-span-1">
+                <div className="space-y-1 md:col-span-1">
                   <label className="block text-white">Email*</label>
                   <input
                     type="email"
@@ -146,12 +146,12 @@ const ContactForm: FC<ContactFormProps> = ({ slice }) => {
 
               {/* Message (spans two columns) */}
               <FadeInUp>
-                <div className="space-y-2 md:col-span-2">
+                <div className="space-y-1 md:col-span-2">
                   <label className="block text-white">Message</label>
                   <textarea
                     name="message"
                     placeholder="Write here your message"
-                    rows={3}
+                    rows={2}
                     value={message}
                     onChange={(e) => setMessage(e.target.value)}
                     className="w-full bg-transparent text-white placeholder-gray-500 focus:outline-none py-2 resize-none"
@@ -159,11 +159,13 @@ const ContactForm: FC<ContactFormProps> = ({ slice }) => {
                 </div>
               </FadeInUp>
 
-              {/* Divider line separate full width row */}
-              <div className="md:col-span-2 border-b border-white" />
 
               {/* Agreement + Submit stacked full width */}
               <div className="md:col-span-2">
+
+              {/* Divider line separate full width row */}
+              <div className="md:col-span-2 border-b border-white mb-8" />
+              
                 <FadeInUp>
                   <div className="w-full flex flex-col gap-8">
                     <div className="flex items-start gap-3">
@@ -196,7 +198,7 @@ const ContactForm: FC<ContactFormProps> = ({ slice }) => {
                       </label>
                     </div>
 
-                    <div className="flex justify-center pt-8 w-full">
+                    <div className="flex justify-center pt-8 md:pt-4 w-full">
                       <button
                         type="submit"
                         disabled={isSendDisabled || status === "submitting"}
