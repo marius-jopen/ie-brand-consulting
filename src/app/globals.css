@@ -29,7 +29,7 @@ body {
         width: 12px;
         height: 12px;
         border-radius: 9999px;
-        background: #D2BA36; /* neutral-400 */
+        background: #897A27; /* neutral-400 */
         pointer-events: none;
         transform: translate(-50%, -50%);
         transition: opacity 120ms ease, background-color 120ms ease, filter 120ms ease;
@@ -148,7 +148,7 @@ body {
     }
 
     .text-quaternary {
-        color: #D2BA36;
+        color: #897A27;
     }
 
     .bg-quinary {
