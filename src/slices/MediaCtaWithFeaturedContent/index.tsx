@@ -26,7 +26,7 @@ const MediaCtaWithFeaturedContent: FC<MediaCtaWithFeaturedContentProps> = ({
       data-slice-variation={slice.variation}
       className="mt-20 md:pt-0"
     >
-    <div className="flex flex-col md:flex-row min-h-full">
+    <div className="flex flex-col md:flex-row">
       <div
         className={`w-full md:w-1/2 ${
           slice.primary.featured_content && slice.primary.featured_content.length > 0
@@ -70,19 +70,19 @@ const MediaCtaWithFeaturedContent: FC<MediaCtaWithFeaturedContentProps> = ({
         </StaggerContainer>
       </div>
       
-      <div className="w-full md:w-1/2">
-        <StaggerContainer className="pt-4 px-6 md:px-8 h-full">
+      <div className="w-full md:w-1/2 flex">
+        <StaggerContainer className="pt-4 px-6 md:px-8 flex-1 flex">
           {(!slice.primary.featured_content || slice.primary.featured_content.length === 0) && (
-            <FadeInUp>
+            <FadeInUp className="w-full flex">
               {slice.primary.image?.url ? (
-                <div className="relative w-full overflow-hidden bg-primary">
+                <div className="relative w-full overflow-hidden bg-primary flex-1">
                   <PrismicImage
-                    className="h-full max-h-[calc(100vh-180px)] w-full object-cover mix-blend-multiply filter grayscale contrast-125"
+                    className="w-full h-full object-cover mix-blend-multiply filter grayscale contrast-125"
                     field={slice.primary.image}
                   />
                 </div>
               ) : (
-                <div className="w-full h-72 md:h-full bg-primary" />
+                <div className="w-full flex-1 bg-primary" />
               )}
             </FadeInUp>
           )}
