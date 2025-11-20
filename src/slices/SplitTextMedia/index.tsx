@@ -2,7 +2,7 @@
 
 import { FC, useEffect, useRef, useState } from "react";
 import { Content, asText } from "@prismicio/client";
-import { SliceComponentProps } from "@prismicio/react";
+import { SliceComponentProps, PrismicRichText } from "@prismicio/react";
 import ToggleMorphingIconRemount from "@/lib/ToggleMorphingIconRemount";
 import { StaggerContainer, FadeInUp } from "@/lib/FramerStagger";
 import HyphenatedHeadline from "@/lib/HyphenatedHeadline";
@@ -64,11 +64,11 @@ const SplitTextMedia: FC<SplitTextMediaProps> = ({ slice }) => {
       className="flex flex-col md:flex-row min-h-screen"
     >
       {/* Left half - Sticky */}
-      <div className="w-full md:w-1/2 md:sticky md:top-8 md:h-screen flex flex-col items-center p-8 md:mb-0 mb-10">
+      <div className="w-full md:w-1/2 md:sticky md:top-0 md:h-screen flex flex-col items-center p-8 md:mb-0 mb-10">
         <StaggerContainer className="w-full flex flex-col items-center">
           {slice.primary.heading && (
             <FadeInUp>
-              <div className="text-h1 text-center mb-6 pt-8 pb-2 md:pb-8">
+              <div className="text-h0 text-center mb-6 pt-0 pb-2 md:pb-8">
                 {asText(slice.primary.heading)}
               </div>
             </FadeInUp>
@@ -95,8 +95,8 @@ const SplitTextMedia: FC<SplitTextMediaProps> = ({ slice }) => {
           
           {slice.primary.body && (
             <FadeInUp>
-              <div className="hidden md:block text-center mx-auto w-full md:w-3/5">
-                {asText(slice.primary.body)}
+              <div className="hidden md:block text-center mx-auto w-full md:w-4/5">
+                <PrismicRichText field={slice.primary.body} />
               </div>
             </FadeInUp>
           )}
@@ -128,7 +128,7 @@ const SplitTextMedia: FC<SplitTextMediaProps> = ({ slice }) => {
           {slice.primary.body && (
             <FadeInUp>
               <div className="md:hidden text-center mx-auto w-full md:w-3/5 mb-8 px-8">
-                {asText(slice.primary.body)}
+                <PrismicRichText field={slice.primary.body} />
               </div>
             </FadeInUp>
           )}
