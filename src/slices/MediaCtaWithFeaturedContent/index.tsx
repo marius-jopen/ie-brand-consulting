@@ -24,17 +24,17 @@ const MediaCtaWithFeaturedContent: FC<MediaCtaWithFeaturedContentProps> = ({
     <section
       data-slice-type={slice.slice_type}
       data-slice-variation={slice.variation}
-      className="mt-20 md:pt-10"
+      className="mt-20 md:pt-0"
     >
     <div className="flex flex-col md:flex-row min-h-full">
       <div
         className={`w-full md:w-1/2 ${
           slice.primary.featured_content && slice.primary.featured_content.length > 0
-            ? "md:sticky md:top-30 md:h-screen"
+            ? "md:sticky md:top-20 md:h-screen"
             : ""
         }`}
       >
-        <StaggerContainer className="p-6 md:p-8">
+        <StaggerContainer className="px-6 md:px-8 pt-2 left-box">
           {slice.primary.media_title && (
             <FadeInUp>
               <h1 className="text-h0 text-center">{asText(slice.primary.media_title)}</h1>
@@ -71,13 +71,13 @@ const MediaCtaWithFeaturedContent: FC<MediaCtaWithFeaturedContentProps> = ({
       </div>
       
       <div className="w-full md:w-1/2">
-        <StaggerContainer className="pt-8 px-6 md:px-8 h-full">
+        <StaggerContainer className="pt-4 px-6 md:px-8 h-full">
           {(!slice.primary.featured_content || slice.primary.featured_content.length === 0) && (
             <FadeInUp>
               {slice.primary.image?.url ? (
                 <div className="relative w-full overflow-hidden bg-primary">
                   <PrismicImage
-                    className="h-full max-h-[calc(100vh-220px)] w-full object-cover mix-blend-multiply filter grayscale contrast-125"
+                    className="h-full max-h-[calc(100vh-180px)] w-full object-cover mix-blend-multiply filter grayscale contrast-125"
                     field={slice.primary.image}
                   />
                 </div>
