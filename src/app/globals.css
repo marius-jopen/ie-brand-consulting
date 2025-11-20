@@ -5,7 +5,7 @@ body {
     overflow-x: scroll;
     @apply text-[16px] leading-[23px] md:text-[16px] md:leading-[24px];
     font-weight: 400;
-    letter-spacing: 0.02em;
+    letter-spacing: -0.007em;
 }
 
 /* Custom cursor: small gray dot that inverts on interactive elements */
@@ -211,8 +211,8 @@ body {
     .text-h4 {
         font-family: 'Supreme LL TT', sans-serif;
         font-weight: 900;
-        @apply text-[44px] leading-[47px] md:text-[85.04px] md:leading-[89px] ;
-        letter-spacing: 0em;
+        @apply text-[44px] leading-[47px] md:text-[80.04px] md:leading-[85px] ;
+        letter-spacing: -0.03em;
     }
     
     .text-h5 {
@@ -258,7 +258,7 @@ body {
         font-family: 'Supreme LL TT Regular';
         @apply text-[16px] leading-[23px] md:text-[16px] md:leading-[24px];
         font-weight: 400;
-        letter-spacing: 0.02em;
+        letter-spacing: -0.007em;
     }
     
     .text-p2 {
