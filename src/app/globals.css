@@ -211,7 +211,7 @@ body {
     .text-h4 {
         font-family: 'Supreme LL TT', sans-serif;
         font-weight: 900;
-        @apply text-[44px] leading-[47px] md:text-[85.04px] md:leading-[89px];
+        @apply text-[44px] leading-[47px] md:text-[85.04px] md:leading-[89px] ;
         letter-spacing: 0em;
     }
     
@@ -241,6 +241,13 @@ body {
         font-weight: 900;
         @apply text-[22px] leading-[26px] md:text-[28px] md:leading-[32.3px];
         letter-spacing: 0.01em;
+    }
+
+    .text-h9 {
+        font-family: 'Supreme LL TT', sans-serif;
+        font-weight: 900;
+        @apply text-[44px] leading-[47px] md:text-[7vw] md:leading-[6.5vw];
+        letter-spacing: 0em;
     }
     
     .font-gt-ultra-black {
