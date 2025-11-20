@@ -12,7 +12,6 @@ import { Content, asText } from "@prismicio/client";
 import { SliceComponentProps, PrismicRichText } from "@prismicio/react";
 import { motion, type HTMLMotionProps } from "framer-motion";
 import { StaggerContainer, FadeInUp } from "@/lib/FramerStagger";
-import Image from "next/image";
 
 /**
  * Props for `PersonalMessage`.
@@ -193,26 +192,51 @@ const PersonalMessage: FC<PersonalMessageProps> = ({ slice }) => {
               </div>
             )}
 
-            <motion.div
-              className="flex justify-center mt-0 md:mt-0 md:justify-end"
-              initial={{ opacity: 0 }}
-              animate={inView ? { opacity: 1 } : {}}
-              transition={{
-                opacity: { duration: 0.8, ease: "easeOut", delay: 1.8 },
-              }}
-            >
+            <div className="flex justify-center mt-0 md:mt-0 md:justify-end">
               <div className="md:w-[calc(33.333%-2.666rem)] md:flex md:justify-center">
                 <div className="w-16 md:w-full flex justify-center flex-row lg:w-24">
-                  <Image
-                    src="/svgs/signature.svg"
-                    alt="Signature"
-                    width={283}
-                    height={271}
+                  <motion.svg
+                    viewBox="0 0 283.3 270.64"
                     className="w-[5vw] h-auto"
-                  />
+                    initial="hidden"
+                    animate={inView ? "visible" : "hidden"}
+                  >
+                    <motion.path
+                      d="M2.27,53.75c-3.44,147.33,4.14,228.41,33.85,213.68,25.36-12.58,43.88-67.53,43.88-229.8,0,120.31-6.1,209.24,22.78,193.88s34.78-74.12,34.78-126.73c0,39.36,1.79,117.29,28.28,92.45,23.74-22.26,26.81-86.33,24.38-115.5-2.43-29.16-16.34-13.65-18.77,3.36-2.43,17.01,1.76,25.02,13.1,21.78,11.34-3.24,30.78-19.11,40.5-40.98-12.15,28.35-13.38,65.71-10.14,81.1,8.78,41.68,64.25-8.43,66.85-104.59,1.62-59.95-30.03-43.13-39.95-18.05"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth="3"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      variants={{
+                        hidden: { pathLength: 0, opacity: 0 },
+                        visible: { pathLength: 1, opacity: 1 }
+                      }}
+                      transition={{
+                        pathLength: { duration: 2, ease: "easeInOut", delay: 1.8 },
+                        opacity: { duration: 0.3, ease: "easeOut", delay: 1.8 }
+                      }}
+                    />
+                    <motion.path
+                      d="M44.39,121.9l66.43-35.65"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth="3"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      variants={{
+                        hidden: { pathLength: 0, opacity: 0 },
+                        visible: { pathLength: 1, opacity: 1 }
+                      }}
+                      transition={{
+                        pathLength: { duration: 0.5, ease: "easeInOut", delay: 3.8 },
+                        opacity: { duration: 0.3, ease: "easeOut", delay: 3.8 }
+                      }}
+                    />
+                  </motion.svg>
                 </div>
               </div>
-            </motion.div>
+            </div>
         </div>
       </StaggerContainer>
     </section>

@@ -3,7 +3,7 @@
 body {
     font-family: 'Supreme LL TT Regular';
     overflow-x: scroll;
-    @apply text-[16px] leading-[23px] md:text-[18px] md:leading-[26px];
+    @apply text-[16px] leading-[23px] md:text-[16px] md:leading-[24px];
     font-weight: 400;
     letter-spacing: 0.02em;
 }
