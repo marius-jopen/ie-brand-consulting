@@ -194,20 +194,24 @@ const PersonalMessage: FC<PersonalMessageProps> = ({ slice }) => {
             )}
 
             <motion.div
-              className="absolute bottom-0 right-0 w-24 md:w-32 lg:w-36"
+              className="flex justify-center mt-0 md:mt-0 md:justify-end"
               initial={{ opacity: 0 }}
               animate={inView ? { opacity: 1 } : {}}
               transition={{
                 opacity: { duration: 0.8, ease: "easeOut", delay: 1.8 },
               }}
             >
-              <Image
-                src="/svgs/signature.svg"
-                alt="Signature"
-                width={283}
-                height={271}
-                className="w-full h-auto"
-              />
+              <div className="md:w-[calc(33.333%-2.666rem)] md:flex md:justify-center">
+                <div className="w-16 md:w-full flex justify-center flex-row lg:w-24">
+                  <Image
+                    src="/svgs/signature.svg"
+                    alt="Signature"
+                    width={283}
+                    height={271}
+                    className="w-[5vw] h-auto"
+                  />
+                </div>
+              </div>
             </motion.div>
         </div>
       </StaggerContainer>

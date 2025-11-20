@@ -3,7 +3,7 @@
 body {
     font-family: 'Supreme LL TT Regular';
     overflow-x: scroll;
-    @apply text-[16px] leading-[23px] md:text-[20px] md:leading-[28px];
+    @apply text-[16px] leading-[23px] md:text-[18px] md:leading-[26px];
     font-weight: 400;
     letter-spacing: 0.02em;
 }
@@ -249,7 +249,7 @@ body {
 
     .text-p1 {
         font-family: 'Supreme LL TT Regular';
-        @apply text-[16px] leading-[23px] md:text-[20px] md:leading-[28px];
+        @apply text-[16px] leading-[23px] md:text-[16px] md:leading-[24px];
         font-weight: 400;
         letter-spacing: 0.02em;
     }
