@@ -283,6 +283,13 @@ body {
         letter-spacing: 0%;
     }
 
+    .text-p5 {
+        font-family: 'Supreme LL TT Regular';
+        font-weight: 400;
+        @apply text-[14px] leading-[135%] md:text-[14px] md:leading-[135%];
+        letter-spacing: 0%;
+    }
+
     .text-menu {
         font-family: Supreme LL TT;
         font-weight: 400;

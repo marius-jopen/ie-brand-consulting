@@ -83,19 +83,19 @@ const ContactForm: FC<ContactFormProps> = ({ slice }) => {
       data-slice-type={slice.slice_type}
       data-slice-variation={slice.variation}
     >
-      <StaggerContainer className="w-full max-w-5xl">
+      <StaggerContainer className="w-full max-w-3xl">
         {slice.primary.title && (
           <FadeInUp>
-            <div className="text-h1 font-bold text-center mb-12">
+            <div className="text-h0 font-bold text-center mb-4">
               {asText(slice.primary.title)}
             </div>
           </FadeInUp>
         )}
 
-        <form className="w-full max-w-5xl" onSubmit={handleSubmit}>
+        <form className="w-full max-w-3xl" onSubmit={handleSubmit}>
           <StaggerContainer>
             {/* Grid layout */}
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-10">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-4">
               {/* First Name */}
               <FadeInUp>
                 <div className="space-y-1">
@@ -198,7 +198,7 @@ const ContactForm: FC<ContactFormProps> = ({ slice }) => {
                       </label>
                     </div>
 
-                    <div className="flex justify-center pt-8 md:pt-4 w-full">
+                    <div className="flex justify-center pt-8 md:pt-0 w-full">
                       <button
                         type="submit"
                         disabled={isSendDisabled || status === "submitting"}

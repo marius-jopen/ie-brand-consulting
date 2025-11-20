@@ -71,13 +71,13 @@ const MediaCtaWithFeaturedContent: FC<MediaCtaWithFeaturedContentProps> = ({
       </div>
       
       <div className="w-full md:w-1/2 flex">
-        <StaggerContainer className="pt-4 px-6 md:px-8 flex-1 flex">
+        <StaggerContainer className="pt-4 px-6 md:px-8 flex-1 flex mt-8 md:mt-0">
           {(!slice.primary.featured_content || slice.primary.featured_content.length === 0) && (
             <FadeInUp className="w-full flex">
               {slice.primary.image?.url ? (
-                <div className="relative w-full overflow-hidden bg-primary flex-1">
+                <div className="relative h-[80vh] w-full overflow-hidden bg-primary flex-1">
                   <PrismicImage
-                    className="w-full h-full object-cover mix-blend-multiply filter grayscale contrast-125"
+                    className="w-full h-full object-cover object-top mix-blend-multiply filter grayscale contrast-125 rounded-xl"
                     field={slice.primary.image}
                   />
                 </div>
@@ -88,7 +88,7 @@ const MediaCtaWithFeaturedContent: FC<MediaCtaWithFeaturedContentProps> = ({
           )}
           
           {slice.primary.featured_content && slice.primary.featured_content.length > 0 && (
-            <div className="space-y-2 md:space-y-12">
+            <div className="space-y-2 md:space-y-12 mt-8 md:mt-0">
               {slice.primary.featured_content.map((item, index) => (
                 <FadeInUp key={index}>
                   <div className="group">

@@ -32,22 +32,24 @@ const WorkHighlightsGrid: FC<WorkHighlightsGridProps> = ({ slice }) => {
             <h4 className="text-h4 pb-10">{asText(slice.primary.section_title)}</h4>
           </FadeInUp>
         )}
+
+        {slice.primary.section_cta && (
+          <FadeInUp>
+            <div className="mx-auto w-full md:w-2/5 pb-8 ">
+              <PrismicRichText field={slice.primary.section_cta} />
+            </div>
+          </FadeInUp>
+        )}
     
         {slice.primary.section_intro && (
           <FadeInUp>
-            <div className="mx-auto w-full md:w-3/5 pb-8">
+            <div className="mx-auto w-full md:w-3/5  pb-16 md:pb-24">
               <PrismicRichText field={slice.primary.section_intro} />
             </div>
           </FadeInUp>
         )}
         
-        {slice.primary.section_cta && (
-          <FadeInUp>
-            <div className="mx-auto w-full md:w-2/5 pb-16 md:pb-24">
-              <PrismicRichText field={slice.primary.section_cta} />
-            </div>
-          </FadeInUp>
-        )}
+       
       </StaggerContainer>
       
       {projects.length > 0 && (
@@ -56,7 +58,7 @@ const WorkHighlightsGrid: FC<WorkHighlightsGridProps> = ({ slice }) => {
             <StaggerContainer className="flex flex-col" delayChildren={0.5} staggerChildren={0.6}>
               {leftColumnProjects.map((project, index) => (
                 <FadeInUp key={`left-${index}`}>
-                  <div className="text-center bg-primary rounded-lg pt-12 pb-12 px-8 mb-4 break-inside-avoid transition-all duration-600 ease-in-out hover:shadow-2xl hover:translate-y-[-4px] hover:bg-white">
+                  <div className="text-center bg-primary rounded-lg pt-24 pb-24 px-8 mb-4 break-inside-avoid transition-all duration-600 ease-in-out hover:shadow-2xl hover:translate-y-[-4px] hover:bg-white">
                     <div className="flex gap-2 justify-center pb-8">
                       {project.project_category_full && <p>{project.project_category_full}</p>}
                     </div>
@@ -69,7 +71,7 @@ const WorkHighlightsGrid: FC<WorkHighlightsGridProps> = ({ slice }) => {
                       {project.project_quote && <PrismicRichText field={project.project_quote} />}
                     </div>
 
-                    <div className="w-4/5 mx-auto">
+                    <div className="w-4/5 mx-auto text-p5">
                       {project.project_services && <p>{project.project_services}</p>}
                     </div>
                   </div>
@@ -79,7 +81,7 @@ const WorkHighlightsGrid: FC<WorkHighlightsGridProps> = ({ slice }) => {
             <StaggerContainer className="flex flex-col" delayChildren={0.5} staggerChildren={0.6}>
               {rightColumnProjects.map((project, index) => (
                 <FadeInUp key={`right-${index}`}>
-                  <div className="text-center bg-primary rounded-lg pt-12 pb-12 px-8 mb-4 break-inside-avoid transition-all duration-600 ease-in-out hover:shadow-2xl hover:translate-y-[-4px] hover:bg-white">
+                  <div className=" text-center bg-primary rounded-lg pt-24 pb-24 px-8 mb-4 break-inside-avoid transition-all duration-600 ease-in-out hover:shadow-2xl hover:translate-y-[-4px] hover:bg-white">
                     <div className="flex gap-2 justify-center pb-8">
                       {project.project_category_full && <p>{project.project_category_full}</p>}
                     </div>
@@ -92,7 +94,7 @@ const WorkHighlightsGrid: FC<WorkHighlightsGridProps> = ({ slice }) => {
                       {project.project_quote && <PrismicRichText field={project.project_quote} />}
                     </div>
 
-                    <div className="w-4/5 mx-auto">
+                    <div className="w-4/5 mx-auto text-p5">
                       {project.project_services && <p>{project.project_services}</p>}
                     </div>
                   </div>
