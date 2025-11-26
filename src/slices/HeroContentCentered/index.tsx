@@ -101,7 +101,7 @@ const HeroContentCentered: FC<HeroContentCenteredProps> = ({ slice }) => {
             {slice.primary.title && (
               <FadeInUp>
                 <div
-                  className="text-h3-variable text-center pt-18 relative z-10 mx-auto w-[85vw] md:max-w-7xl">
+                  className="text-h3-variable text-center pt-18 relative z-10 mx-auto w-[85vw]">
                   {asText(slice.primary.title)}
                 </div>
               </FadeInUp>
