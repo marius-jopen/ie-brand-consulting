@@ -1083,16 +1083,6 @@ export interface WorkHighlightsGridSliceDefaultPrimaryProjectsItem {
   project_category_full: prismic.KeyTextField;
 
   /**
-   * Project Highlight Title field in *WorkHighlightsGrid → Default → Primary → Projects Grid*
-   *
-   * - **Field Type**: Rich Text
-   * - **Placeholder**: *None*
-   * - **API ID Path**: work_highlights_grid.default.primary.projects[].project_title
-   * - **Documentation**: https://prismic.io/docs/fields/rich-text
-   */
-  project_title: prismic.RichTextField;
-
-  /**
    * Project Quote field in *WorkHighlightsGrid → Default → Primary → Projects Grid*
    *
    * - **Field Type**: Rich Text

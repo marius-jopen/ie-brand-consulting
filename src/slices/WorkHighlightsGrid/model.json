@@ -49,13 +49,6 @@
                   "label": "Project Category Full"
                 }
               },
-              "project_title": {
-                "type": "StructuredText",
-                "config": {
-                  "single": "heading2",
-                  "label": "Project Highlight Title"
-                }
-              },
               "project_quote": {
                 "type": "StructuredText",
                 "config": {
@@ -72,7 +65,8 @@
             }
           }
         }
-      }
+      },
+      "items": {}
     }
   ]
 }

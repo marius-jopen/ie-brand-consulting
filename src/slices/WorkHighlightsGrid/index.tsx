@@ -64,11 +64,7 @@ const WorkHighlightsGrid: FC<WorkHighlightsGridProps> = ({ slice }) => {
                     </div>
 
                     <div className="text-h6 pb-8">
-                      {project.project_title && <PrismicRichText field={project.project_title} />}
-                    </div>
-
-                    <div className="pb-8 w-4/5 mx-auto">
-                      {project.project_quote && <PrismicRichText field={project.project_quote} />}
+                     {project.project_quote && <PrismicRichText field={project.project_quote} />}
                     </div>
 
                     <div className="w-4/5 mx-auto text-p5">
@@ -87,10 +83,6 @@ const WorkHighlightsGrid: FC<WorkHighlightsGridProps> = ({ slice }) => {
                     </div>
 
                     <div className="text-h6 pb-8">
-                      {project.project_title && <PrismicRichText field={project.project_title} />}
-                    </div>
-
-                    <div className="pb-8 w-4/5 mx-auto">
                       {project.project_quote && <PrismicRichText field={project.project_quote} />}
                     </div>
 

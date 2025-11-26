@@ -75,9 +75,9 @@ const MediaCtaWithFeaturedContent: FC<MediaCtaWithFeaturedContentProps> = ({
           {(!slice.primary.featured_content || slice.primary.featured_content.length === 0) && (
             <FadeInUp className="w-full flex">
               {slice.primary.image?.url ? (
-                <div className="relative h-[80vh] w-full overflow-hidden bg-primary flex-1">
+                <div className="rounded-xl relative h-[80vh] w-full overflow-hidden bg-primary flex-1">
                   <PrismicImage
-                    className="w-full h-full object-cover object-top mix-blend-multiply filter grayscale contrast-125 rounded-xl"
+                    className="w-full h-full object-cover object-top mix-blend-multiply filter grayscale contrast-125 "
                     field={slice.primary.image}
                   />
                 </div>
@@ -92,10 +92,10 @@ const MediaCtaWithFeaturedContent: FC<MediaCtaWithFeaturedContentProps> = ({
               {slice.primary.featured_content.map((item, index) => (
                 <FadeInUp key={index}>
                   <div className="group">
-                    <div className="relative w-full overflow-hidden bg-white">
+                    <div className="relative w-full overflow-hidden bg-white rounded-xl">
                       {item.image?.url ? (
                         <PrismicImage
-                          className="w-full object-cover mix-blend-multiply filter grayscale  transition duration-300 ease-out "
+                          className="w-full object-cover mix-blend-multiply  filter grayscale  transition duration-300 ease-out "
                           field={item.image}
                         />
                       ) : (

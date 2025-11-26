@@ -246,7 +246,7 @@ body {
     .text-h9 {
         font-family: 'Supreme LL TT', sans-serif;
         font-weight: 900;
-        @apply text-[44px] leading-[47px] md:text-[7vw] md:leading-[6.5vw];
+        @apply text-[74px] leading-[67px] md:text-[8.5vw] md:leading-[7.5vw];
         letter-spacing: 0em;
     }
     
