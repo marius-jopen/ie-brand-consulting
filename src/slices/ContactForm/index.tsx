@@ -93,8 +93,22 @@ const ContactForm: FC<ContactFormProps> = ({ slice }) => {
         </StaggerContainer>
       )}
 
-      <StaggerContainer className="w-full max-w-3xl mx-auto">
-        <form className="w-full" onSubmit={handleSubmit}>
+      {status === "success" ? (
+        <StaggerContainer className="w-full max-w-3xl mx-auto">
+          <FadeInUp>
+            <div className="text-center pb-16 pt-12 md:pt-8 md:pb-24">
+              <p className="text-h6 text-white mb-8">
+                Thank you! <br /> Your message has been sent.
+              </p>
+              <p className="text-p3 text-gray-300">
+                We'll get back to you as soon as possible.
+              </p>
+            </div>
+          </FadeInUp>
+        </StaggerContainer>
+      ) : (
+        <StaggerContainer className="w-full max-w-3xl mx-auto">
+          <form className="w-full" onSubmit={handleSubmit}>
           <StaggerContainer>
             {/* Grid layout */}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-4">
@@ -213,19 +227,14 @@ const ContactForm: FC<ContactFormProps> = ({ slice }) => {
                         {status === "submitting" ? "Sending..." : "Send"}
                       </button>
                     </div>
-                    <div className="min-h-[1.5rem] text-center text-sm" aria-live="polite">
-                      {status === "success" && (
-                        <p className="text-p4 text-gray-300">
-                          Thank you! Your message has been sent.
-                        </p>
-                      )}
-                      {status === "error" && (
-                        <p className="text-p4 text-red-300">
+                    {status === "error" && (
+                      <div className="min-h-[1.5rem] text-center pt-4" aria-live="polite">
+                        <p className="text-p3 text-red-300">
                           {errorMessage ??
                             "Something went wrong. Please try again in a moment."}
                         </p>
-                      )}
-                    </div>
+                      </div>
+                    )}
                   </div>
                 </FadeInUp>
               </div>
@@ -233,6 +242,7 @@ const ContactForm: FC<ContactFormProps> = ({ slice }) => {
           </StaggerContainer>
         </form>
       </StaggerContainer>
+      )}
     </section>
   );
 };
