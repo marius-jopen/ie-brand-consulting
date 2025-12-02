@@ -101,7 +101,7 @@ const ContactForm: FC<ContactFormProps> = ({ slice }) => {
                 Thank you! <br /> Your message has been sent.
               </p>
               <p className="text-p3 text-gray-300">
-                We'll get back to you as soon as possible.
+                We&apos;ll get back to you as soon as possible.
               </p>
             </div>
           </FadeInUp>
