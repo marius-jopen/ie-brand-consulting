@@ -83,16 +83,18 @@ const ContactForm: FC<ContactFormProps> = ({ slice }) => {
       data-slice-type={slice.slice_type}
       data-slice-variation={slice.variation}
     >
-      <StaggerContainer className="w-full max-w-3xl">
-        {slice.primary.title && (
+      {slice.primary.title && (
+        <StaggerContainer className="w-full">
           <FadeInUp>
             <div className="text-h0 font-bold text-center mb-4">
               {asText(slice.primary.title)}
             </div>
           </FadeInUp>
-        )}
+        </StaggerContainer>
+      )}
 
-        <form className="w-full max-w-3xl" onSubmit={handleSubmit}>
+      <StaggerContainer className="w-full max-w-3xl mx-auto">
+        <form className="w-full" onSubmit={handleSubmit}>
           <StaggerContainer>
             {/* Grid layout */}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-4">
