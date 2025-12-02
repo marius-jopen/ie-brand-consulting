@@ -25,13 +25,13 @@ export default async function RootLayout({
 
   return (
     <html lang="en" className="welcome-active">
-      <body className="scrollbar-gutter-stable antialiased">
+      <body className="scrollbar-gutter-stable antialiased flex flex-col min-h-screen">
         <CursorDot />
         <Welcome />
         <PageFade className="relative z-40">
         <HeaderWrapper settings={settings} />
         </PageFade>
-        <main>
+        <main className="flex-1">
           <PageFade>
             {children}
           </PageFade>
