@@ -44,14 +44,14 @@ const MediaCtaWithFeaturedContent: FC<MediaCtaWithFeaturedContentProps> = ({
           {/* Icon renders with morphing dots, chosen by keyword from Prismic field `icons` */}
           <FadeInUp>
             <div className="text-center flex h-[240px] md:h-[300px] items-center justify-center">
-              <div className="w-44 md:w-[15vw] max-w-[320px] md:max-w-[500px] aspect-square mx-auto">
+              <div className="w-44 md:w-[12vw] lg:w-[14vw] xl:w-[15vw] max-w-[280px] md:max-w-[320px] lg:max-w-[380px] aspect-square mx-auto">
                 <MorphingIconRemount keyword={slice.primary.icons || undefined} width="100%" height="100%" />
               </div>
             </div>
           </FadeInUp>
           
           <FadeInUp>
-            <div className="text-center pb-8 mx-6 md:mx-12 text-p4">
+            <div className="text-center pb-8 mx-6 md:mx-12 lg:mx-16 xl:mx-20 text-p4 md:mt-8 lg:mt-16 xl:mt-20">
               {asText(slice.primary.media_description)}
             </div>
           </FadeInUp>
