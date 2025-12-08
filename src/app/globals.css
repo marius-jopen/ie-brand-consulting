@@ -176,7 +176,7 @@ body {
     .text-h0 {
         font-family: 'Supreme LL TT', sans-serif;
         font-weight: 900;
-        @apply text-[14.5vw] leading-[13.85vw];
+        @apply text-[14.5vw] leading-[15.5vw];
         letter-spacing: -0.05em;
     }
 
