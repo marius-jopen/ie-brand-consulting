@@ -77,13 +77,14 @@ const HeroContentCentered: FC<HeroContentCenteredProps> = ({ slice }) => {
       data-slice-variation={slice.variation}
     >
       <div
-        className={`bg-primary py-16 md:py-20 relative min-h-[70vh] md:min-h-screen md:h-screen transition-all duration-[2100ms] ease-in-out ${
+        className={` bg-primary pt-4 pb-16 md:pb-20 md:pt-20 relative min-h-[70vh] md:min-h-screen md:h-screen transition-all duration-[2100ms] ease-in-out ${
           inView 
             ? "mx-0 rounded-none" 
             : "mx-4 rounded-lg md:mx-11 md:rounded-lg"
         }`}>
         {/* Random white circles with hover animation */}
         <RandomCircles
+          className="mt-[-130px] md:mt-0"
           count={8}
           minSize={isMobile ? 35 : 80}
           maxSize={isMobile ? 35 : 80}
@@ -91,6 +92,7 @@ const HeroContentCentered: FC<HeroContentCenteredProps> = ({ slice }) => {
           opacity={1}
           transitionMs={1200}
           isHovered={shouldAlignCircles}
+          isMobile={isMobile}
         />
         
         <StaggerContainer className="relative z-10 flex items-center justify-center h-full px-6 md:px-0">
@@ -107,11 +109,11 @@ const HeroContentCentered: FC<HeroContentCenteredProps> = ({ slice }) => {
               </FadeInUp>
             )}
             
-            <div className="mx-auto pb-10 md:pb-16 w-[85vw] md:max-w-3xl pt-[50vw] md:pt-16 md:pt-22 relative z-10">
+            <div className="mx-auto pb-10 md:pb-16 w-[85vw] md:max-w-3xl pt-[70vw] md:pt-16 md:pt-22 relative z-10">
             
               {slice.primary.subtitle && (
                 <FadeInUp>
-                  <div className="text-h7 text-center pb-8">
+                  <div className="text-h7 text-center pb-8 ">
                     {asText(slice.primary.subtitle)}
                   </div>
                 </FadeInUp>

@@ -11,6 +11,7 @@ export type RandomCirclesProps = {
   transitionMs?: number;
   className?: string;
   isHovered?: boolean;
+  isMobile?: boolean;
 };
 
 const RandomCircles: FC<RandomCirclesProps> = ({
@@ -22,6 +23,7 @@ const RandomCircles: FC<RandomCirclesProps> = ({
   transitionMs = 650,
   className,
   isHovered = false,
+  isMobile = false,
 }) => {
   const [circles, setCircles] = useState<Array<{id: number, size: number, x: number, y: number}>>([]);
 
@@ -68,15 +70,16 @@ const RandomCircles: FC<RandomCirclesProps> = ({
       const progress = i / (count - 1); // 0 to 1
       const offset = (progress - 0.5) * diagonalLengthPercent;
       
-      // Diagonal from top-right to bottom-left
+      // Diagonal from top-right to bottom-left with reduced vertical spread on mobile
+      const verticalMultiplier = isMobile ? 0.45 : 1;
       const x = centerX + offset;
-      const y = centerY - offset;
+      const y = centerY - (offset * verticalMultiplier);
       
       positions.push({ x, y });
     }
     
     return positions;
-  }, [count]);
+  }, [count, isMobile]);
 
   return (
     <div
