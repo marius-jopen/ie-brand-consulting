@@ -86,7 +86,7 @@ const ContactForm: FC<ContactFormProps> = ({ slice }) => {
       {slice.primary.title && (
         <StaggerContainer className="w-full">
           <FadeInUp>
-            <div className="text-h0 font-bold text-center mb-4">
+            <div className="text-split font-bold text-center mb-12 md:mb-4">
               {asText(slice.primary.title)}
             </div>
           </FadeInUp>
