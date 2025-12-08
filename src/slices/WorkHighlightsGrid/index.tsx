@@ -58,7 +58,7 @@ const WorkHighlightsGrid: FC<WorkHighlightsGridProps> = ({ slice }) => {
             <StaggerContainer className="flex flex-col" delayChildren={0.5} staggerChildren={0.6}>
               {leftColumnProjects.map((project, index) => (
                 <FadeInUp key={`left-${index}`}>
-                  <div className="text-center bg-primary rounded-lg pt-24 pb-24 px-8 mb-4 break-inside-avoid transition-all duration-600 ease-in-out hover:shadow-2xl hover:translate-y-[-4px] hover:bg-white">
+                  <div className="text-center bg-primary rounded-lg md:pt-24 md:pb-24 pt-6 pb-6 px-4 md:px-8 mb-4 break-inside-avoid transition-all duration-600 ease-in-out hover:shadow-2xl hover:translate-y-[-4px] hover:bg-white">
                     <div className="flex gap-2 justify-center pb-8">
                       {project.project_category_full && <p>{project.project_category_full}</p>}
                     </div>
@@ -77,7 +77,7 @@ const WorkHighlightsGrid: FC<WorkHighlightsGridProps> = ({ slice }) => {
             <StaggerContainer className="flex flex-col" delayChildren={0.5} staggerChildren={0.6}>
               {rightColumnProjects.map((project, index) => (
                 <FadeInUp key={`right-${index}`}>
-                  <div className=" text-center bg-primary rounded-lg pt-24 pb-24 px-8 mb-4 break-inside-avoid transition-all duration-600 ease-in-out hover:shadow-2xl hover:translate-y-[-4px] hover:bg-white">
+                  <div className=" text-center bg-primary rounded-lg md:pt-24 md:pb-24 pt-6 pb-6 px-4 md:px-8 mb-4 break-inside-avoid transition-all duration-600 ease-in-out hover:shadow-2xl hover:translate-y-[-4px] hover:bg-white">
                     <div className="flex gap-2 justify-center pb-8">
                       {project.project_category_full && <p>{project.project_category_full}</p>}
                     </div>

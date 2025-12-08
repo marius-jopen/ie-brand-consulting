@@ -1,6 +1,6 @@
 "use client";
 
-import { FC, KeyboardEvent, useMemo, useState } from "react";
+import { FC, KeyboardEvent, useMemo, useState, useEffect, useRef } from "react";
 import MorphingDots from "@/lib/MorphingDots";
 export type ToggleMorphingIconProps = {
   width?: number | string;
@@ -14,7 +14,7 @@ export type ToggleMorphingIconProps = {
   secondId?: string;
   initial?: "first" | "second";
   wrapperClassName?: string;
-  trigger?: "click" | "hover";
+  trigger?: "click" | "hover" | "viewport";
 };
 
 const ToggleMorphingIcon: FC<ToggleMorphingIconProps> = ({
@@ -28,6 +28,39 @@ const ToggleMorphingIcon: FC<ToggleMorphingIconProps> = ({
   const [useFirst, setUseFirst] = useState(initial === "first");
   const initialIsFirst = initial === "first";
   const activeId = useFirst ? firstId : secondId;
+  const containerRef = useRef<HTMLDivElement>(null);
+  const [hasAnimated, setHasAnimated] = useState(false);
+
+  // Handle viewport trigger for mobile only
+  useEffect(() => {
+    if (trigger !== "viewport") return;
+
+    const isMobile = () => window.innerWidth < 768; // md breakpoint
+    
+    if (!isMobile()) return;
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting && !hasAnimated) {
+            setUseFirst(!initialIsFirst);
+            setHasAnimated(true);
+          }
+        });
+      },
+      {
+        threshold: 0.3, // Trigger when 30% of the element is visible
+      }
+    );
+
+    if (containerRef.current) {
+      observer.observe(containerRef.current);
+    }
+
+    return () => {
+      observer.disconnect();
+    };
+  }, [trigger, hasAnimated, initialIsFirst]);
 
   const DEFAULT_PALETTE: Array<{ id: string; url: string }> = useMemo(() => ([
     { id: "listen", url: "/svgs/listen.svg" },
@@ -67,6 +100,7 @@ const ToggleMorphingIcon: FC<ToggleMorphingIconProps> = ({
 
   return (
     <div
+      ref={containerRef}
       role={trigger === "click" ? "button" : undefined}
       tabIndex={trigger === "click" ? 0 : undefined}
       aria-pressed={trigger === "click" ? !useFirst : undefined}

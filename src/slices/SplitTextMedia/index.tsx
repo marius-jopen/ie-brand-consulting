@@ -37,10 +37,16 @@ const SplitTextMedia: FC<SplitTextMediaProps> = ({ slice }) => {
           <FadeInUp>
             <div className="aspect-square flex md:hidden items-center justify-center">
               <div className="w-[60vw] max-w-[500px] aspect-square mt-10 mb-0 ">
-                <img 
-                  src="/svgs/question-2.svg" 
-                  alt="Question icon"
-                  className="w-full h-full"
+                <ToggleMorphingIconRemount
+                  width="100%"
+                  height="100%"
+                  firstId="question-1"
+                  secondId="question-2"
+                  trigger="viewport"
+                  palette={[
+                    { id: "question-1", url: "/svgs/question-1.svg" },
+                    { id: "question-2", url: "/svgs/question-2.svg" },
+                  ]}
                 />
               </div>
             </div>
