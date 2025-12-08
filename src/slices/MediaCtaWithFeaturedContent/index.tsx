@@ -51,7 +51,7 @@ const MediaCtaWithFeaturedContent: FC<MediaCtaWithFeaturedContentProps> = ({
           </FadeInUp>
           
           <FadeInUp>
-            <div className="text-center pb-8 mx-6 md:mx-12 lg:mx-16 xl:mx-20 text-p4 md:mt-8 lg:mt-16 xl:mt-20">
+            <div className="text-center pb-8 mx-6 md:mx-12 lg:mx-16 xl:mx-20 text-p4 md:mt-8 lg:mt-4 xl:mt-8">
               {asText(slice.primary.media_description)}
             </div>
           </FadeInUp>
