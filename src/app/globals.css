@@ -180,6 +180,13 @@ body {
         letter-spacing: -0.05em;
     }
 
+    .text-navmobile {
+        font-family: 'Supreme LL TT', sans-serif;
+        font-weight: 900;
+        @apply text-[17.5vw] leading-[17.5vw];
+        letter-spacing: -0.01em;
+    }
+
     .text-h1 {
         font-family: 'Supreme LL TT', sans-serif;
         font-weight: 900;

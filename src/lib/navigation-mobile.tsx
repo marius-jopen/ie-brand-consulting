@@ -77,7 +77,7 @@ export default function NavigationMobile({ settings, isDarkMode = false, isNavHi
           className="w-16 h-16 flex items-center justify-center"
           aria-label="Toggle menu"
         >
-          <div className={`w-6 h-6 rounded-full transition-colors duration-300 ${dotColor}`} />
+          <div className={`w-8 h-8 rounded-full transition-colors duration-300 ${dotColor}`} />
         </button>
       </div>
 
@@ -107,13 +107,13 @@ export default function NavigationMobile({ settings, isDarkMode = false, isNavHi
                   {item.links && item.links[0] && (
                     <PrismicNextLink
                       field={item.links[0]}
-                      className="text-h0 font-bold hover:text-gray-300 transition-colors"
+                      className="text-navmobile font-bold hover:text-gray-300 transition-colors"
                       onClick={() => {
                         setIsOpen(false);
                         onMenuToggle?.(false);
                       }}
                     >
-                      {item.links[0].text || "Link"}
+                      {item.links[0].text || "Link"}.
                     </PrismicNextLink>
                   )}
                 </motion.div>
