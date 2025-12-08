@@ -34,15 +34,15 @@ const HeadingList: FC<HeadingListProps> = ({ slice }) => {
             </FadeInUp>
 
             {slice.primary.items && slice.primary.items.length > 0 && (
-              <ul className="flex flex-col justify-center gap-3 md:gap-4 pb-10">
+              <div className="flex flex-col items-center gap-3 md:gap-4 pb-10">
                 {slice.primary.items.map((item, index) => (
-                  <FadeInUp key={index}>
-                    <div className="w-full flex justify-center">
-                      <li className="list-disc max-w-[90%] md:max-w-none break-words text-center">{item.text}</li>
+                  <FadeInUp key={index} className="flex justify-center w-full">
+                    <div className="flex items-start gap-2 max-w-[90%] md:max-w-none">
+                      <span className="break-words text-center flex-1"><span className="text-current inline-block translate-y-[-2px] text-[0.5rem] mr-2">•</span>{item.text}</span>
                     </div>
                   </FadeInUp>
                 ))}
-              </ul>
+              </div>
             )}
           </div>
         </FadeInUp>
