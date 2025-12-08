@@ -224,7 +224,13 @@ const ContactForm: FC<ContactFormProps> = ({ slice }) => {
                             : "hover:text-gray-300"
                         }`}
                       >
-                        {status === "submitting" ? "Sending..." : "Send"}
+                        <span className="hidden md:inline">
+                          {status === "submitting" ? "Sending..." : "Send"}
+                        </span>
+
+                        <span className="inline-block md:hidden">
+                          {status === "submitting" ? "..." : "Send"}
+                        </span>
                       </button>
                     </div>
                     {status === "error" && (
