@@ -1,5 +1,8 @@
+"use client";
+
 import { PrismicNextLink } from "@prismicio/next";
 import { SettingsDocument } from "../../prismicio-types";
+import { useState, useEffect } from "react";
 
 interface FooterProps {
   settings: SettingsDocument;
@@ -7,6 +10,26 @@ interface FooterProps {
 }
 
 export default function Footer({ settings, isDarkMode = false }: FooterProps) {
+  const [currentTime, setCurrentTime] = useState<string>("");
+
+  useEffect(() => {
+    const updateTime = () => {
+      const now = new Date();
+      const timeString = now.toLocaleTimeString("en-US", {
+        hour: "2-digit",
+        minute: "2-digit",
+        hour12: true,
+        timeZone: "America/New_York"
+      });
+      setCurrentTime(timeString);
+    };
+
+    updateTime();
+    const interval = setInterval(updateTime, 60000);
+
+    return () => clearInterval(interval);
+  }, []);
+
   if (!settings?.data) {
     return null;
   }
@@ -18,8 +41,8 @@ export default function Footer({ settings, isDarkMode = false }: FooterProps) {
     : "";
 
   const textClasses = isDarkMode
-    ? "text-p3 pt-16 pb-6 px-4 text-white"
-    : "text-p3 pt-16 pb-6 px-4";
+    ? "text-p3 pt-8 pb-6 px-4 text-white"
+    : "text-p3 pt-8 pb-6 px-4";
 
   const currentYear = new Date().getFullYear();
 
@@ -27,29 +50,13 @@ export default function Footer({ settings, isDarkMode = false }: FooterProps) {
     <footer className={`${footerClasses} md:-mt-18`}>
       <div className={textClasses}>
         {/* Mobile / Tablet Layout */}
-        <div className="flex flex-col items-center gap-8 md:hidden">
-          <div className="w-full flex justify-center">
-            {socials && socials.length > 0 && (
-              <div className="flex flex-wrap justify-center gap-4">
-                {socials.map((social, index) => (
-                  <PrismicNextLink
-                    key={index}
-                    field={social}
-                    className={isDarkMode ? "text-white hover:text-gray-300" : "hover:text-gray-600"}
-                  >
-                    {social.text || "Social Link"}
-                  </PrismicNextLink>
-                ))}
-              </div>
-            )}
+        <div className="flex justify-between items-center md:hidden">
+          <div className="text-xs">
+            {currentTime}{" "}
+            <span className="text-gray-400">New York, USA</span>
           </div>
-
-          <div className="w-full text-center space-y-2">
-            {location && <p>{location}</p>}
-            <div>
-              <p>© {currentYear} IE Brand Consulting. All rights reserved.</p>
-              {footer_text && <p>{footer_text}</p>}
-            </div>
+          <div className="text-xs">
+            ©{currentYear} IE Brand Consulting LLC.
           </div>
         </div>
 
