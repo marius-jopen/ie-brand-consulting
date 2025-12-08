@@ -24,7 +24,7 @@ export default function Navigation({ settings, isDarkMode = false }: NavigationP
           uid: item.links[0].link_type === 'Document' ? item.links[0].uid : undefined,
           url: 'url' in item.links[0] ? item.links[0].url : undefined,
           text: item.links[0].text,
-          id: item.links[0].id,
+          id: 'id' in item.links[0] ? item.links[0].id : undefined,
         } : null
       }))
     });
