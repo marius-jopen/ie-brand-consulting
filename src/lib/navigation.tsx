@@ -13,12 +13,39 @@ interface NavigationProps {
 
 export default function Navigation({ settings, isDarkMode = false }: NavigationProps) {
   const pathname = usePathname();
+  
+  // Debug logging - logs on both server and client to avoid hydration issues
+  if (pathname === '/') {
+    console.log('Navigation Debug - pathname is /', {
+      items: settings?.data?.items?.map((item, idx) => ({
+        index: idx,
+        firstLink: item.links?.[0] ? {
+          link_type: item.links[0].link_type,
+          uid: item.links[0].uid,
+          url: 'url' in item.links[0] ? item.links[0].url : undefined,
+          text: item.links[0].text,
+          id: item.links[0].id,
+        } : null
+      }))
+    });
+  }
 
   // Check if current page matches any of the links in an item
   const isCurrentPage = useCallback((itemLinks: prismic.LinkField[]) => {
     if (!itemLinks || itemLinks.length === 0) return false;
     
     return itemLinks.some(link => {
+      // Handle home page explicitly first
+      if (pathname === '/') {
+        // Check if this is a home link - either empty uid or url is '/'
+        if (link.link_type === 'Document' && (!link.uid || link.uid === '')) {
+          return true;
+        }
+        if ('url' in link && link.url === '/') {
+          return true;
+        }
+      }
+      
       if (link.link_type === 'Document' && link.uid) {
         return pathname === `/${link.uid}` || pathname === link.uid;
       }
@@ -41,6 +68,18 @@ export default function Navigation({ settings, isDarkMode = false }: NavigationP
     if (!itemLinks || itemLinks.length === 0) return false;
     
     const parentLink = itemLinks[0];
+    
+    // Handle home page explicitly first
+    if (pathname === '/') {
+      // Check if this is a home link - either empty uid or url is '/'
+      if (parentLink.link_type === 'Document' && (!parentLink.uid || parentLink.uid === '')) {
+        return true;
+      }
+      if ('url' in parentLink && parentLink.url === '/') {
+        return true;
+      }
+    }
+    
     if (parentLink.link_type === 'Document' && parentLink.uid) {
       return pathname === `/${parentLink.uid}` || pathname === parentLink.uid;
     }
@@ -60,6 +99,17 @@ export default function Navigation({ settings, isDarkMode = false }: NavigationP
     if (!itemLinks || itemLinks.length <= 1) return false;
     
     return itemLinks.slice(1).some(link => {
+      // Handle home page explicitly first
+      if (pathname === '/') {
+        // Check if this is a home link - either empty uid or url is '/'
+        if (link.link_type === 'Document' && (!link.uid || link.uid === '')) {
+          return true;
+        }
+        if ('url' in link && link.url === '/') {
+          return true;
+        }
+      }
+      
       if (link.link_type === 'Document' && link.uid) {
         return pathname === `/${link.uid}` || pathname === link.uid;
       }
