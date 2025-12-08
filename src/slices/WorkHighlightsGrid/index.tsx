@@ -29,7 +29,7 @@ const WorkHighlightsGrid: FC<WorkHighlightsGridProps> = ({ slice }) => {
       <StaggerContainer className="text-center pt-12 px-6 md:px-0">
         {slice.primary.section_title && (
           <FadeInUp>
-            <h4 className="text-h4 pb-10">{asText(slice.primary.section_title)}</h4>
+            <h4 className="text-project pb-10">{asText(slice.primary.section_title)}</h4>
           </FadeInUp>
         )}
 
