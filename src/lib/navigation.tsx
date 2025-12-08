@@ -21,7 +21,7 @@ export default function Navigation({ settings, isDarkMode = false }: NavigationP
         index: idx,
         firstLink: item.links?.[0] ? {
           link_type: item.links[0].link_type,
-          uid: item.links[0].uid,
+          uid: item.links[0].link_type === 'Document' ? item.links[0].uid : undefined,
           url: 'url' in item.links[0] ? item.links[0].url : undefined,
           text: item.links[0].text,
           id: item.links[0].id,
