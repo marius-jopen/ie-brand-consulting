@@ -77,7 +77,7 @@ export default function NavigationMobile({ settings, isDarkMode = false, isNavHi
           className="w-16 h-16 flex items-center justify-center"
           aria-label="Toggle menu"
         >
-          <div className={`w-8 h-8 rounded-full transition-colors duration-300 ${dotColor}`} />
+          <div className={`w-8 h-8 -mt-1.5 rounded-full transition-colors duration-300 ${dotColor}`} />
         </button>
       </div>
 
