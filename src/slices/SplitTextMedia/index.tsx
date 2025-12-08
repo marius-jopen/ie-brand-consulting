@@ -28,7 +28,7 @@ const SplitTextMedia: FC<SplitTextMediaProps> = ({ slice }) => {
         <StaggerContainer className="w-full flex flex-col items-center">
           {slice.primary.heading && (
             <FadeInUp>
-              <div className="text-h0 text-center mb-6 pt-0 pb-2 md:pb-8">
+              <div className="text-split text-center mb-6 pt-0 pb-2 md:pb-8">
                 {asText(slice.primary.heading)}
               </div>
             </FadeInUp>
