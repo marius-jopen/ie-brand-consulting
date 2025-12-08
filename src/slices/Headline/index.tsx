@@ -73,10 +73,10 @@ const Headline: FC<HeadlineProps> = ({ slice }) => {
               {item.title && (
                 item.link ? (
                   <PrismicNextLink field={item.link}>
-                    <div className="text-h0">{item.title}</div>
+                    <div className="text-headline">{item.title}</div>
                   </PrismicNextLink>
                 ) : (
-                  <div className="text-h0">{item.title}</div>
+                  <div className="text-headline">{item.title}</div>
                 )
               )}
             </div>

@@ -80,10 +80,10 @@ const StackedHeadings: FC<StackedHeadingsProps> = ({ slice }) => {
                     <div>
                       {showIcons && item.link ? (
                         <PrismicNextLink field={item.link}>
-                          <div className="text-h0 cursor-pointer">{item.title}</div>
+                          <div className="text-headline cursor-pointer">{item.title}</div>
                         </PrismicNextLink>
                       ) : (
-                        <div className="text-h0">{item.title}</div>
+                        <div className="text-headline">{item.title}</div>
                       )}
                     </div>
                   )}
