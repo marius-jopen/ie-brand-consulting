@@ -28,6 +28,7 @@ export async function generateMetadata(): Promise<Metadata> {
     title: asText(home.data.title),
     description: home.data.meta_description,
     openGraph: {
+      type: "website",
       title: home.data.meta_title ?? undefined,
       images: [{ url: home.data.meta_image.url ?? "" }],
     },

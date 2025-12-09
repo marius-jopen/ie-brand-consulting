@@ -37,6 +37,7 @@ export async function generateMetadata({
     title: asText(page.data.title),
     description: page.data.meta_description,
     openGraph: {
+      type: "website",
       title: page.data.meta_title ?? undefined,
       images: [{ url: page.data.meta_image.url ?? "" }],
     },
