@@ -67,6 +67,9 @@ const ContactForm: FC<ContactFormProps> = ({ slice }) => {
       setEmail("");
       setMessage("");
       setAgreed(false);
+      
+      // Scroll to top after successful submission
+      window.scrollTo({ top: 0, behavior: 'smooth' });
     } catch (error) {
       setStatus("error");
       setErrorMessage(
