@@ -160,7 +160,7 @@ const PersonalMessage: FC<PersonalMessageProps> = ({ slice }) => {
       data-slice-type={slice.slice_type}
       data-slice-variation={slice.variation}
     >
-      <StaggerContainer className="px-4 md:w-10/12 md:min-h-screen flex items-center justify-center">
+      <StaggerContainer className="px-4 w-full md:w-10/12 md:min-h-screen mx-auto flex items-center justify-center">
         <div className="pt-24 pb-10 md:pb-24 text-box relative">
             {slice.primary.heading && (
               <FadeInUp>
