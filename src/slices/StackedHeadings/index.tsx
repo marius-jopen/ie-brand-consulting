@@ -68,22 +68,22 @@ const StackedHeadings: FC<StackedHeadingsProps> = ({ slice }) => {
         )}
 
         {items && items.length > 0 && (
-          <StaggerContainer className="pt-10 pb-20" delayChildren={0} staggerChildren={0.5}>
+          <StaggerContainer className="pt-10 pb-20 overflow-visible" delayChildren={0} staggerChildren={0.5}>
             {items.map((item, index) => (
               <FadeInUp key={index}>
                 <div
-                  className={`text-center transition-opacity duration-500 ${showIcons ? (hoveredIndex !== null ? (hoveredIndex === index ? "opacity-100 relative z-10" : "opacity-[3%] relative -z-10") : "opacity-100") : "opacity-100"}`}
+                  className={`text-center transition-opacity duration-500 overflow-visible pb-4 md:pb-0 ${showIcons ? (hoveredIndex !== null ? (hoveredIndex === index ? "opacity-100 relative z-10" : "opacity-[3%] relative -z-10") : "opacity-100") : "opacity-100"}`}
                   onMouseEnter={showIcons ? () => setHoveredIndex(index) : undefined}
                   onMouseLeave={showIcons ? () => setHoveredIndex(null) : undefined}
                 >
                   {item.title && (
-                    <div>
+                    <div className="overflow-visible">
                       {showIcons && item.link ? (
                         <PrismicNextLink field={item.link}>
-                          <div className="text-headline cursor-pointer">{item.title}</div>
+                          <div className="text-headline cursor-pointer overflow-visible">{item.title}</div>
                         </PrismicNextLink>
                       ) : (
-                        <div className="text-headline">{item.title}</div>
+                        <div className="text-headline overflow-visible">{item.title}</div>
                       )}
                     </div>
                   )}

@@ -1,6 +1,6 @@
 "use client";
 
-import { FC, useMemo, useState } from "react";
+import { FC, useMemo, useState, useRef, useEffect } from "react";
 import { Content, asText } from "@prismicio/client";
 import { SliceComponentProps } from "@prismicio/react";
 import { PrismicRichText } from "@prismicio/react";
@@ -25,10 +25,36 @@ const ContactForm: FC<ContactFormProps> = ({ slice }) => {
     "idle" | "submitting" | "success" | "error"
   >("idle");
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
+  const sectionRef = useRef<HTMLElement>(null);
 
   const isSendDisabled = useMemo(() => {
     return email.trim().length === 0 || message.trim().length === 0;
   }, [email, message]);
+
+  // Scroll to top when success status is shown
+  useEffect(() => {
+    if (status === "success") {
+      // Use a small delay to ensure DOM has updated
+      const timeoutId = setTimeout(() => {
+        // Scroll to the very top of the page
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+        
+        // Also try to scroll the section into view as a fallback for mobile
+        if (sectionRef.current) {
+          const rect = sectionRef.current.getBoundingClientRect();
+          const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+          const targetPosition = rect.top + scrollTop;
+          
+          window.scrollTo({ 
+            top: Math.max(0, targetPosition - 20), 
+            behavior: 'smooth' 
+          });
+        }
+      }, 0);
+      
+      return () => clearTimeout(timeoutId);
+    }
+  }, [status]);
 
   const handleSubmit: React.FormEventHandler<HTMLFormElement> = async (e) => {
     e.preventDefault();
@@ -67,9 +93,6 @@ const ContactForm: FC<ContactFormProps> = ({ slice }) => {
       setEmail("");
       setMessage("");
       setAgreed(false);
-      
-      // Scroll to top after successful submission
-      window.scrollTo({ top: 0, behavior: 'smooth' });
     } catch (error) {
       setStatus("error");
       setErrorMessage(
@@ -82,6 +105,7 @@ const ContactForm: FC<ContactFormProps> = ({ slice }) => {
 
   return (
     <section
+      ref={sectionRef}
       className="bg-tertiary text-white min-h-screen flex flex-col items-center pb-0 pt-24 md:pt-20 px-4"
       data-slice-type={slice.slice_type}
       data-slice-variation={slice.variation}
