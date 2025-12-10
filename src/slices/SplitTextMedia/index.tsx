@@ -25,7 +25,7 @@ const SplitTextMedia: FC<SplitTextMediaProps> = ({ slice }) => {
     >
       {/* Left half - Sticky */}
       <div className="w-full md:w-1/2 md:sticky md:top-0 md:h-screen flex flex-col items-center p-8 md:mb-0 mb-10">
-        <StaggerContainer className="w-full flex flex-col items-center">
+        <StaggerContainer className="w-full flex flex-col md:justify-between justify-start md:h-full h-auto  ">
           {slice.primary.heading && (
             <FadeInUp>
               <div className="text-split text-center mb-6 pt-0 pb-2 md:pb-8">
