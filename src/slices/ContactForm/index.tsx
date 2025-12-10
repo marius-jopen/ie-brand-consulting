@@ -121,7 +121,7 @@ const ContactForm: FC<ContactFormProps> = ({ slice }) => {
       )}
 
       {status === "success" ? (
-        <StaggerContainer className="w-full max-w-3xl mx-auto">
+        <StaggerContainer className="w-full max-w-3xl 2xl:max-w-[53vw] mx-auto">
           <FadeInUp>
             <div className="text-center pb-16 pt-12 md:pt-8 md:pb-24">
               <p className="text-h6 text-white mb-8">
@@ -134,7 +134,7 @@ const ContactForm: FC<ContactFormProps> = ({ slice }) => {
           </FadeInUp>
         </StaggerContainer>
       ) : (
-        <StaggerContainer className="w-full max-w-3xl mx-auto">
+        <StaggerContainer className="w-full max-w-3xl 2xl:max-w-[53vw] mx-auto">
           <form className="w-full" onSubmit={handleSubmit}>
           <StaggerContainer>
             {/* Grid layout */}
