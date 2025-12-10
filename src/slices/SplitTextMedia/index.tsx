@@ -67,7 +67,7 @@ const SplitTextMedia: FC<SplitTextMediaProps> = ({ slice }) => {
         <StaggerContainer>
           <FadeInUp>
             <div className="aspect-square  items-center justify-center  hidden md:flex">
-              <div className="w-[40vw] max-w-[500px] aspect-square mt-20 mb-20">
+              <div className="w-[40vw] max-w-[1000px] aspect-square mt-20 mb-20">
                 <ToggleMorphingIconRemount
                   width="100%"
                   height="100%"
