@@ -96,9 +96,9 @@ const SplitTextMedia: FC<SplitTextMediaProps> = ({ slice }) => {
             <div className="py-4 md:py-8 space-y-4 md:space-y-6 mb-8 px-4">
               {slice.primary.items.map((item, index) => (
                 <FadeInUp key={index}>
-                  <div className="flex flex-col justify-center aspect-square bg-primary text-center  rounded-lg pt-4 md:pt-14 pb-4 md:pb-14 transition-all duration-300 ease-in-out hover:shadow-xl hover:translate-y-[-4px] hover:bg-white">
-                    {item.headline && <h3 className="text-h9 mb-8 px-4 max-w-full">{item.headline}</h3>}
-                    {item.text && <p className="text-p1 pb-4 px-4 md:px-20">{asText(item.text)}</p>}
+                  <div className="flex flex-col justify-center md:justify-between aspect-square bg-primary text-center  rounded-lg pt-4 md:pt-[40px] pb-4 md:pb-[32px] transition-all duration-300 ease-in-out hover:shadow-xl hover:translate-y-[-4px] hover:bg-white">
+                    {item.headline && <h3 className="text-h9 mb-8 px-4 max-w-full md:mb-[32px]">{item.headline}</h3>}
+                    {item.text && <p className="text-p1 pb-4 px-4 md:px-[32px]">{asText(item.text)}</p>}
                   </div>
                 </FadeInUp>
               ))}
