@@ -54,7 +54,7 @@ const SplitTextMedia: FC<SplitTextMediaProps> = ({ slice }) => {
           
           {slice.primary.body && (
             <FadeInUp>
-              <div className="hidden md:block text-center mx-auto w-full md:w-4/5">
+              <div className="hidden md:block text-center mx-auto w-full md:w-4/5 md:mb-12">
                 <PrismicRichText field={slice.primary.body} />
               </div>
             </FadeInUp>
