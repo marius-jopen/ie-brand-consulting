@@ -5,6 +5,7 @@ import FooterWrapper from "@/lib/footer-wrapper";
 import PageFade from "@/lib/PageFade";
 import Welcome from "@/lib/Welcome";
 import CursorDot from "@/lib/CursorDot";
+import Script from "next/script";
 import type { Metadata } from "next";
 import "./globals.css";
 
@@ -25,6 +26,20 @@ export default async function RootLayout({
 
   return (
     <html lang="en" className="welcome-active">
+      <head>
+        <Script
+          src="https://www.googletagmanager.com/gtag/js?id=G-YQDBN47J3D"
+          strategy="afterInteractive"
+        />
+        <Script id="google-analytics" strategy="afterInteractive">
+          {`
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', 'G-YQDBN47J3D');
+          `}
+        </Script>
+      </head>
       <body className="scrollbar-gutter-stable antialiased flex flex-col min-h-screen">
         <CursorDot />
         <Welcome />
