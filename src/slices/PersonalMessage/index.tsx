@@ -196,7 +196,7 @@ const PersonalMessage: FC<PersonalMessageProps> = ({ slice }) => {
               <div className="md:w-[calc(33.333%-2.666rem)] md:flex md:justify-center">
                 <div className="w-16 md:w-full flex justify-center flex-row lg:w-24">
                   <motion.svg
-                    viewBox="-5 -5 293.3 280.64"
+                    viewBox="-15 -15 313.3 300.64"
                     className="w-[15vw] md:w-[5vw] h-auto"
                     initial="hidden"
                     animate={inView ? "visible" : "hidden"}
