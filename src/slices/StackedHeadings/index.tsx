@@ -80,10 +80,10 @@ const StackedHeadings: FC<StackedHeadingsProps> = ({ slice }) => {
                     <div className="overflow-visible">
                       {showIcons && item.link ? (
                         <PrismicNextLink field={item.link}>
-                          <div className="text-headline cursor-pointer overflow-visible">{item.title}</div>
+                          <div className={`text-headline cursor-pointer overflow-visible ${index === items.length - 1 ? 'pb-2 md:pb-0' : ''}`}>{item.title}</div>
                         </PrismicNextLink>
                       ) : (
-                        <div className="text-headline overflow-visible">{item.title}</div>
+                        <div className={`text-headline overflow-visible ${index === items.length - 1 ? 'pb-2 md:pb-0' : ''}`}>{item.title}</div>
                       )}
                     </div>
                   )}
