@@ -28,8 +28,8 @@ const ContactForm: FC<ContactFormProps> = ({ slice }) => {
   const sectionRef = useRef<HTMLElement>(null);
 
   const isSendDisabled = useMemo(() => {
-    return email.trim().length === 0 || message.trim().length === 0;
-  }, [email, message]);
+    return email.trim().length === 0 || message.trim().length === 0 || !agreed;
+  }, [email, message, agreed]);
 
   // Scroll to top when success status is shown
   useEffect(() => {
