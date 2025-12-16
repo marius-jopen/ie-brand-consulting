@@ -33,13 +33,21 @@ export async function generateMetadata({
   const client = createClient();
   const page = await client.getByUID("page", uid).catch(() => notFound());
 
+  // Fetch home page for fallback metadata
+  const home = await client.getByUID("page", "home");
+
+  // Use page metadata if available, otherwise fall back to home page metadata
+  const title = page.data.meta_title || home.data.meta_title;
+  const description = page.data.meta_description || home.data.meta_description;
+  const image = page.data.meta_image?.url || home.data.meta_image?.url;
+
   return {
-    title: asText(page.data.title),
-    description: page.data.meta_description,
+    title: title || asText(page.data.title),
+    description: description,
     openGraph: {
       type: "website",
-      title: page.data.meta_title ?? undefined,
-      images: [{ url: page.data.meta_image.url ?? "" }],
+      title: title ?? undefined,
+      images: image ? [{ url: image }] : [],
     },
   };
 }
