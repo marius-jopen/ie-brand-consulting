@@ -91,7 +91,7 @@ const MediaCtaWithFeaturedContent: FC<MediaCtaWithFeaturedContentProps> = ({
             <div className="space-y-2 md:space-y-12 mt-8 md:mt-0">
               {slice.primary.featured_content.map((item, index) => (
                 <FadeInUp key={index}>
-                  <div className="group">
+                  <PrismicNextLink field={item.cta_link} className="group block">
                     <div className="relative w-full overflow-hidden bg-white rounded-xl">
                       {item.image?.url ? (
                         <PrismicImage
@@ -109,12 +109,12 @@ const MediaCtaWithFeaturedContent: FC<MediaCtaWithFeaturedContentProps> = ({
                       {item.title && <div className="text-h8 pb-3 md:pb-6">{asText(item.title)}</div>}
 
                       {item.cta_link && (
-                        <PrismicNextLink className="text-p4 underline underline-offset-4 decoration-1 decoration-transparent group-hover:decoration-black transition-colors duration-300" field={item.cta_link}>
+                        <span className="text-p4 underline underline-offset-4 decoration-1 decoration-transparent group-hover:decoration-black transition-colors duration-300">
                           {item.cta_link.text || "Learn more"}
-                        </PrismicNextLink>
+                        </span>
                       )}
                     </div>
-                  </div>
+                  </PrismicNextLink>
                 </FadeInUp>
               ))}
             </div>
