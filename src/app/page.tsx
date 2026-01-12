@@ -24,16 +24,22 @@ export async function generateMetadata(): Promise<Metadata> {
   const client = createClient();
   const home = await client.getByUID("page", "home");
 
+  const baseUrl =
+    process.env.NEXT_PUBLIC_SITE_URL || "https://www.ie-brand.com";
   const title = home.data.meta_title || asText(home.data.title);
   const image = home.data.meta_image?.url;
 
   return {
     title: title,
     description: home.data.meta_description,
+    alternates: {
+      canonical: baseUrl,
+    },
     openGraph: {
       type: "website",
       title: title ?? undefined,
       images: image ? [{ url: image }] : [],
+      url: baseUrl,
     },
   };
 }

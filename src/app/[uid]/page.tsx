@@ -36,6 +36,10 @@ export async function generateMetadata({
   // Fetch home page for fallback metadata
   const home = await client.getByUID("page", "home");
 
+  const baseUrl =
+    process.env.NEXT_PUBLIC_SITE_URL || "https://www.ie-brand.com";
+  const canonicalUrl = `${baseUrl}/${uid}`;
+
   // Use page metadata if available, otherwise fall back to home page metadata
   const title = page.data.meta_title || home.data.meta_title;
   const description = page.data.meta_description || home.data.meta_description;
@@ -44,10 +48,14 @@ export async function generateMetadata({
   return {
     title: title || asText(page.data.title),
     description: description,
+    alternates: {
+      canonical: canonicalUrl,
+    },
     openGraph: {
       type: "website",
       title: title ?? undefined,
       images: image ? [{ url: image }] : [],
+      url: canonicalUrl,
     },
   };
 }
