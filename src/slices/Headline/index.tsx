@@ -1,6 +1,6 @@
 "use client";
 
-import { FC, useMemo, useState } from "react";
+import { FC, useMemo, useState, useEffect } from "react";
 import { Content } from "@prismicio/client";
 import { SliceComponentProps } from "@prismicio/react";
 import { PrismicNextLink } from "@prismicio/next";
@@ -21,6 +21,16 @@ const Headline: FC<HeadlineProps> = ({ slice }) => {
     [slice.primary.items]
   );
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
+  const [isMobile, setIsMobile] = useState(true);
+
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.matchMedia("(max-width: 768px)").matches);
+    };
+    checkMobile();
+    window.addEventListener("resize", checkMobile);
+    return () => window.removeEventListener("resize", checkMobile);
+  }, []);
 
   // Map titles to icons
   const sources = useMemo(() => {
@@ -66,9 +76,9 @@ const Headline: FC<HeadlineProps> = ({ slice }) => {
         {items.map((item, index) => (
           <FadeInUp key={index}>
             <div
-              className={`text-center md:text-left transition-opacity duration-300 ${hoveredIndex !== null ? (hoveredIndex === index ? "opacity-100 relative z-10" : "opacity-[3%] relative -z-10") : "opacity-100"}`}
-              onMouseEnter={() => setHoveredIndex(index)}
-              onMouseLeave={() => setHoveredIndex(null)}
+              className={`text-center md:text-left transition-opacity duration-300 ${!isMobile && hoveredIndex !== null ? (hoveredIndex === index ? "opacity-100 relative z-10" : "opacity-[3%] relative -z-10") : "opacity-100"}`}
+              onMouseEnter={!isMobile ? () => setHoveredIndex(index) : undefined}
+              onMouseLeave={!isMobile ? () => setHoveredIndex(null) : undefined}
             >
               {item.title && (
                 item.link ? (

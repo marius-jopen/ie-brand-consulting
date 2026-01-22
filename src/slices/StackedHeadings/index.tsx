@@ -1,6 +1,6 @@
 "use client";
 
-import { FC, useMemo, useState } from "react";
+import { FC, useMemo, useState, useEffect } from "react";
 import { Content } from "@prismicio/client";
 import { SliceComponentProps } from "@prismicio/react";
 import { PrismicNextLink } from "@prismicio/next";
@@ -22,8 +22,18 @@ const StackedHeadings: FC<StackedHeadingsProps> = ({ slice }) => {
     [slice.primary.items]
   );
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
+  const [isMobile, setIsMobile] = useState(true);
   const showIcons = !!slice.primary.icons;
   // In-view animation handled by StaggerContainer
+
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.matchMedia("(max-width: 768px)").matches);
+    };
+    checkMobile();
+    window.addEventListener("resize", checkMobile);
+    return () => window.removeEventListener("resize", checkMobile);
+  }, []);
 
   // Map item.icon or fallback by index to local SVGs
   const sources = useMemo(() => {
@@ -72,9 +82,9 @@ const StackedHeadings: FC<StackedHeadingsProps> = ({ slice }) => {
             {items.map((item, index) => (
               <FadeInUp key={index}>
                 <div
-                  className={`text-center transition-opacity duration-500 overflow-visible pb-4 md:pb-0 ${showIcons ? (hoveredIndex !== null ? (hoveredIndex === index ? "opacity-100 relative z-10" : "opacity-[3%] relative -z-10") : "opacity-100") : "opacity-100"}`}
-                  onMouseEnter={showIcons ? () => setHoveredIndex(index) : undefined}
-                  onMouseLeave={showIcons ? () => setHoveredIndex(null) : undefined}
+                  className={`text-center transition-opacity duration-500 overflow-visible pb-4 md:pb-0 ${showIcons && !isMobile ? (hoveredIndex !== null ? (hoveredIndex === index ? "opacity-100 relative z-10" : "opacity-[3%] relative -z-10") : "opacity-100") : "opacity-100"}`}
+                  onMouseEnter={showIcons && !isMobile ? () => setHoveredIndex(index) : undefined}
+                  onMouseLeave={showIcons && !isMobile ? () => setHoveredIndex(null) : undefined}
                 >
                   {item.title && (
                     <div className="overflow-visible">
