@@ -6,6 +6,7 @@ import { PrismicNextImage } from "@prismicio/next";
 
 import { createClient } from "@/prismicio";
 import { components } from "@/slices";
+import GoBackButton from "./GoBackButton";
 
 type Params = { uid: string };
 
@@ -53,6 +54,9 @@ export default async function ReadPost({
         </div>
       )}
       <SliceZone slices={post.data.slices} components={components} />
+      <div className="mx-auto w-full px-6 md:w-1/2 md:px-0 mt-12">
+        <GoBackButton />
+      </div>
     </article>
   );
 }
