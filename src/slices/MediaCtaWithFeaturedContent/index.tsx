@@ -1,6 +1,6 @@
 "use client";
 import { FC } from "react";
-import { Content, asText } from "@prismicio/client";
+import { Content, asText, isFilled } from "@prismicio/client";
 import { SliceComponentProps } from "@prismicio/react";
 import { PrismicImage } from "@prismicio/react";
 import { PrismicNextLink } from "@prismicio/next";
@@ -89,34 +89,61 @@ const MediaCtaWithFeaturedContent: FC<MediaCtaWithFeaturedContentProps> = ({
           
           {slice.primary.featured_content && slice.primary.featured_content.length > 0 && (
             <div className="space-y-2 md:space-y-12 mt-8 md:mt-0">
-              {slice.primary.featured_content.map((item, index) => (
-                <FadeInUp key={index}>
-                  <PrismicNextLink field={item.cta_link} className="group block">
-                    <div className="relative w-full overflow-hidden bg-white rounded-xl">
-                      {item.image?.url ? (
-                        <PrismicImage
-                          className="w-full object-cover mix-blend-multiply  filter grayscale  transition duration-300 ease-out "
-                          field={item.image}
-                        />
-                      ) : (
-                        <div className="w-full aspect-[6/3] bg-primary transition duration-300 ease-out " />
-                      )}
-                    </div>
+              {slice.primary.featured_content.map((item, index) => {
+                const related = isFilled.contentRelationship(item.related_article)
+                  ? item.related_article
+                  : null;
 
-                    <div className="pb-10 md:pb-14 pt-4 px-2 md:px-0">
-                      {item.eyebrow && <div className="pb-3 text-p4">{item.eyebrow}</div>}
+                const linkField = related ?? item.cta_link;
+                const image = related?.data?.thumbnail?.url
+                  ? related.data.thumbnail
+                  : item.image;
+                const eyebrow = related
+                  ? related.data?.date
+                    ? new Date(related.data.date as string).toLocaleDateString(
+                        "en-US",
+                        { year: "numeric", month: "long", day: "numeric" },
+                      )
+                    : null
+                  : item.eyebrow;
+                const titleText = related
+                  ? (related.data?.title as string | undefined)
+                  : asText(item.title);
+                const linkText = related
+                  ? "Read article"
+                  : item.cta_link?.text || "Learn more";
 
-                      {item.title && <div className="text-h8 pb-3 md:pb-6">{asText(item.title)}</div>}
+                return (
+                  <FadeInUp key={index}>
+                    <PrismicNextLink field={linkField} className="group block">
+                      <div className="relative w-full overflow-hidden bg-white rounded-xl">
+                        {image?.url ? (
+                          <PrismicImage
+                            className="w-full object-cover mix-blend-multiply  filter grayscale  transition duration-300 ease-out "
+                            field={image}
+                          />
+                        ) : (
+                          <div className="w-full aspect-[6/3] bg-primary transition duration-300 ease-out " />
+                        )}
+                      </div>
 
-                      {item.cta_link && (
-                        <span className="text-p4 underline underline-offset-4 decoration-1 decoration-transparent group-hover:decoration-black transition-colors duration-300">
-                          {item.cta_link.text || "Learn more"}
-                        </span>
-                      )}
-                    </div>
-                  </PrismicNextLink>
-                </FadeInUp>
-              ))}
+                      <div className="pb-10 md:pb-14 pt-4 px-2 md:px-0">
+                        {eyebrow && <div className="pb-3 text-p4">{eyebrow}</div>}
+
+                        {titleText && (
+                          <div className="text-h8 pb-3 md:pb-6">{titleText}</div>
+                        )}
+
+                        {(related || item.cta_link) && (
+                          <span className="text-p4 underline underline-offset-4 decoration-1 decoration-transparent group-hover:decoration-black transition-colors duration-300">
+                            {linkText}
+                          </span>
+                        )}
+                      </div>
+                    </PrismicNextLink>
+                  </FadeInUp>
+                );
+              })}
             </div>
           )}
         </StaggerContainer>

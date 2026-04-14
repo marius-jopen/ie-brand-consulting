@@ -104,6 +104,17 @@
 										"text": "part"
 									}
 								}
+							],
+							[
+								"related_article",
+								{
+									"key": "95e22607-3ffa-4e2e-856d-df22d7cb8343",
+									"__TYPE__": "LinkContent",
+									"value": {
+										"__TYPE__": "DocumentLink",
+										"id": "mock_document_id"
+									}
+								}
 							]
 						]
 					}

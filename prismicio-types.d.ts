@@ -733,6 +733,18 @@ export type HighlightedHeadingSlice = prismic.SharedSlice<
  */
 export interface MediaCtaWithFeaturedContentSliceDefaultPrimaryFeaturedContentItem {
   /**
+   * Related Article field in *MediaCtaWithFeaturedContent → Default → Primary → Featured Content*
+   *
+   * - **Field Type**: Content Relationship
+   * - **Placeholder**: *None*
+   * - **API ID Path**: media_cta_with_featured_content.default.primary.featured_content[].related_article
+   * - **Documentation**: https://prismic.io/docs/fields/content-relationship
+   */
+  related_article: ContentRelationshipFieldWithData<
+    [{ id: "read"; fields: ["title", "teaser", "date", "thumbnail"] }]
+  >;
+
+  /**
    * Image field in *MediaCtaWithFeaturedContent → Default → Primary → Featured Content*
    *
    * - **Field Type**: Image

@@ -56,6 +56,25 @@
           "config": {
             "label": "Featured Content",
             "fields": {
+              "related_article": {
+                "type": "Link",
+                "config": {
+                  "label": "Related Article",
+                  "select": "document",
+                  "repeat": false,
+                  "customtypes": [
+                    {
+                      "id": "read",
+                      "fields": [
+                        "title",
+                        "teaser",
+                        "date",
+                        "thumbnail"
+                      ]
+                    }
+                  ]
+                }
+              },
               "image": {
                 "type": "Image",
                 "config": {
