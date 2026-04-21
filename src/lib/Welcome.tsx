@@ -2,11 +2,15 @@
 
 import { useState, useEffect } from "react";
 import type { TransitionEvent } from "react";
+import { usePathname } from "next/navigation";
 import Opener from "@/lib/Opener";
 
 export default function Welcome() {
+  const pathname = usePathname();
+  const skip = pathname?.startsWith("/read/") ?? false;
+
   const [visible, setVisible] = useState(true);
-  const [render, setRender] = useState(true);
+  const [render, setRender] = useState(!skip);
 
   // Adjust these to control when page animations start relative to the overlay fade-out.
   // Must match the CSS transition duration on the overlay (duration-[2000ms]).
@@ -15,11 +19,15 @@ export default function Welcome() {
 
   useEffect(() => {
     const root = document.documentElement;
+    if (skip) {
+      root.classList.remove("welcome-active");
+      return;
+    }
     root.classList.add("welcome-active");
     return () => {
       root.classList.remove("welcome-active");
     };
-  }, []);
+  }, [skip]);
 
   useEffect(() => {
     // When the overlay begins fading out, schedule early release so page animations can start
