@@ -5,6 +5,7 @@ import dynamic from "next/dynamic";
 export const components = {
   centered_description: dynamic(() => import("./CenteredDescription")),
   contact_form: dynamic(() => import("./ContactForm")),
+  heading_double_box: dynamic(() => import("./HeadingDoubleBox")),
   heading_list: dynamic(() => import("./HeadingList")),
   headline: dynamic(() => import("./Headline")),
   hero_content_centered: dynamic(() => import("./HeroContentCentered")),

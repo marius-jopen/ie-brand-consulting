@@ -36,6 +36,9 @@
         "fieldset": "Slice Zone",
         "config": {
           "choices": {
+            "heading_double_box": {
+              "type": "SharedSlice"
+            },
             "text": {
               "type": "SharedSlice"
             },

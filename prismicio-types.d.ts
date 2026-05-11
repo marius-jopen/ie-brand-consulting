@@ -70,6 +70,7 @@ type ContentRelationshipFieldWithData<
 }[Exclude<TCustomType[number], string>["id"]];
 
 type PageDocumentDataSlicesSlice =
+  | HeadingDoubleBoxSlice
   | TextSlice
   | WorkHighlightsGridSlice
   | StackedHeadingsSlice
@@ -454,6 +455,146 @@ type ContactFormSliceVariation = ContactFormSliceDefault;
 export type ContactFormSlice = prismic.SharedSlice<
   "contact_form",
   ContactFormSliceVariation
+>;
+
+/**
+ * Item in *HeadingDoubleBox → Default → Primary → Items (Left)*
+ */
+export interface HeadingDoubleBoxSliceDefaultPrimaryItemsLeftItem {
+  /**
+   * Text field in *HeadingDoubleBox → Default → Primary → Items (Left)*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: heading_double_box.default.primary.items_left[].text
+   * - **Documentation**: https://prismic.io/docs/fields/text
+   */
+  text: prismic.KeyTextField;
+}
+
+/**
+ * Item in *HeadingDoubleBox → Default → Primary → Items (Right)*
+ */
+export interface HeadingDoubleBoxSliceDefaultPrimaryItemsRightItem {
+  /**
+   * Text field in *HeadingDoubleBox → Default → Primary → Items (Right)*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: heading_double_box.default.primary.items_right[].text
+   * - **Documentation**: https://prismic.io/docs/fields/text
+   */
+  text: prismic.KeyTextField;
+}
+
+/**
+ * Primary content in *HeadingDoubleBox → Default → Primary*
+ */
+export interface HeadingDoubleBoxSliceDefaultPrimary {
+  /**
+   * Left Aligned field in *HeadingDoubleBox → Default → Primary*
+   *
+   * - **Field Type**: Boolean
+   * - **Placeholder**: *None*
+   * - **Default Value**: false
+   * - **API ID Path**: heading_double_box.default.primary.left_aligned
+   * - **Documentation**: https://prismic.io/docs/fields/boolean
+   */
+  left_aligned: prismic.BooleanField;
+
+  /**
+   * Title (Left) field in *HeadingDoubleBox → Default → Primary*
+   *
+   * - **Field Type**: Rich Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: heading_double_box.default.primary.title_left
+   * - **Documentation**: https://prismic.io/docs/fields/rich-text
+   */
+  title_left: prismic.RichTextField;
+
+  /**
+   * Description (Left) field in *HeadingDoubleBox → Default → Primary*
+   *
+   * - **Field Type**: Rich Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: heading_double_box.default.primary.description_left
+   * - **Documentation**: https://prismic.io/docs/fields/rich-text
+   */
+  description_left: prismic.RichTextField;
+
+  /**
+   * Items (Left) field in *HeadingDoubleBox → Default → Primary*
+   *
+   * - **Field Type**: Group
+   * - **Placeholder**: *None*
+   * - **API ID Path**: heading_double_box.default.primary.items_left[]
+   * - **Documentation**: https://prismic.io/docs/fields/repeatable-group
+   */
+  items_left: prismic.GroupField<
+    Simplify<HeadingDoubleBoxSliceDefaultPrimaryItemsLeftItem>
+  >;
+
+  /**
+   * Title (Right) field in *HeadingDoubleBox → Default → Primary*
+   *
+   * - **Field Type**: Rich Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: heading_double_box.default.primary.title_right
+   * - **Documentation**: https://prismic.io/docs/fields/rich-text
+   */
+  title_right: prismic.RichTextField;
+
+  /**
+   * Description (Right) field in *HeadingDoubleBox → Default → Primary*
+   *
+   * - **Field Type**: Rich Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: heading_double_box.default.primary.description_right
+   * - **Documentation**: https://prismic.io/docs/fields/rich-text
+   */
+  description_right: prismic.RichTextField;
+
+  /**
+   * Items (Right) field in *HeadingDoubleBox → Default → Primary*
+   *
+   * - **Field Type**: Group
+   * - **Placeholder**: *None*
+   * - **API ID Path**: heading_double_box.default.primary.items_right[]
+   * - **Documentation**: https://prismic.io/docs/fields/repeatable-group
+   */
+  items_right: prismic.GroupField<
+    Simplify<HeadingDoubleBoxSliceDefaultPrimaryItemsRightItem>
+  >;
+}
+
+/**
+ * Default variation for HeadingDoubleBox Slice
+ *
+ * - **API ID**: `default`
+ * - **Description**: Two side-by-side boxes. Toggle Left Aligned for left-aligned content.
+ * - **Documentation**: https://prismic.io/docs/slices
+ */
+export type HeadingDoubleBoxSliceDefault = prismic.SharedSliceVariation<
+  "default",
+  Simplify<HeadingDoubleBoxSliceDefaultPrimary>,
+  never
+>;
+
+/**
+ * Slice variation for *HeadingDoubleBox*
+ */
+type HeadingDoubleBoxSliceVariation = HeadingDoubleBoxSliceDefault;
+
+/**
+ * HeadingDoubleBox Shared Slice
+ *
+ * - **API ID**: `heading_double_box`
+ * - **Description**: *None*
+ * - **Documentation**: https://prismic.io/docs/slices
+ */
+export type HeadingDoubleBoxSlice = prismic.SharedSlice<
+  "heading_double_box",
+  HeadingDoubleBoxSliceVariation
 >;
 
 /**
@@ -1336,6 +1477,12 @@ declare module "@prismicio/client" {
       ContactFormSliceDefaultPrimary,
       ContactFormSliceVariation,
       ContactFormSliceDefault,
+      HeadingDoubleBoxSlice,
+      HeadingDoubleBoxSliceDefaultPrimaryItemsLeftItem,
+      HeadingDoubleBoxSliceDefaultPrimaryItemsRightItem,
+      HeadingDoubleBoxSliceDefaultPrimary,
+      HeadingDoubleBoxSliceVariation,
+      HeadingDoubleBoxSliceDefault,
       HeadingListSlice,
       HeadingListSliceDefaultPrimaryItemsItem,
       HeadingListSliceDefaultPrimary,

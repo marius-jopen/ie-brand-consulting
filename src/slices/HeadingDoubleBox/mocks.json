@@ -1,0 +1,98 @@
+[
+	{
+		"__TYPE__": "SharedSliceContent",
+		"variation": "default",
+		"primary": {
+			"left_aligned": {
+				"__TYPE__": "BooleanContent",
+				"value": true
+			},
+			"title_left": {
+				"__TYPE__": "StructuredTextContent",
+				"value": [
+					{
+						"type": "heading2",
+						"content": {
+							"text": "Lunch"
+						}
+					}
+				]
+			},
+			"description_left": {
+				"__TYPE__": "StructuredTextContent",
+				"value": [
+					{
+						"type": "paragraph",
+						"content": {
+							"text": "Excepteur minim et commodo minim."
+						}
+					}
+				]
+			},
+			"items_left": {
+				"__TYPE__": "GroupContentType",
+				"value": [
+					{
+						"__TYPE__": "GroupItemContent",
+						"value": [
+							[
+								"text",
+								{
+									"__TYPE__": "FieldContent",
+									"value": "sell",
+									"type": "Text"
+								}
+							]
+						]
+					}
+				]
+			},
+			"title_right": {
+				"__TYPE__": "StructuredTextContent",
+				"value": [
+					{
+						"type": "heading2",
+						"content": {
+							"text": "Ruler"
+						}
+					}
+				]
+			},
+			"description_right": {
+				"__TYPE__": "StructuredTextContent",
+				"value": [
+					{
+						"type": "paragraph",
+						"content": {
+							"text": "Quis veniam deserunt ea ex qui occaecat ea nostrud veniam irure et excepteur dolor magna. Culpa incididunt et qui nulla cillum minim est elit non. Irure ipsum magna sit exercitation ut occaecat Lorem."
+						}
+					}
+				]
+			},
+			"items_right": {
+				"__TYPE__": "GroupContentType",
+				"value": [
+					{
+						"__TYPE__": "GroupItemContent",
+						"value": [
+							[
+								"text",
+								{
+									"__TYPE__": "FieldContent",
+									"value": "one",
+									"type": "Text"
+								}
+							]
+						]
+					}
+				]
+			}
+		},
+		"items": [
+			{
+				"__TYPE__": "GroupItemContent",
+				"value": []
+			}
+		]
+	}
+]
