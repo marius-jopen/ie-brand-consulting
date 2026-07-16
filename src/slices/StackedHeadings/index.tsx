@@ -1,7 +1,7 @@
 "use client";
 
 import { FC, useMemo, useState, useEffect } from "react";
-import { Content } from "@prismicio/client";
+import { Content, isFilled } from "@prismicio/client";
 import { SliceComponentProps } from "@prismicio/react";
 import { PrismicNextLink } from "@prismicio/next";
 import MorphingDots from "@/lib/MorphingDots";
@@ -88,7 +88,7 @@ const StackedHeadings: FC<StackedHeadingsProps> = ({ slice }) => {
                 >
                   {item.title && (
                     <div className="overflow-visible">
-                      {showIcons && item.link ? (
+                      {isFilled.link(item.link) ? (
                         <PrismicNextLink field={item.link}>
                           <div className={`text-headline cursor-pointer overflow-visible ${index === items.length - 1 ? 'pb-2 md:pb-0' : ''}`}>{item.title}</div>
                         </PrismicNextLink>
