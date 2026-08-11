@@ -19,7 +19,10 @@ export default function Welcome() {
 
   useEffect(() => {
     const root = document.documentElement;
-    if (skip) {
+    // Only hold the page back while the intro is actually on screen. Once it has
+    // played (or is skipped), never re-add the class — otherwise navigating back
+    // from a /read/ article would lock the page in its hidden state.
+    if (skip || !render) {
       root.classList.remove("welcome-active");
       return;
     }
@@ -27,7 +30,7 @@ export default function Welcome() {
     return () => {
       root.classList.remove("welcome-active");
     };
-  }, [skip]);
+  }, [skip, render]);
 
   useEffect(() => {
     // When the overlay begins fading out, schedule early release so page animations can start
@@ -39,12 +42,6 @@ export default function Welcome() {
       return () => window.clearTimeout(id);
     }
   }, [visible]);
-
-  useEffect(() => {
-    if (!render) {
-      document.documentElement.classList.remove("welcome-active");
-    }
-  }, [render]);
 
   const handleFinished = () => {
     window.setTimeout(() => {

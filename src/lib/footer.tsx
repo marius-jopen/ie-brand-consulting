@@ -50,13 +50,28 @@ export default function Footer({ settings, isDarkMode = false }: FooterProps) {
     <footer className={`${footerClasses} md:-mt-18`}>
       <div className={textClasses}>
         {/* Mobile / Tablet Layout */}
-        <div className="flex justify-between items-center md:hidden">
-          <div className="text-xs">
-            {currentTime}{" "}
-            <span className="text-gray-400">New York, USA</span>
-          </div>
-          <div className="text-xs">
-            ©{currentYear} IE Brand Consulting LLC.
+        <div className="md:hidden">
+          {socials && socials.length > 0 && (
+            <div className="flex justify-center flex-wrap gap-6 text-xs mb-6">
+              {socials.map((social, index) => (
+                <PrismicNextLink
+                  key={index}
+                  field={social}
+                  className={isDarkMode ? "text-white hover:text-gray-300" : "hover:text-gray-600"}
+                >
+                  {social.text || "Social Link"}
+                </PrismicNextLink>
+              ))}
+            </div>
+          )}
+          <div className="flex justify-between items-center">
+            <div className="text-xs">
+              {currentTime}{" "}
+              <span className="text-gray-400">New York, USA</span>
+            </div>
+            <div className="text-xs">
+              ©{currentYear} IE Brand Consulting LLC.
+            </div>
           </div>
         </div>
 
